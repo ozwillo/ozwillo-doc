@@ -1,12 +1,13 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <title>Ozwillo Documentation</title>
-  <meta name="description" content="Documentation about Ozwillo technical integration" />
-  <meta name="author" content="Ozwillo Team" />
-</head>
-<body>
-  <p>Ozwillo Documentation</p>
-</body>
-</html>
+---
+layout: default
+---
+{% include top.html %}
+{% include toc.html %}
+<div id="main">
+  {% markdown 0-welcome.md %}
+  {% markdown 1-introduction.md %}
+  {% markdown 2-experiment.md %}
+  {% markdown 3-provisioning.md %}
+  {% markdown 4-user-authentication.md %}
+  {% markdown 5-kernel-api.md %}
+</div>

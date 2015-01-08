@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="fr">
+	<head>
+	  <meta charset="utf-8" />
+	  <meta name="viewport" content="width=1024" />
+	  <meta name="apple-mobile-web-app-capable" content="yes" />
+	  <title>Ozwillo doc</title>
+	  
+	  <meta name="description" content="Documentation about Ozwillo technical integration" />
+	  <meta name="author" content="Ozwillo Team" />
+
+	  <link href="css/main.css" rel="stylesheet" />
+	  
+	  <link rel="shortcut icon" href="favicon.ico" />
+	  <script src="js/jquery-2.1.1.min.js"></script>
+	</head>
+
+	<body>
+	  {{ content }}
+		<script type="text/javascript">
+		document.addEventListener('DOMContentLoaded', function() {
+		  document.getElementById('toggle-toc-target').addEventListener('click', function() {
+		    var el = document.body, className = 'toc-open';
+		    if (el.classList) {
+		      el.classList.toggle(className);
+		    } else {
+		      var classes = el.className.split(' ');
+		      var existingIndex = classes.indexOf(className);
+
+		      if (existingIndex >= 0)
+		        classes.splice(existingIndex, 1);
+		      else
+		        classes.push(className);
+
+		      el.className = classes.join(' ');
+		    }
+		  })
+		});
+		</script>
+	</body>
+</html>
