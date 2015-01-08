@@ -4,10 +4,10 @@ layout: default
 {% include top.html %}
 {% include toc.html %}
 <div id="main">
-  {% markdown 0-welcome.md %}
-  {% markdown 1-introduction.md %}
-  {% markdown 2-experiment.md %}
-  {% markdown 3-provisioning.md %}
-  {% markdown 4-user-authentication.md %}
-  {% markdown 5-kernel-api.md %}
+	{% capture inc0 %}{% include 0-welcome.md %}{% endcapture %}{{ inc0 | markdownify }}
+	{% capture inc1 %}{% include 1-introduction.md %}{% endcapture %}{{ inc1 | markdownify }}
+	{% capture inc2 %}{% include 2-experiment.md %}{% endcapture %}{{ inc2 | markdownify }}
+	{% capture inc3 %}{% include 3-provisioning.md %}{% endcapture %}{{ inc3 | markdownify }}
+	{% capture inc4 %}{% include 4-user-authentication.md %}{% endcapture %}{{ inc4 | markdownify }}
+	{% capture inc5 %}{% include 5-kernel-api.md %}{% endcapture %}{{ inc5 | markdownify }}
 </div>
