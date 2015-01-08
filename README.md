@@ -8,3 +8,10 @@ When installing gems, you might prefer to install them locally thanks to:
 ```
 bundle install --path vendor/bundle
 ```
+
+### Launch Jekyll
+
+To launch Jekyll and process assets:
+```
+bundle exec jekyll serve
+```
