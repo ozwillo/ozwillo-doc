@@ -1,2 +1,2 @@
-exclude: ['vendor', 'README.md', 'Gemfile.lock', 'Gemfile', 'CNAME']
+exclude: ['vendor', 'README.md', 'Gemfile.lock', 'Gemfile', 'CNAME', 'css/main.less']
 markdown: kramdown

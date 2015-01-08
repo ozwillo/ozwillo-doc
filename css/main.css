@@ -1,0 +1,381 @@
+watching css/main.less
+changed /css/main.less
+@media (max-width: 767px) {
+  .hidden-phone {
+    display: none;
+  }
+}
+body.toc-open #main,
+body.toc-open #toc,
+body.toc-open #top {
+  left: 430px;
+}
+#top {
+  position: fixed;
+  width: 100%;
+  top: -45px;
+  left: 0;
+  height: 40px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  border-bottom: 1px solid #aaa;
+  padding-left: 50px;
+  background: white;
+  transition: top 0.2s ease-out, left 0.2s ease-out;
+}
+@media (max-width: 767px) {
+  #top {
+    top: 0;
+  }
+}
+#top .title {
+  line-height: 40px;
+}
+#top .title .light {
+  font-style: italic;
+  color: #888;
+}
+#top #toggle-toc-target {
+  height: 18px;
+  width: 18px;
+  padding: 14px 10px;
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+#top #toggle-toc-target:hover {
+  cursor: pointer;
+}
+#top #toggle-toc-target .toggle-toc,
+#top #toggle-toc-target .toggle-toc:after,
+#top #toggle-toc-target .toggle-toc:before {
+  height: 3px;
+  width: 18px;
+  background-color: #111;
+  border-radius: 10px;
+  position: relative;
+}
+#top #toggle-toc-target .toggle-toc:after {
+  top: 6px;
+}
+#top #toggle-toc-target .toggle-toc:before {
+  top: 12px;
+}
+#top #toggle-toc-target .toggle-toc:after,
+#top #toggle-toc-target .toggle-toc:before {
+  content: '';
+  position: absolute;
+}
+#main {
+  position: relative;
+  left: 430px;
+  padding: 20px;
+  box-sizing: border-box;
+  min-width: 400px;
+  max-width: 700px;
+  transition: left 0.2s ease-out, top 0.2s ease-out;
+}
+@media (max-width: 767px) {
+  #main {
+    top: 45px;
+    left: 0;
+  }
+}
+@media (min-width: 768px) {
+  #main {
+    margin-right: 430px;
+  }
+}
+#main p {
+  margin: 0 0 .5em;
+}
+#main h2 {
+  font-size: 1.7em;
+  padding-bottom: .3em;
+  margin: 1em 0;
+  border-bottom: 1px solid #ccc;
+}
+#main h3 {
+  margin: 1em 0 .4em;
+  font-size: 1.3em;
+}
+#main ul {
+  margin-top: 0;
+}
+#main dl dt {
+  font-weight: bold;
+}
+#main p.focus {
+  padding: 10px;
+  font-size: 0.9em;
+  border-radius: 6px;
+}
+#main p.soft {
+  background: #fcf8e3;
+  border: 1px solid #faebcc;
+}
+#main p.important {
+  background: #fcaaaa;
+  border: 1px solid #fa8888;
+}
+#main p.warning {
+  color: red;
+  font-size: 1.2em;
+}
+#main a {
+  color: #952;
+}
+#main code {
+  font-size: 0.9em;
+}
+#toc {
+  position: fixed;
+  left: 430px;
+  top: 0;
+  bottom: 0;
+  margin-left: -430px;
+  width: 430px;
+  padding: 0 10px 10px;
+  box-sizing: border-box;
+  z-index: 1000;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  border-right: 1px solid #aaa;
+  background: #f4f4f4;
+  transition: left 0.2s ease-out;
+}
+@media (max-width: 767px) {
+  #toc {
+    left: 0;
+  }
+}
+#toc h1 {
+  font-size: 1.1em;
+  padding: 20px 0 .6em 8px;
+}
+#toc ul {
+  margin: 0;
+  padding: 0;
+}
+#toc section > ul a {
+  display: inline-block;
+  text-decoration: none;
+  color: #222222;
+  padding: 0 8px;
+}
+#toc section > ul a:hover {
+  border-radius: 3px;
+  background: #e9be9e;
+}
+#toc section > ul > li > a {
+  font-size: 1.1em;
+  font-weight: bold;
+  margin: .6em 0 .2em;
+  padding: .1em 8px;
+}
+#toc section > ul > li > ul > li > a {
+  padding-top: .1em;
+  margin: 0;
+}
+#toc section > ul > li > ul > li > ul > li > a {
+  font-size: 0.9em;
+  margin-left: 1em;
+}
+#toc p {
+  font-size: 0.9em;
+  font-style: italic;
+  color: #888;
+  margin: 0 0 .2em 8px;
+}
+completed with code 0
+changed /css/main.less
+@media (max-width: 767px) {
+  .hidden-phone {
+    display: none;
+  }
+}
+body.toc-open #main,
+body.toc-open #toc,
+body.toc-open #top {
+  left: 230px;
+}
+#top {
+  position: fixed;
+  width: 100%;
+  top: -45px;
+  left: 0;
+  height: 40px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  border-bottom: 1px solid #aaa;
+  padding-left: 50px;
+  background: white;
+  transition: top 0.2s ease-out, left 0.2s ease-out;
+}
+@media (max-width: 767px) {
+  #top {
+    top: 0;
+  }
+}
+#top .title {
+  line-height: 40px;
+}
+#top .title .light {
+  font-style: italic;
+  color: #888;
+}
+#top #toggle-toc-target {
+  height: 18px;
+  width: 18px;
+  padding: 14px 10px;
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+#top #toggle-toc-target:hover {
+  cursor: pointer;
+}
+#top #toggle-toc-target .toggle-toc,
+#top #toggle-toc-target .toggle-toc:after,
+#top #toggle-toc-target .toggle-toc:before {
+  height: 3px;
+  width: 18px;
+  background-color: #111;
+  border-radius: 10px;
+  position: relative;
+}
+#top #toggle-toc-target .toggle-toc:after {
+  top: 6px;
+}
+#top #toggle-toc-target .toggle-toc:before {
+  top: 12px;
+}
+#top #toggle-toc-target .toggle-toc:after,
+#top #toggle-toc-target .toggle-toc:before {
+  content: '';
+  position: absolute;
+}
+#main {
+  position: relative;
+  left: 230px;
+  padding: 20px;
+  box-sizing: border-box;
+  min-width: 400px;
+  max-width: 700px;
+  transition: left 0.2s ease-out, top 0.2s ease-out;
+}
+@media (max-width: 767px) {
+  #main {
+    top: 45px;
+    left: 0;
+  }
+}
+@media (min-width: 768px) {
+  #main {
+    margin-right: 230px;
+  }
+}
+#main p {
+  margin: 0 0 .5em;
+}
+#main h2 {
+  font-size: 1.7em;
+  padding-bottom: .3em;
+  margin: 1em 0;
+  border-bottom: 1px solid #ccc;
+}
+#main h3 {
+  margin: 1em 0 .4em;
+  font-size: 1.3em;
+}
+#main ul {
+  margin-top: 0;
+}
+#main dl dt {
+  font-weight: bold;
+}
+#main p.focus {
+  padding: 10px;
+  font-size: 0.9em;
+  border-radius: 6px;
+}
+#main p.soft {
+  background: #fcf8e3;
+  border: 1px solid #faebcc;
+}
+#main p.important {
+  background: #fcaaaa;
+  border: 1px solid #fa8888;
+}
+#main p.warning {
+  color: red;
+  font-size: 1.2em;
+}
+#main a {
+  color: #952;
+}
+#main code {
+  font-size: 0.9em;
+}
+#toc {
+  position: fixed;
+  left: 230px;
+  top: 0;
+  bottom: 0;
+  margin-left: -230px;
+  width: 230px;
+  padding: 0 10px 10px;
+  box-sizing: border-box;
+  z-index: 1000;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  border-right: 1px solid #aaa;
+  background: #f4f4f4;
+  transition: left 0.2s ease-out;
+}
+@media (max-width: 767px) {
+  #toc {
+    left: 0;
+  }
+}
+#toc h1 {
+  font-size: 1.1em;
+  padding: 20px 0 .6em 8px;
+}
+#toc ul {
+  margin: 0;
+  padding: 0;
+}
+#toc section > ul a {
+  display: inline-block;
+  text-decoration: none;
+  color: #222222;
+  padding: 0 8px;
+}
+#toc section > ul a:hover {
+  border-radius: 3px;
+  background: #e9be9e;
+}
+#toc section > ul > li > a {
+  font-size: 1.1em;
+  font-weight: bold;
+  margin: .6em 0 .2em;
+  padding: .1em 8px;
+}
+#toc section > ul > li > ul > li > a {
+  padding-top: .1em;
+  margin: 0;
+}
+#toc section > ul > li > ul > li > ul > li > a {
+  font-size: 0.9em;
+  margin-left: 1em;
+}
+#toc p {
+  font-size: 0.9em;
+  font-style: italic;
+  color: #888;
+  margin: 0 0 .2em 8px;
+}
+completed with code 0
