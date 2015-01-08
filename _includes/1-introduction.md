@@ -8,7 +8,7 @@ From a user standpoint, the Ozwillo portal acts similarly to a mobile operating 
 
 - find and install applications from Ozwillo's store
 - launch installed services (see the difference between applications and services [below](#ref-1-3))
-- manage one's personal and application settingsi
+- manage one's personal and application settings
 
 The main user interface components are:
 
@@ -65,12 +65,12 @@ Additional definitions to complement the picture:
   <dt>(Ozwillo's) catalog</dt>
   <dd>a database of all applications, instances and services. It is used internally by the Portal to display a user’s desktop, to browse the app store, etc.;</dd>
   <dt>(Ozwillo's) store</dt>
-  <dd>a system that allows users to: find services that are publicly available and add them to their desktops, or find applications that are instantiable through provisioning. The Store is the visible surface of the Catalog;</dd>
+  <dd>a system that allows users to: find services that are publicly available and add them to their desktops, or find applications that are instantiable through provisioning. The store is the visible surface of the catalog;</dd>
   <dt>Store entry</dt>
   <dd>A visible application or a visible service (but not an application instance, whose visible surface is always a service).</dd> 
 </dl>
 
-What may be confusing at first is that both *abstract* — not instantiated — applications and *tangible* — instantiated — services can be found in the Store. From a user standpoint it makes sense: one does not worry about the technical implications behind the installation of a Store entry. But since the documentation reader cares, here is the difference:
+What may be confusing at first is that both *abstract* — not instantiated — applications and *tangible* — instantiated — services can be found in the store. From a user standpoint it makes sense: one does not worry about the technical implications behind the installation of a store entry. But since the documentation reader cares, here is the difference:
 
 - installing an application triggers the provisioning protocol, leading to software deployment on the provider side, and then to a declaration of the created instance to Ozwillo. It requires communication between Ozwillo and the provider servers;
 - installing a service is simply the process of bookmarking the service URI as an icon on the user's desktop. This is instantaneous and does not require communication between Ozwillo and the provider servers.
