@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="fr">
+	<head>
+	  <meta charset="utf-8" />
+	  <meta name="viewport" content="width=1024" />
+	  <meta name="apple-mobile-web-app-capable" content="yes" />
+	  <title>Ozwillo doc</title>
+	  
+	  <meta name="description" content="Documentation about Ozwillo technical integration" />
+	  <meta name="author" content="Ozwillo Team" />
+
+	  <link href="css/main.css" rel="stylesheet" />
+	  
+	  <link rel="shortcut icon" href="favicon.ico" />
+	  <script src="js/jquery-2.1.1.min.js"></script>
+	</head>
+
+	<body>
+	  <div id="top">
+  <div id="toggle-toc-target"><div class="toggle-toc"></div></div>
+  <div class="title">Ozwillo Documentation <span class="light">v1.5</span></div>
+</div>
+<div id="toc">
+  <section class="hidden-phone">
+    <h1>Ozwillo Documentation</h1>
+    <p>v1.5</p>
+  </section>
+  <section>
+    <ul>
+      <li>
+        <a href="#ref-1">Introduction</a>
+        <ul>
+          <li><a href="#ref-1-1">User interface and portal features</a></li>
+          <li><a href="#ref-1-2">Programming interface</a></li>
+          <li><a href="#ref-1-3">Terminology</a></li>
+          <li><a href="#ref-1-4">Visibility and access rights</a></li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+  <section>
+    <ul>
+      <li>
+        <a href="#ref-2">Experiment</a>
+        <p>How to play with Ozwillo APIs</p>
+        <ul>
+          <li><a href="">Authentication schemes</a></li>
+          <li><a href="">Preproduction sandbox</a></li>
+          <li><a href="#ref-2-3">Recommandations</a></li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+  <section>
+    <ul>
+      <li>
+        <a href="#ref-3">Provisioning</a>
+        <p>Enabling SaaS deployment</p>
+        <ul>
+          <li>
+            <a href="">Prerequesite</a>
+          </li>
+          <li>
+            <a href="">Protocol</a>
+            <ul>
+              <li><a href="">Ozwillo request</a></li>
+              <li><a href="">Provider provisioning</a></li>
+              <li><a href="">Provider response</a></li>
+              <li><a href="">Subscription callback</a></li>
+            </ul>
+          </li>
+          <li><a href="">FAQ</a></li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+  <section>
+    <ul>
+      <li>
+        <a href="#ref-4">User Authentication</a>
+        <ul>
+          <li><a href="">Introduction</a></li>
+          <li><a href="">Prerequesite</a></li>
+          <li>
+            <a href="">Protocol</a>
+          </li>
+          <li><a href="">FAQ</a></li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+  <section>
+    <ul>
+      <li>
+        <a href="#ref-5">Kernel API</a>
+        <ul>
+          <li><a href="">Users</a></li>
+          <li><a href="">Memberships</a></li>
+          <li><a href="">Tokens</a></li>
+          <li><a href="">Instances</a></li>
+          <li><a href="">Services</a></li>
+          <li><a href="">Subscriptions</a></li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+</div>
+<div id="main">
+  <p class="warning">Warning: this is a draft, intended to be stabilized and completed by 31 January 2015.</p>
+
+<p><strong>Ozwillo is a platform that distributes online services from a variety of SaaS editors. It’s underlying and strategic goal is to forge open, linked and reusable data thanks to the daily use of services.</strong></p>
+
+<p class="focus soft">The Ozwillo platform was formerly known as <em>Oasis</em>, due to the European project it was funded upon.</p>
+
+<p>Ozwillo principles are to remain:</p>
+
+<ul>
+  <li><em>provider agnostic</em>, meaning that any editor providing valuable and ethical services is welcome on ozwillo.com;</li>
+  <li><em>business agnostic</em>, meaning that no specific business concern will curve Ozwillo platform implementation.</li>
+</ul>
+
+<p>The outline of the documentation is as follows: (1) introduction to Ozwillo architecture and semantics, (2) how to play with Ozwillo APIs — prerequesites, tools and recommandations — (3) thorough description of provisioning services and then (4) enabling user authentication to access these services, (5) reference of the Kernel API that has been exhibited in the previous sections.</p>
+
+  <h2 id="ref-1">Introduction</h2>
+
+<h3 id="ref-1-1">User interface and portal features</h3>
+
+<p>From a user standpoint, the Ozwillo portal acts similarly to a mobile operating system, since it’s possible to:</p>
+
+<ul>
+  <li>find and install applications from Ozwillo’s store</li>
+  <li>launch installed services (see the difference between applications and services <a href="#ref-1-3">below</a>)</li>
+  <li>manage one’s personal and application settingsi</li>
+</ul>
+
+<p>The main user interface components are:</p>
+
+<ul>
+  <li>information pages served under <code>www.ozwillo.com</code></li>
+  <li>the portal (as defined above) and its store, served under <code>portal.ozwillo.com</code></li>
+  <li>authentication-related pages served under <code>accounts.ozwillo.com</code></li>
+</ul>
+
+<p>Except from the store, the portal pages are reserved to registered and logged users. They especially give access to:</p>
+
+<ul>
+  <li>one’s desk, made of shortcut icons to launch services;</li>
+  <li>one’s network, to create and manage organizations and links within organizations. Thanks to this, it is possible for someone to install applications on behalf organizations, in addition to a personal use, if one is an admin of this organization;</li>
+  <li>one’s application settings, where one can give others access to a given service, typically an organization admin authorizing other organization members.</li>
+</ul>
+
+<h3 id="ref-1-2">Programming interface</h3>
+
+<p>From a provider standpoint, adapting to Ozwillo means:</p>
+
+<ol>
+  <li>include the application deployment process within the <a href="#ref-3">provisioning protocol</a> described below. This is dealt with requests exchanged between the Kernel REST API and provider endpoints (typically over a REST API too)</li>
+  <li>if user authentication is needed, <a href="#ref-4">delegate it</a> to Ozwillo OpenID Connect Identity Provider</li>
+  <li>create, update and consume linked and shared data through the Datacore REST API</li>
+</ol>
+
+<p class="focus soft">The Datacore API and its documentation are stabilizing. For the moment this document focus on the 2 first and necessary steps regarding Ozwillo integration: provisioning and authentication.</p>
+
+<p>In other words, Ozwillo programming interface is made of:</p>
+
+<ul>
+  <li>the Kernel API available under <code>kernel.ozwillo.com</code></li>
+  <li>the accounts API and web pages (single sign-in, single sign-out, forgotten password…) available under <code>accounts.ozwillo.com</code></li>
+  <li>the Datacore API available under <code>data.ozwillo.com</code></li>
+</ul>
+
+<p class="focus important">Ozwillo APIs access is over HTTPS, providers endpoints must be too.</p>
+
+<h3 id="ref-1-2">Terminology</h3>
+
+<p>We make no asumption regarding what words final users will use between <em>applications</em> or <em>services</em>. It means that one could think “I am launching this app” when another would say “I am accessing this service”.</p>
+
+<p>But when it comes to Ozwillo’s APIs and thus to this documentation, they have a different and precise meaning. From the general to the particular:</p>
+
+<dl>
+  <dt>Application</dt>
+  <dd>an abstract application, not directly usable, declared in the catalog and visible in Ozwillo's store, that can be the object of an instantiation. It's the product you sell;</dd>
+  <dt>Application instance</dt>
+  <dd>or **instance** for short, a runnable copy of an application, created within the context of an identified authority (which may be an individual or an organization) after a successful provisioning;</dd>
+  <dt>Service</dt>
+  <dd>an "endpoint" of an application instance, addressable through a URL. Services are declared in the catalog and may or may not be visible in Ozwillo's store. The icons shown in a user’s desktop are services. An application instance is made of one or more services.</dd>
+</dl>
+
+<p>Additional definitions to complement the picture:</p>
+
+<dl>
+  <dt>(Ozwillo's) catalog</dt>
+  <dd>a database of all applications, instances and services. It is used internally by the Portal to display a user’s desktop, to browse the app store, etc.;</dd>
+  <dt>(Ozwillo's) store</dt>
+  <dd>a system that allows users to: find services that are publicly available and add them to their desktops, or find applications that are instantiable through provisioning. The Store is the visible surface of the Catalog;</dd>
+  <dt>Store entry</dt>
+  <dd>A visible application or a visible service (but not an application instance, whose visible surface is always a service).</dd> 
+</dl>
+
+<p>What may be confusing at first is that both <em>abstract</em> — not instantiated — applications and <em>tangible</em> — instantiated — services can be found in the Store. From a user standpoint it makes sense: one does not worry about the technical implications behind the installation of a Store entry. But since the documentation reader cares, here is the difference:</p>
+
+<ul>
+  <li>installing an application triggers the provisioning protocol, leading to software deployment on the provider side, and then to a declaration of the created instance to Ozwillo. It requires communication between Ozwillo and the provider servers;</li>
+  <li>installing a service is simply the process of bookmarking the service URI as an icon on the user’s desktop. This is instantaneous and does not require communication between Ozwillo and the provider servers.</li>
+</ul>
+
+<h3 id="ref-1-4">Visibility and access rights</h3>
+
+<p>If an application or service is visible, it only means it is publicly referenced and shown under Ozwillo’s store.</p>
+
+<p>A <code>visible:false</code> (hidden) application may be under review or not be available at this time. A hidden service is typically targeted to certain users (depending on who purchased the instance): it is shown as a “service launcher icon” under one’s desk, but not listed in the store.</p>
+
+<p>The fact that a service is visible or not in the store is yet separated to how its access is managed, possibly being restricted to certain users. All of these scenarios are possible:</p>
+
+<ul>
+  <li>a visible service whose access is restricted to given users (for example if the service owner wants to explicitely grant access to requesting users)</li>
+  <li>a hidden service with public access (for example if the service owner does not want to be referenced under Ozwillo’s store)</li>
+  <li>more typically services that are either visible and public, or hidden and protected.</li>
+</ul>
+
+<p>The <a href="#ref-4">User Authentication</a> section shows how these authorization schemes can be implemented.</p>
+
+  <h2 id="ref-2">Experiment</h2>
+
+  <h2 id="ref-3">Provisioning</h2>
+
+  <h2 id="ref-4">User Authentication</h2>
+
+  <h2 id="ref-5">Kernel API</h2>
+
+</div>
+		<script type="text/javascript">
+		document.addEventListener('DOMContentLoaded', function() {
+		  document.getElementById('toggle-toc-target').addEventListener('click', function() {
+		    var el = document.body, className = 'toc-open';
+		    if (el.classList) {
+		      el.classList.toggle(className);
+		    } else {
+		      var classes = el.className.split(' ');
+		      var existingIndex = classes.indexOf(className);
+
+		      if (existingIndex >= 0)
+		        classes.splice(existingIndex, 1);
+		      else
+		        classes.push(className);
+
+		      el.className = classes.join(' ');
+		    }
+		  })
+		});
+		</script>
+	</body>
+</html>

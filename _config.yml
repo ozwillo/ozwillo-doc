@@ -1,2 +1,2 @@
-exclude: [vendor]
+exclude: ['vendor', 'README.md', 'Gemfile.lock', 'Gemfile', 'CNAME']
 markdown: kramdown
