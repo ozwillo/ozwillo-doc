@@ -1,5 +1,7 @@
 ## Ozwillo documentation contributions
 
+The doc is served on [doc.ozwillo.com](http://doc.owillo.com)
+
 ### Installation
 
 The documentation website is processed by Jekyll and served thanks to Github Pages. Please follow the installation instructions [here](https://help.github.com/articles/using-jekyll-with-pages/).
