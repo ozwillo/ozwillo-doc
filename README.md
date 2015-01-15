@@ -1,6 +1,6 @@
 ## Ozwillo documentation contributions
 
-The doc is served on [doc.ozwillo.com](http://doc.owzillo.com)
+The doc is served on <a href="http://doc.ozwillo.com" target="_blank">doc.ozwillo.com</a>
 
 ### Installation
 
