@@ -37,7 +37,7 @@ The Datacore API and its documentation are stabilizing. For the moment this docu
 In other words, Ozwillo programming interface is made of:
 
 - the Kernel API available under `kernel.ozwillo.com`
-- the accounts API and web pages (single sign-in, single sign-out, forgotten password...) available under `accounts.ozwillo.com`
+- the Accounts API and web pages (single sign-in, single sign-out, forgotten password...) available under `accounts.ozwillo.com`
 - the Datacore API available under `data.ozwillo.com`
 
 Ozwillo APIs access is over HTTPS, providers endpoints must be too.
@@ -67,10 +67,12 @@ Additional definitions to complement the picture:
   <dt>(Ozwillo's) store</dt>
   <dd>a system that allows users to: find services that are publicly available and add them to their desktops, or find applications that are instantiable through provisioning. The store is the visible surface of the catalog;</dd>
   <dt>Store entry</dt>
-  <dd>A visible application or a visible service (but not an application instance, whose visible surface is always a service).</dd> 
+  <dd>A visible application or a visible service (but not an application instance, whose visible surface is always a service);</dd>
+  <dt>Purchase act</dt>
+  <dd>The act of requesting the installation of a story entry (charged or free), done by a portal end user.</dd> 
 </dl>
 
-What may be confusing at first is that both *abstract* — not instantiated — applications and *tangible* — instantiated — services can be found in the store. From a user standpoint it makes sense: one does not worry about the technical implications behind the installation of a store entry. But since the documentation reader cares, here is the difference:
+What may be confusing at first is that both *abstract* — not instantiated — applications and *tangible* — instantiated — services can be found in the store. From a user standpoint it makes sense: one does not worry about the technical implications behind a purchase act. But since the documentation reader cares, here is the difference:
 
 - installing an application triggers the provisioning protocol, leading to software deployment on the provider side, and then to a declaration of the created instance to Ozwillo. It requires communication between Ozwillo and the provider servers;
 - installing a service is simply the process of bookmarking the service URI as an icon on the user's desktop. This is instantaneous and does not require communication between Ozwillo and the provider servers.
@@ -88,4 +90,4 @@ The fact that a service is visible or not in the store is yet separated to how i
 - a hidden service with public access (for example if the service owner does not want to be referenced under Ozwillo's store)
 - more typically services that are either visible and public, or hidden and protected.
 
-The [User Authentication](#ref-4) section shows how these authorization schemes can be implemented.
+The [User Authentication](#ref-4) section shows how these authorization scenarios can be implemented.
