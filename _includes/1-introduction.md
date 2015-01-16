@@ -68,7 +68,7 @@ Additional definitions to complement the picture:
   <dd>a system that allows users to: find services that are publicly available and add them to their desktops, or find applications that are instantiable through provisioning. The store is the visible surface of the catalog;</dd>
   <dt>Store entry</dt>
   <dd>A visible application or a visible service (but not an application instance, whose visible surface is always a service);</dd>
-  <dt>Purchase act</dt>
+  <dt id="def-purchase-act">Purchase act</dt>
   <dd>The act of requesting the installation of a story entry (charged or free), done by a portal end user.</dd> 
 </dl>
 
