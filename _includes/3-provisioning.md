@@ -11,7 +11,6 @@ where (2) enables the creation of [desk shortcuts](#def-desk-shortcuts) so that 
 
 The creation of an application instance on the provider side may imply configuration changes or new resources allocation. These implementation details are left unconstrained: the protocol focuses only on API communication. It means existing deployment operations does not have to be affected and should rather be exposed through this protocol.
 
-
 ### Prerequesite
 {: #ref-3-2}
 
@@ -38,12 +37,13 @@ Thus the following information is needed to have a well described *and* installa
 | icon#&lt;language&gt; | app icon URI in the given language, a 64px x 64px png is expected | URI string |
 | screenshot_uris | list of screenshot URIs, a 850px x 450px png are expected | array of URI strings |
 | **contacts** | list of URLs to contact the provider or its support | array of URI (URL or mailto) strings |
+{: .model}
 
 A few comments on this table:
 
-- the *default* language information is what will be displayed if the user preferred language information is not available. It can be whatever language suiting best your target audience;
-- `<language>` is a two-letter code from the <a href="http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes" target="_blank">ISO 639-1</a> nomenclature. Some examples regarding the fields introduced above: `name#es`, `description#it`.
-- here is a description of the markdown <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank">syntax</a>. In particular, you may include raw text separated by two line breaks to shape paragraphs.
+- `<language>` identifies a given language following <a href="https://tools.ietf.org/html/bcp47" target="_blank">BCP 47</a>. Some examples regarding the fields introduced above: `name#es`, `description#fr_FR`, `description#fr_BE`.
+- the *default* language information is what will be displayed if the user preferred language information is not available (no matching custom `<language>` version). It can be whatever language suits best your target audience;
+- <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank">here</a> is a description of the markdown syntax. In particular, you may include raw text separated by two line breaks to shape paragraphs.
 
 #### Store filters
 
@@ -83,7 +83,7 @@ To ease the process, you may submit a first and simplified version of the commer
 
 When a purchase act occurs, Ozwillo creates a new [application instance](def-application-instance) in its catalog, in a pending state (since it has not been provisioned for the moment). This instance is given a unique and constant `instance_id` and credentials (`client_id` and `client_secret`). The `client_secret` must remain to be known only by Ozwillo and the provider.
 
-Then Ozwillo generates a request to the App factory `instantiation_uri` with the following parameters:
+Then Ozwillo sends a POST request to the App factory `instantiation_uri` with the following parameters:
 
 | Parameter name | Parameter description | Parameter type |
 | :-- | :-- | :-- |
@@ -102,3 +102,4 @@ The provider must recompute the signature of the request body with the same secr
 {: #ref-3-3-2}
 
 Provider provisioning: implementation agnostic, store request.
+peut etre synchrone ou asynchrone
