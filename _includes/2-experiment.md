@@ -51,4 +51,4 @@ The corresponding resquests require [OAuth 2.0 Bearer](http://tools.ietf.org/htm
 
 Knowing that sensitive information may be exchanged between the Kernel and providers APIs (`client_id`, `access_token`), it is required that communication is done in HTTPS.
 
-It may occur that your HTTPS configuration is not trusted by the Kernel and thus that some requests are not even sent. In this case, please use an SSL report tool to check your configuration.
+It may occur that your HTTPS configuration is not trusted by the Kernel and thus that some requests are not even sent. In this case, please use an SSL report tool to check your configuration or refer to the <a href="https://www.eff.org/https-everywhere/deploying-https" target="_blank">EFF's guide</a>.

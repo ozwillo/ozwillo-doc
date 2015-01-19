@@ -40,11 +40,11 @@ In other words, Ozwillo programming interface is made of:
 - the Accounts API and web pages (single sign-in, single sign-out, forgotten password...) available under `accounts.ozwillo.com`
 - the Datacore API available under `data.ozwillo.com`
 
-Ozwillo APIs access is over HTTPS, providers endpoints must be too.
+**NB**: Ozwillo APIs access is over HTTPS, providers endpoints must be too.
 {: .focus .important}
 
 ### Terminology
-{: #ref-1-2}
+{: #ref-1-3}
 
 We make no asumption regarding what words final users will use between *applications* or *services*. It means that one could think "I am launching this app" when another would say "I am accessing this service".
 
@@ -53,23 +53,27 @@ But when it comes to Ozwillo's APIs and thus to this documentation, they have a 
 <dl>
   <dt>Application</dt>
   <dd>an abstract application, not directly usable, declared in the catalog and visible in Ozwillo's store, that can be the object of an instantiation. It's the product you sell;</dd>
-  <dt>Application instance</dt>
+  <dt id="def-application-instance">Application instance</dt>
   <dd>or **instance** for short, a runnable copy of an application, created within the context of an identified authority (which may be an individual or an organization) after a successful provisioning;</dd>
   <dt>Service</dt>
-  <dd>an "endpoint" of an application instance, addressable through a URL. Services are declared in the catalog and may or may not be visible in Ozwillo's store. The icons shown in a user’s desktop are services. An application instance is made of one or more services.</dd>
+  <dd>an "endpoint" of an application instance, addressable through a URL (the service URI). Services are declared in the catalog and may or may not be visible in Ozwillo's store. An application instance is made of one or more services.</dd>
+  <dt id="def-desk-shortcuts">Desk shortcuts</dt>
+  <dd>The icons shown in a user's desk (under the Ozwillo portal) are links to services URIs.</dd>
 </dl>
 
 Additional definitions to complement the picture:
 
 <dl>
-  <dt>(Ozwillo's) catalog</dt>
+  <dt id="def-catalog">(Ozwillo's) catalog</dt>
   <dd>a database of all applications, instances and services. It is used internally by the Portal to display a user’s desktop, to browse the app store, etc.;</dd>
   <dt>(Ozwillo's) store</dt>
   <dd>a system that allows users to: find services that are publicly available and add them to their desktops, or find applications that are instantiable through provisioning. The store is the visible surface of the catalog;</dd>
   <dt>Store entry</dt>
   <dd>A visible application or a visible service (but not an application instance, whose visible surface is always a service);</dd>
   <dt id="def-purchase-act">Purchase act</dt>
-  <dd>The act of requesting the installation of a story entry (charged or free), done by a portal end user.</dd> 
+  <dd>The act of requesting the installation of a story entry (charged or free), done by a portal end user;</dd>
+  <dt id="def-app-factory">App Factory</dt>
+  <dd>A REST API (implemented by the provider) that Ozwillo can call to initiate the <a href="#ref-3">provisioning</a> of an application instance, after a purchase act has occured.</dd>   
 </dl>
 
 What may be confusing at first is that both *abstract* — not instantiated — applications and *tangible* — instantiated — services can be found in the store. From a user standpoint it makes sense: one does not worry about the technical implications behind a purchase act. But since the documentation reader cares, here is the difference:
