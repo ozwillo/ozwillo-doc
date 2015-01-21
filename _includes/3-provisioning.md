@@ -14,7 +14,7 @@ The creation of an application instance on the provider side may imply configura
 ### Prerequesite
 {: #ref-3-1}
 
-Since provisioning starts when a user performs a purchase act, it means the purchased application is declared in the [catalog](#def-catalog) **and** Ozwillo knows how to forward the request to the provider through its [App Factory](#def-app-factory).
+Since provisioning starts when a user performs a purchase act, it means the purchased application is declared in the [catalog](#def-catalog) **and** Ozwillo knows how to forward the request to the provider through its [app factory](#def-app-factory).
 
 Thus the following information is needed to have a well described *and* installable application in the catalog:
 
@@ -244,7 +244,7 @@ The full identifier of an instance scope is in the form `{instance_id}:{local_id
 Possible status codes:
 
 - 200: means the acknowledgement is valid and processed;
-- 422: means there is a problem with the acknowledgement request, additional information about the particular error is given in the response body.
+- <span id="ref-ack-422">422</span>: means there is a problem with the acknowledgement request, additional information about the particular error is given in the response body.
 
 For successful 200 responses, the body response is in the form of:
 
@@ -318,6 +318,7 @@ If the request times out, the Kernel will delete the instance from its database 
 This part briefly introduces what operations can be done by the purchaser in the portal, when the instance has been provisioned. It helps understand the global scenario that goes from purchasing application X by user A to using service Y by user B.
 
 TODO: detail.
+{: .todo}
 
 ### FAQ
 {: #ref-3-4}
@@ -329,3 +330,4 @@ Pending instances (those for which a request has been made to the app factory, b
 So `cancellation_uri` (and associated secret) is linked to the app factory, when `destruction_uri` is linked to an application instance. It means in particular that `cancellation_uri` should reject the destruction of provisionned instances.
 
 TODO: use cases examples.
+{: .todo}

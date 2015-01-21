@@ -1,5 +1,3 @@
-watching css/main.less
-changed /css/main.less
 /*! normalize.css v3.0.2 | MIT License | git.io/normalize */
 /**
  * 1. Set default font family to sans-serif.
@@ -979,6 +977,9 @@ body.toc-open #top {
 #main table > thead > tr > th {
   background: #eee;
 }
+#main .todo {
+  display: none;
+}
 #toc {
   position: fixed;
   left: 230px;
@@ -1038,4 +1039,3 @@ body.toc-open #top {
   color: #888;
   margin: 0 0 .2em 8px;
 }
-completed with code 0
