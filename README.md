@@ -57,3 +57,12 @@ More info [here](http://kramdown.gettalong.org/quickref.html#block-attributes).
 ### Credits
 
 The styling and behavior of the documentation is deeply inspired by [meteor docs](http://docs.meteor.com/). The CSS relies on [normalize](git.io/normalize) and [typeplate](http://typeplate.com).
+
+### Discussion
+
+For the moment the documentation relies on the following choices, that needs to be discussed:
+
+- no mention to territory_id
+- no description of subscription callback for the moment, since it remains to be implemented
+- visible VS restricted definitions have been updated: visible false does not imply restricted true
+- replaced Kernel by Ozwillo when we're talking about APIs

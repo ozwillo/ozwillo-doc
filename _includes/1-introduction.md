@@ -68,10 +68,12 @@ Additional definitions to complement the picture:
   <dd>a database of all applications, instances and services. It is used internally by the Portal to display a user’s desktop, to browse the app store, etc.;</dd>
   <dt>(Ozwillo's) store</dt>
   <dd>a system that allows users to: find services that are publicly available and add them to their desktops, or find applications that are instantiable through provisioning. The store is the visible surface of the catalog;</dd>
-  <dt>Store entry</dt>
+  <dt id="def-store-entry">Store entry</dt>
   <dd>A visible application or a visible service (but not an application instance, whose visible surface is always a service);</dd>
   <dt id="def-purchase-act">Purchase act</dt>
   <dd>The act of requesting the installation of a story entry (charged or free), done by a portal end user;</dd>
+  <dt id="def-purchaser">Purchaser</dt>
+  <dd>A user that performed a purchase act;</dd>
   <dt id="def-app-factory">App Factory</dt>
   <dd>A REST API (implemented by the provider) that Ozwillo can call to initiate the <a href="#ref-3">provisioning</a> of an application instance, after a purchase act has occured.</dd>   
 </dl>
@@ -95,3 +97,15 @@ The fact that a service is visible or not in the store is yet separated to how i
 - more typically services that are either visible and public, or hidden and protected.
 
 The [User Authentication](#ref-4) section shows how these authorization scenarios can be implemented.
+
+### Documentation conventions
+{: #ref-1-5}
+
+HTTP requests and responses bodies (and data models) are described in tables. Within these tables the first column is dedicated to field or parameter names; when they are displayed in **boldface**, it means they are mandatory.
+
+When you see curly brackets {} in a code sample, it means the content should be evaluated. Curly brackets typically contain variable names or describe an operation, for example:
+
+<pre>
+POST {instantiation_uri}
+X-Hub-Signature: sha1={HMAC-SHA1 digest of payload}
+</pre>
