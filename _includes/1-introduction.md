@@ -74,7 +74,7 @@ Additional definitions to complement the picture:
   <dd>The act of requesting the installation of a story entry (charged or free), done by a portal end user;</dd>
   <dt id="def-purchaser">Purchaser</dt>
   <dd>A user that performed a purchase act;</dd>
-  <dt id="def-app-factory">App Factory</dt>
+  <dt id="def-app-factory">App factory</dt>
   <dd>A REST API (implemented by the provider) that Ozwillo can call to initiate the <a href="#ref-3">provisioning</a> of an application instance, after a purchase act has occured.</dd>   
 </dl>
 

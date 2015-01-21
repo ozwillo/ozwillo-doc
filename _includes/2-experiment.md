@@ -47,7 +47,7 @@ When the provider calls the Kernel with an `access_token`, it means the request 
 
 The corresponding resquests require [OAuth 2.0 Bearer](http://tools.ietf.org/html/rfc6750), meaning that the `access_token` is sent in an `Authorization: Bearer {access_token_value}` HTTP header.
 
-### Recommandations
+### Recommendations
 {: #ref-2-3}
 
 ##### HTTPS

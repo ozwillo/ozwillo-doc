@@ -23,22 +23,22 @@ Thus the following information is needed to have a well described *and* installa
 | Field name | Field description | Field type and format |
 | :-- | :-- | :-- |
 | **name** | name in the default language (try to remain below 20 characters) | string |
-| name#&lt;language&gt; | name in the given language (try to remain below 20 characters) | string |
+| name#{lg} | name in the given language {lg} (try to remain below 20 characters) | string |
 | **description** | description in the default language | markdown string |
-| description#&lt;language&gt; | description in the given language | markdown string |
+| description#{lg} | description in the given language | markdown string |
 | **tos_uri** | terms of service URI implicitly accepted on purchase, in the default language | URI string |
-| tos_uri#&lt;language&gt; | terms of service URI implicitly accepted on purchase, in the given language | URI string |
+| tos_uri#{lg} | terms of service URI implicitly accepted on purchase, in the given language | URI string |
 | **policy_uri** | privacy policy URI implicitly accepted on purchase, in the default language | URI string |
-| policy_uri#&lt;language&gt; | privacy policy URI implicitly accepted on purchase, in the given language | URI string |
+| policy_uri#{lg} | privacy policy URI implicitly accepted on purchase, in the given language | URI string |
 | **icon** | app icon URI in the default language, a 64px x 64px png is expected | URI string |
-| icon#&lt;language&gt; | app icon URI in the given language, a 64px x 64px png is expected | URI string |
+| icon#{lg} | app icon URI in the given language, a 64px x 64px png is expected | URI string |
 | screenshot_uris | list of screenshot URIs, a 850px x 450px png are expected | array of URI strings |
 | **contacts** | list of URLs to contact the provider or its support | array of URI (URL or mailto) strings |
 
 A few comments on this table:
 
-- `<language>` identifies a language following <a href="https://tools.ietf.org/html/bcp47" target="_blank">BCP 47</a>. Some examples regarding the fields introduced above: `name#es`, `description#fr_FR`, `description#fr_BE`.
-- the *default* language information is what will be displayed if the user preferred language information is not available (no matching custom `<language>` version). It can be whatever language suits best your target audience;
+- `{lg}` identifies a language following <a href="https://tools.ietf.org/html/bcp47" target="_blank">BCP 47</a>. Some examples regarding the fields introduced above: `name#es`, `description#fr_FR`, `description#fr_BE`.
+- the *default* language information is what will be displayed if the user preferred language information is not available (no matching custom `{lg}` version). It can be whatever language suits best your target audience;
 - <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank">here</a> is a description of the markdown syntax. In particular, you may include raw text separated by two line breaks to shape paragraphs.
 
 ##### Store filters
@@ -183,15 +183,15 @@ The host is typically either `kernel.ozwillo-preprod.eu` (preproduction) or `ker
 | :-- | :-- | :-- |
 | **local_id** | identifier that needs to be unique within the instance, for instance "front-end" | string |
 | **name** | name in the default language (try to remain below 20 characters) | string |
-| name#&lt;language&gt; | name in the given language (try to remain below 20 characters) | string |
+| name#{lg} | name in the given language (try to remain below 20 characters) | string |
 | **description** | description in the default language | markdown string |
-| description#&lt;language&gt; | description in the given language | markdown string |
+| description#{lg} | description in the given language | markdown string |
 | **tos_uri** | terms of service URI implicitly accepted on purchase, in the default language | URI string |
-| tos_uri#&lt;language&gt; | terms of service URI implicitly accepted on purchase, in the given language | URI string |
+| tos_uri#{lg} | terms of service URI implicitly accepted on purchase, in the given language | URI string |
 | **policy_uri** | privacy policy URI implicitly accepted on purchase, in the default language | URI string |
-| policy_uri#&lt;language&gt; | privacy policy URI implicitly accepted on purchase, in the given language | URI string |
+| policy_uri#{lg} | privacy policy URI implicitly accepted on purchase, in the given language | URI string |
 | **icon** | service icon URI in the default language, a 64px x 64px png is expected | URI string |
-| icon#&lt;language&gt; | service icon URI in the given language, a 64px x 64px png is expected | URI string |
+| icon#{lg} | service icon URI in the given language, a 64px x 64px png is expected | URI string |
 | screenshot_uris | list of screenshot URIs, a 850px x 450px png are expected | array of URI strings |
 | **contacts** | list of URLs to contact the provider or its support | array of URI (URL or mailto) strings |
 | **payment_option** | "FREE" or "PAID" setting | string |
@@ -219,7 +219,7 @@ A few remarks on this table:
 | :-- | :-- | :-- |
 | **scope_id** | full identifier of the needed scope | string |
 | **motivation** | motivation for using the scope, in the default language | string |
-| motivation#&lt;language&gt; | motivation for using the scope, in the give language | string |
+| motivation#{lg} | motivation for using the scope, in the give language | string |
 
 The motivation helps understand users why they should grant specific privileges (associated to the `scope_id) to the instance, and thus help them decide if they will.
 
@@ -229,9 +229,9 @@ The motivation helps understand users why they should grant specific privileges 
 | :-- | :-- | :-- |
 | **local_id** | local identifier of this scope (within the instance) | string |
 | **name** | name of the scope in the default language | string |
-| name#&lt;language&gt; | name of the scope in the given language | string |
+| name#{lg} | name of the scope in the given language | string |
 | **description** | description of the scope in the default language | string |
-| description#&lt;language&gt; | description of the scope in the given language | string |
+| description#{lg} | description of the scope in the given language | string |
 
 Scope identifiers are simple strings that correspond to the permission scopes that client applications require to access part of this API's functionality. For instance, application X may define an API to create events within a particular instance Y; it would then declare the scope "addevent" of this instance.
 
@@ -306,7 +306,7 @@ This scheme allows sharing the same destruction URI and secret among several ins
 | :-- | :-- | :-- |
 | instance_id | identifier of the instance | string |
 
-###### Response from provider
+##### Response from provider
 
 The destruction endpoint must respond with a successful status (200, 202 or 204) in a timely manner (not necessarily waiting for the underlying ressources to be actually released or archived). Ozwillo will then delete the instance (and its associated resources, like services) from its database and it will be impossible for users to authenticate to it.
 
