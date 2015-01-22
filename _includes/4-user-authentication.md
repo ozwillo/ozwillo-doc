@@ -47,19 +47,28 @@ Still within the context of the official spec, some optional features may not be
 
 In this step, the application instance has detected an authentication of the user is needed and delegates it to Ozwillo by **redirecting** the end-user request to Ozwillo authentication endpoint.
 
-It means the end-user client will issue the following request:
+<pre>
+HTTP/1.1 302 Found
+Location: {authentication_endpoint}?{parameters}
+</pre>
+
+As a result, the end-user client will issue the following request:
 
 ##### Request command
 
 <pre>
-GET {authentication_endpoint}?{parameters} HTTP/1.1
-Host: {authentication_host}
-...
+GET {authentication_endpoint_path}?{parameters} HTTP/1.1
+Host: {authentication_endpoint_host}
 </pre>
 
-Knowing that we consider the context of our [preproduction](#ref-2-1) environment, the authentication endpoint is `/a/auth` under the `accounts.ozwillo-preprod.eu`, according to the <a href="http://kernel.ozwillo-preprod.eu/.well-known/openid-configuration" target="_blank">Well-Known URI Registry</a>.
+Knowing that we consider the context of our [preproduction](#ref-2-1) environment, the authentication endpoint path is `/a/auth` under the `accounts.ozwillo-preprod.eu` host, according to the <a href="http://kernel.ozwillo-preprod.eu/.well-known/openid-configuration" target="_blank">Well-Known URI Registry</a>.
 
-The query `{parameters}` are described in the following table.
+Before describing the query `{parameters}` are described in the following table, the request would then looks like:
+
+<pre>
+GET /a/auth?{parameters} HTTP/1.1
+Host: accounts.ozwillo-preprod.eu
+</pre>
 
 ##### Query parameters
 
@@ -72,25 +81,33 @@ The query `{parameters}` are described in the following table.
 | **state** | opaque value used to maintain state between the request and the callback | string |
 | **nonce** | unique random string used to mitigate replay attacks | string |
 
-As a result, a possible complete request should look like:
+As a result, a request could look like:
 
 <pre>
-https://accounts.ozwillo-preprod.eu/a/auth?response_type=code&client_id={client_id}&scope=openid%20profile&redirect_uri=https://app.example.com/cb&state=security_token%3D{random_value}%26url%3Dhttps%3A%2F%2Fapp.example.com%2FmyHome&nonce={another_random_value}
+GET /a/auth?
+	response_type=code
+	&client_id={client_id}
+	&scope=openid%20profile
+	&redirect_uri=https://app.example.com/cb
+	&state=security_token%3D{random_value}%26url%3Dhttps%3A%2F%2Fapp.example.com%2FmyHome
+	&nonce={another_random_value}
+Host: accounts.ozwillo-preprod.eu
 </pre>
 
-In this example, some characters (among space = & : /) have been URL escaped.
-
-It's important to note that the redirect to `redirect_uri` will indeed be asked through Ozwillo response if its value matches one of the `redirect_uris` specified during the provisioning acknowledgement [step](#ref-3-2-3) regarding the Service object.
-
-This redirect workflow means that the call to `redirect_uri` that concludes a succesful [step #2](#ref-4-3-2) is requested from the end-user navigator.
+In this example, some characters (among space = & : /) have been URL-escaped.
 
 #### #2 Ozwillo processing
 {: #ref-4-3-2}
 
-### #3 Requesting an access token
+It's important to note that the redirect to `redirect_uri` will indeed be asked through Ozwillo response only if its value matches one of the `redirect_uris` specified during the provisioning acknowledgement [step](#ref-3-2-3) regarding the Service object.
+
+This redirect workflow means that the call to `redirect_uri` that concludes a succesful [step #2](#ref-4-3-2) is requested from the end-user navigator.
+
+
+#### #3 Requesting an access token
 {: #ref-4-3-3}
 
-### #4 Validating the access token
+#### #4 Validating the access token
 {: #ref-4-3-4}
 
 ### FAQ

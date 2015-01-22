@@ -96,7 +96,6 @@ Host: {instantiation_host}
 Accept: application/json, application/*+json
 X-Hub-Signature: sha1={HMAC-SHA1 digest of payload}
 Content-Type: application/json;charset=UTF-8
-...
 </pre>
 
 The body of this request is encoded in JSON. A HMAC-SHA1 hash of the JSON string is computed using the application's `instantiated_secret` as key with an uppercase hexadecimal output format. This computed HMAC-SHA1 signature is then inserted in the X-Hub-Signature (as per <a href="https://pubsubhubbub.googlecode.com/git/pubsubhubbub-core-0.4.html#authednotify" target="_blank">PubSubHubbub Core 0.4</a>).
@@ -167,7 +166,6 @@ Host: {kernel API host}
 Accept: application/json, application/*+json
 Authorization: Basic {}
 Content-Type: application/json;charset=UTF-8
-...
 </pre>
 
 The host is typically either `kernel.ozwillo-preprod.eu` (preproduction) or `kernel.ozwillo.com` (production). The authorization header needs to be set as described in [Calling the Kernel without an access_token](#ref-2-2--2).
@@ -302,7 +300,6 @@ Host: {destruction_host}
 Accept: application/json, application/*+json
 X-Hub-Signature: sha1={HMAC-SHA1 digest of payload}
 Content-Type: application/json;charset=UTF-8
-...
 </pre>
 
 This scheme allows sharing the same destruction URI and secret among several instances, but Ozwillo also supports having separate destruction URI and secret for each instance. See more on how to check if this request reliably comes from Ozwillo depending on [verifying the signature](#ref-hmac-signature).
