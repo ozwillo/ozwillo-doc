@@ -83,7 +83,7 @@ What may be confusing at first is that both *abstract* — not instantiated — 
 - installing an application triggers the provisioning protocol, leading to software deployment on the provider side, and then to a declaration of the created instance to Ozwillo. It requires communication between Ozwillo and the provider servers;
 - installing a service is simply the process of bookmarking the service URI as an icon on the user's desktop. This is instantaneous and does not require communication between Ozwillo and the provider servers.
 
-### Visibility and access rights
+### Visibility vs restricted access
 {: #ref-1-4}
 
 If an application or service is visible, it only means it is publicly referenced and shown under Ozwillo's store.
@@ -96,10 +96,21 @@ The fact that a service is visible or not in the store is yet separated to how i
 - a hidden service with public access (for example if the service owner does not want to be referenced under Ozwillo's store)
 - more typically services that are either visible and public, or hidden and protected.
 
-The [User Authentication](#ref-4) section shows how these authorization scenarios can be implemented.
+The [Provisioning](#ref-3) section shows how these settings are set.
+
+### Authorized users
+{: #ref-1-5}
+
+The case for restricted services is that only specific users are allowed to access and interact with them. By default, the user that purchased the instance is an `app_admin`, meaning that s/he has the right to add new `app_admin` or `app_user` users.
+
+Both `app_admin` and `app_user` are considered authorized users of the instance, but an `app_user` can not add other authorized users. These rules (who can add who) are internal to Ozwillo and frame the organization management under the portal.
+
+As a provider, you will also get this info (is the user an `app_admin` or `app_user`) and are free to give it whatever meaning best suits your application behavior. Yet, on application instances side, it's typical that `app_admin` is the role with the highest privileges and is allowed to configure the roles of others (`app_user`). Then `app_user` may hold a variety of different user types from the application point of view. Since Ozwillo can not know all business-specific roles, you could define a finer granularity of users under a global `app_user` concept linked to Ozwillo.
+
+Now, when your services are accessed by internet users, how do you know they are indeed authorized users (`app_admin` or `app_user`)? This will be answered in the [User Authentication](#ref-4) section!
 
 ### Documentation conventions
-{: #ref-1-5}
+{: #ref-1-6}
 
 HTTP requests and responses bodies (and data models) are described in tables. Within these tables the first column is dedicated to field or parameter names; when they are displayed in **boldface**, it means they are mandatory.
 

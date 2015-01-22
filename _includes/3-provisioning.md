@@ -19,6 +19,7 @@ Since provisioning starts when a user performs a purchase act, it means the purc
 Thus the following information is needed to have a well described *and* installable application in the catalog:
 
 ##### Commercial information
+{: #ref-3-1--1}
 
 | Field name | Field description | Field type and format |
 | :-- | :-- | :-- |
@@ -42,6 +43,7 @@ A few comments on this table:
 - <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank">here</a> is a description of the markdown syntax. In particular, you may include raw text separated by two line breaks to shape paragraphs.
 
 ##### Store filters
+{: #ref-3-1--2}
 
 | Field name | Field description | Field type and format |
 | :-- | :-- | :-- |
@@ -106,13 +108,17 @@ The provider must recompute the signature of the request body with the same secr
 
 | Field name | Field description | Type |
 | :-- | :-- | :-- |
-| instance_id | unique and constant identifier of the instance | string |
-| client_id | used for authentication purposes | string |
-| client_secret | used for authentication purposes | string |
-| user | a description of [purchaser](#def-purchaser), containing at least its Ozwillo user id | User object |
-| organization | a description of the organization if the purchase occured on behalf an organiation, containing at least Ozwillo organization id and name | Organization object |
-| instance_registration_uri | the endpoint that must be used to acknowledge the provisioning back to Ozwillo | URI string |
+| **instance_id** | unique and constant identifier of the instance | string |
+| **client_id** | used for authentication purposes | string |
+| **client_secret** | used for authentication purposes | string |
+| **user** | a description of [purchaser](#def-purchaser), containing at least its Ozwillo user id | User object |
+| organization | a description of the organization, containing at least Ozwillo organization id and name | Organization object |
+| **instance_registration_uri** | the endpoint that must be used to acknowledge the provisioning back to Ozwillo | URI string |
 {: .request}
+
+It's important to know that purchasers may install an application either on behalf an organization, either for their personal user. In the latter case, there is no organization associated to the purchase, so there is no `organization` field in the request body.
+
+That said, if your application `target_audience` (as declared in [store filters](#ref-3-1--2)) does not contain `CITIZENS`, it means purchase acts will always be on behalf an organization and thus the `organization` field will be sent.
 
 ##### Response from provider
 
