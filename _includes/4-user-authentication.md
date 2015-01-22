@@ -85,30 +85,59 @@ As a result, a request could look like:
 
 <pre>
 GET /a/auth?
-	response_type=code
-	&client_id={client_id}
-	&scope=openid%20profile
-	&redirect_uri=https://app.example.com/cb
-	&state=security_token%3D{random_value}%26url%3Dhttps%3A%2F%2Fapp.example.com%2FmyHome
-	&nonce={another_random_value}
+ response_type=code
+ &client_id={client_id}
+ &scope=openid%20profile
+ &redirect_uri=https://app.example.com/cb
+ &state=security_token%3D{random_value}%26url%3Dhttps%3A%2F%2Fapp.example.com%2FmyHome
+ &nonce={another_random_value} HTTP/1.1
 Host: accounts.ozwillo-preprod.eu
 </pre>
 
 In this example, some characters (among space = & : /) have been URL-escaped.
 
-#### #2 Ozwillo processing
+#### #2 Ozwillo response
 {: #ref-4-3-2}
 
-It's important to note that the redirect to `redirect_uri` will indeed be asked through Ozwillo response only if its value matches one of the `redirect_uris` specified during the provisioning acknowledgement [step](#ref-3-2-3) regarding the Service object.
+Several operations are then conducted on Ozwillo side:
 
-This redirect workflow means that the call to `redirect_uri` that concludes a succesful [step #2](#ref-4-3-2) is requested from the end-user navigator.
+1. validate the incoming authentication request from step #1;
+2. authenticate the user;
+3. ask user to accept scopes claimed by the instance.
 
+##### SUCCESS
 
-#### #3 Requesting an access token
+If all of these succeed, and if the `redirect_uri` value specified in [step #1](#ref-4-3-1) matches one of the `redirect_uris` specified during the provisioning acknowledgement [step](#ref-3-2-3) regarding the Service object, the following response will be sent:
+
+<pre>
+HTTP/1.1 302 Found
+Location: https://app.example.com/cb?state=security_token%3D{random_value}%26url%3Dhttps%3A%2F%2Fapp.example.com%2FmyHome&code={another_random_value}
+</pre>
+
+This redirect workflow means your server will finally receive the following request sent from the end-user navigator:
+
+<pre>
+GET cb?state=security_token%3D{random_value}%26url%3Dhttps%3A%2F%2Fapp.example.com%2FmyHome&code={another_random_value} HTTP/1.1
+Host: app.example.com/
+</pre>
+
+##### FAILURE
+
+The same `redirect_uri` callback will be notified of the authentication error according to the <a href="http://openid.net/specs/openid-connect-core-1_0.html#AuthError" target="_blank">spec</a>.
+
+#### #3 Response validation
 {: #ref-4-3-3}
 
-#### #4 Validating the access token
+You should both verify that the `security_token` (within the `state`) and the `nonce` are the ones you sent first to Ozwillo, to decide that you can trust the response.
+
+TODO: usage of state
+{: .todo}
+
+#### #4 Requesting an access token
 {: #ref-4-3-4}
+
+#### #5 Access token validation
+{: #ref-4-3-5}
 
 ### FAQ
 {: #ref-4-4}
