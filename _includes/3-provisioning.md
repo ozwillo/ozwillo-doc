@@ -230,6 +230,7 @@ A few remarks on this table:
 The motivation helps understand users why they should grant specific privileges (associated to the `scope_id) to the instance, and thus help them decide if they will.
 
 **Embedded Scope objects**
+{: #ref-3-2-3-scope}
 
 | Field name | Field description | Type |
 | :-- | :-- | :-- |
