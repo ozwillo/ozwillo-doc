@@ -132,10 +132,10 @@ With Ozwillo, you delegate authentication and authorization: Ozwillo is both an 
 
 So let's focus on the `client_id`: thanks to it, Ozwillo knows what application instance the user is trying to access. Ozwillo then checks if s/he is indeed a valid `app_admin` or `app_user` of this instance, and now there are two cases depending on the service configuration:
 
-- if the service is `restricted:true` Ozwillo authentication will only succeedd for an `app_admin` or `app_user`: you can rely on it;
+- if the service is `restricted:true` Ozwillo authentication will only succeed for an `app_admin` or `app_user`: you can rely on it;
 - if the service is `restricted:false` Ozwillo authentication will succeed even if the user is neither an `app_admin` nor a `app_user`, but the service will be notified of it.
 
-If the authentication is successful, your service will be given at the end of the [authorization code flow](#ref-4-3) an `access_token` that can be seen as a "session id" from Ozwillo point of view. Now you have an `access_token`, you can create a session linking the user and this `access_token`, so that authentifying this user won't be necessary on further pages access. For security measures, the `access_token` must not be leaked on the client side.
+If authentication is successful, your service will be given at the end of the [authorization code flow](#ref-4-3) an `access_token` that can be seen as an "Ozwillo session id". Now you have an `access_token`, you can create a session linking the user and this `access_token`, so that authentifying the user won't be necessary on each requested page. For security measures, the `access_token` must not be leaked on the client side.
 
 In short, you condition the creation of a session on your server to the retrieval of an `access_token` from Ozwillo.
 
@@ -144,7 +144,7 @@ In short, you condition the creation of a session on your server to the retrieva
 
 First of all, Ozwillo as an authentication and authorization solution is an implementation of <a href="http://openid.net/connect/" target="_blank">OpenID Connect</a> Authorization Server, and as such uses scopes introduced by the protocol to specify access privileges.
 
-For instance and if we focus on scopes <a href="http://openid.net/specs/openid-connect-basic-1_0.html#Scopes" target="_blank">introduced</a> by OpenID Connect, the provider may ask for an `access_token` with the `email` scope. When authenticating, users are prompted to know if they want to share their email address with this instance. As a result, the `access_token` created are associated to this scope (if granted by user) on Ozwillo side.
+For instance and if we focus on scopes <a href="http://openid.net/specs/openid-connect-basic-1_0.html#Scopes" target="_blank">introduced</a> by OpenID Connect, the provider may ask for an `access_token` with the `email` scope. When authenticating, users are prompted to know if they want to share their email address with this instance. As a result, the `access_token` created is associated to this scope (if granted by user) on Ozwillo side.
 
 When the instance wants to indeed access the email through one of Ozwillo API endpoints, it will send an HTTP request with this `access_token`, and Ozwillo is then able to decide if the operation is permitted or not.
 
@@ -156,7 +156,7 @@ As you will see later, you can ask for scopes at several occasions:
 
 When a claimed scope is refused by users, the instance will always be able to ask for it again later, and explain a given operation won't be possible until they accept it.
 
-Scopes are typically used to access private profile information (see those inherent in <a href="http://openid.net/specs/openid-connect-basic-1_0.html#Scopes" target="_blank">OpenID Connect</a>, like email, address or phone). But we will see that this mechanism is flexible enough to use additional scopes defined by application instances during [provisioning](#ref-3-2-3-scope).
+Scopes are typically used to access private profile information (see those inherent in <a href="http://openid.net/specs/openid-connect-basic-1_0.html#Scopes" target="_blank">OpenID Connect</a> like email, address or phone). But we will see that this mechanism is flexible enough to use additional scopes defined by application instances during [provisioning](#ref-3-2-3-scope).
 
 ### Documentation conventions
 {: #ref-1-6}
