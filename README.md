@@ -66,3 +66,5 @@ For the moment the documentation relies on the following choices, that needs to 
 - no description of subscription callback for the moment, since it remains to be implemented
 - visible VS restricted definitions have been updated: visible false does not imply restricted true
 - replaced Kernel by Ozwillo when we're talking about APIs
+- http://openid.net/specs/openid-connect-core-1_0.html#IDToken it seems all required fields are not sent by the Kernel
+- in our protocol, state and nonce are mandatory but in OpenID connect they are recommended and optional.

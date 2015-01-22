@@ -319,16 +319,8 @@ The destruction endpoint must respond with a successful status (200, 202 or 204)
 
 If the request times out, the Kernel will delete the instance from its database nevertheless. Any (timely) non-successful status will abort the destruction (so it can be retried later).
 
-### Instance management in the portal
-{: #ref-3-3}
-
-This part briefly introduces what operations can be done by the purchaser in the portal, when the instance has been provisioned. It helps understand the global scenario that goes from purchasing application X by user A to using service Y by user B.
-
-TODO: detail.
-{: .todo}
-
 ### FAQ
-{: #ref-3-4}
+{: #ref-3-3}
 
 **What is the difference between cancellation and destruction URIs?**
 
