@@ -107,7 +107,7 @@ Several operations are then conducted on Ozwillo side:
 
 ##### SUCCESS
 
-If all of these succeed, and if the `redirect_uri` value specified in [step #1](#ref-4-3-1) matches one of the `redirect_uris` specified during the provisioning acknowledgement [step](#ref-3-2-3) regarding the Service object, the following response will be sent:
+If all of these succeed, and if the `redirect_uri` value specified in [step #1](#ref-4-3-1) matches one of the `redirect_uris` specified during the [provisioning acknowledgement](#ref-3-2-3), the following response will be sent:
 
 <pre>
 HTTP/1.1 302 Found
@@ -117,7 +117,7 @@ Location: https://app.example.com/cb?state=security_token%3D{random_value}%26url
 This redirect workflow means your server will finally receive the following request sent from the end-user navigator:
 
 <pre>
-GET cb?state=security_token%3D{random_value}%26url%3Dhttps%3A%2F%2Fapp.example.com%2FmyHome&code={another_random_value} HTTP/1.1
+GET /cb?state=security_token%3D{random_value}%26url%3Dhttps%3A%2F%2Fapp.example.com%2FmyHome&code={another_random_value} HTTP/1.1
 Host: app.example.com/
 </pre>
 
@@ -128,7 +128,7 @@ The same `redirect_uri` callback will be notified of the authentication error ac
 #### #3 Response validation
 {: #ref-4-3-3}
 
-You should both verify that the `security_token` (within the `state`) and the `nonce` are the ones you sent first to Ozwillo, to decide that you can trust the response.
+You should verify that both the `security_token` (within the `state`) and the `nonce` are the ones you sent first to Ozwillo, to decide that you can trust the response.
 
 TODO: usage of state
 {: .todo}
