@@ -40,7 +40,7 @@ In other words, Ozwillo programming interface is made of:
 - the Accounts API and web pages (single sign-in, single sign-out, forgotten password...) available under `accounts.ozwillo.com`
 - the Datacore API available under `data.ozwillo.com`
 
-**NB**: Ozwillo APIs access is over HTTPS, providers endpoints must be too.
+Ozwillo APIs access is over HTTPS, providers endpoints must be too.
 {: .focus .important}
 
 ### Terminology
@@ -54,7 +54,7 @@ But when it comes to Ozwillo's APIs and thus to this documentation, they have a 
   <dt>Application</dt>
   <dd>an abstract application, not directly usable, declared in the catalog and visible in Ozwillo's store, that can be the object of an instantiation. It's the product you sell;</dd>
   <dt id="def-application-instance">Application instance</dt>
-  <dd>or **instance** for short, a runnable copy of an application, created within the context of an identified authority (which may be an individual or an organization) after a successful provisioning;</dd>
+  <dd>or <strong>instance</strong> for short, a runnable copy of an application, created for a particular customer (which may be an individual or an organization) after a successful provisioning;</dd>
   <dt>Service</dt>
   <dd>an "endpoint" of an application instance, addressable through a URL (the service URI). Services are declared in the catalog and may or may not be visible in Ozwillo's store. An application instance is made of one or more services.</dd>
   <dt id="def-desk-shortcuts">Desk shortcuts</dt>
@@ -65,7 +65,7 @@ Additional definitions to complement the picture:
 
 <dl>
   <dt id="def-catalog">(Ozwillo's) catalog</dt>
-  <dd>a database of all applications, instances and services. It is used internally by the Portal to display a user’s desktop, to browse the app store, etc.;</dd>
+  <dd>a database of all applications, instances and services. It is used internally by the portal to display a user’s desktop, to browse the app store, etc.;</dd>
   <dt>(Ozwillo's) store</dt>
   <dd>a system that allows users to: find services that are publicly available and add them to their desktops, or find applications that are instantiable through provisioning. The store is the visible surface of the catalog;</dd>
   <dt id="def-store-entry">Store entry</dt>

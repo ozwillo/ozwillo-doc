@@ -58,6 +58,10 @@ More info [here](http://kramdown.gettalong.org/quickref.html#block-attributes).
 
 The styling and behavior of the documentation is deeply inspired by [meteor docs](http://docs.meteor.com/). The CSS relies on [normalize](git.io/normalize) and [typeplate](http://typeplate.com).
 
+### TODO
+
+- document refresh tokens (creation and revocation)
+
 ### Discussion
 
 For the moment the documentation relies on the following choices, that needs to be discussed:

@@ -58,7 +58,10 @@ It may occur that your HTTPS configuration is not trusted by the Kernel and thus
 
 ##### Robustness
 
-Following the <a href=" https://en.wikipedia.org/wiki/Robustness_principle" target="_blank">robustness principle</a> of Jon Postel, your API endpoints should be prepared to receive more data than expected and described in the documentation. It especially enables Ozwillo to add new functionality without breaking backward compatibility, thanks to new parameters or headers in HTTP requests or responses.
+Following the <a href=" https://en.wikipedia.org/wiki/Robustness_principle" target="_blank">robustness principle</a> of Jon Postel, your API endpoints should be prepared to receive more data than expected and described in the documentation. It especially enables Ozwillo to add new functionality without breaking backward compatibility.
+
+Your endpoints must be robust to new parameters or parameters not described in this document (in particular in response bodies and HTTP headers).
+{: .focus .important}
 
 ##### Monitoring
 

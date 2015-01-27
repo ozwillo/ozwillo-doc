@@ -83,6 +83,9 @@ To ease the process, you may submit a first and simplified version of the commer
 
 When a purchase act occurs, Ozwillo creates a new [application instance](def-application-instance) in its catalog, in a pending state (since it has not been provisioned for the moment). This instance is given a unique and constant `instance_id` and credentials (`client_id` and `client_secret`). The `client_secret` must remain to be known only by Ozwillo and the provider.
 
+The actual behavior of Ozwillo is that `instance_id` and `client_id` are given the same unique GUID value, but this is really an implementation detail subject to change. The spec is that `instance_id` is an identifier that won't change over time, when `client_id` may be refreshed.
+{: .focus .important}
+
 ##### Request command
 
 Don't forget to read our [conventions](#ref-1-5) and [recommendations](#ref-2-3).
@@ -164,7 +167,7 @@ The following HTTP request is sent from the provider to Ozwillo.
 POST /apps/pending-instance/{instance_id} HTTP/1.1
 Host: {kernel API host}
 Accept: application/json, application/*+json
-Authorization: Basic {}
+Authorization: Basic {base64 encoding of client_id:client_secret}
 Content-Type: application/json;charset=UTF-8
 </pre>
 
@@ -206,10 +209,10 @@ The host is typically either `kernel.ozwillo-preprod.eu` (preproduction) or `ker
 | **service_uri** | URL entrypoint of the service | URI string |
 | notification_uri | endpoint used when there are notifications for this service | URI string |
 | **redirect_uris** | whitelist of authentication callbacks, each URI must be unique to this service within the instance | array of URI strings |
-| post_logout_redirect_uris | whitelist of post-logout callbacks | array of URI strings |
+| post_logout_redirect_uris | whitelist of post-logout callbacks, each URI must be unique to this service within the instance | array of URI strings |
 | subscription_uri | endpoint of the subscription callback, usage is not implemented yet | array of URI strings |
 
-**NB**: `redirect_uris` values can't be shared by services within the same application instance.
+**NB**: `redirect_uris` and `post_logout_redirect_uris` values can't be shared by different services within the same application instance. In some cases Ozwillo may identify a service thanks to either `instance_id` + `redirect_uri` or `instance_id` + `post_logout_redirect_uri` pairs. 
 {: .focus .important}
 
 A few remarks on this table:

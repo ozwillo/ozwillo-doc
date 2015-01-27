@@ -58,10 +58,10 @@ As a result, the end-user client will issue the following request:
 
 <pre>
 GET {authentication_endpoint_path}?{parameters} HTTP/1.1
-Host: {authentication_endpoint_host}
+Host: {authentication_host}
 </pre>
 
-Knowing that we consider the context of our [preproduction](#ref-2-1) environment, the authentication endpoint path is `/a/auth` under the `accounts.ozwillo-preprod.eu` host, according to the <a href="http://kernel.ozwillo-preprod.eu/.well-known/openid-configuration" target="_blank">Well-Known URI Registry</a>.
+Knowing that we consider the context of our [preproduction](#ref-2-1) environment, the authentication endpoint path is `/a/auth` under the `accounts.ozwillo-preprod.eu` host, according to the <a href="https://accounts.ozwillo-preprod.eu/.well-known/openid-configuration" target="_blank">Well-Known URI Registry</a>.
 
 Before describing the query `{parameters}` are described in the following table, the request would then looks like:
 
@@ -74,7 +74,7 @@ Host: accounts.ozwillo-preprod.eu
 
 | Field name | Field description | Field type and format |
 | :-- | :-- | :-- |
-| **response_type** | determines the authorization processing flow, in our case the value is always `code` | string |
+| **response_type** | determines the authorization processing flow, in our case the value is <a href="https://openid.net/specs/openid-connect-core-1_0.html#AuthRequest" target="_blank">always</a> `code` | string |
 | **client_id** | the `client_id` associated to the application instance | string |
 | **scope** | list of scopes requested by the instance, it must at least contain `openid` | strings separated by spaces |
 | **redirect_uri** | the redirection URI to which the response will be sent | URI string |
@@ -88,8 +88,8 @@ GET /a/auth?
  response_type=code
  &client_id={client_id}
  &scope=openid%20profile
- &redirect_uri=https://app.example.com/cb
- &state=security_token%3D{random_value}%26url%3Dhttps%3A%2F%2Fapp.example.com%2FmyHome
+ &redirect_uri=https%3A%2F%2Fapp.example.com%2Fcb
+ &state=security_token%3D{random_value}%26url%3Dhttps%3A%2F%2Fapp.example.com%home
  &nonce={another_random_value} HTTP/1.1
 Host: accounts.ozwillo-preprod.eu
 </pre>
@@ -105,39 +105,207 @@ Several operations are then conducted on Ozwillo side:
 2. authenticate the user;
 3. ask user to accept scopes claimed by the instance.
 
-##### SUCCESS
+The user experience (points 2 and 3) may vary if previous interaction between the users and Ozwillo has occured or not: do they have an account (or do they have to register)? Are they currently logged to Ozwillo? Have they previously granted *this* instance to use *those* scopes? In particular, if all the answers to these questions are yes, 2 and 3 are validated silently by Ozwillo, meaning that no sign-in or grant web page is shown.
 
-If all of these succeed, and if the `redirect_uri` value specified in [step #1](#ref-4-3-1) matches one of the `redirect_uris` specified during the [provisioning acknowledgement](#ref-3-2-3), the following response will be sent:
+In short, the [authentication endpoint](#api-a-auth){: .api} implements a rich behaviour and may not display the same user interface depending on an existing history between the end user and Ozwillo through a given web client.
+
+##### Success
+
+If the previous operations succeed, and if the `redirect_uri` value specified in [step #1](#ref-4-3-1) matches one of the `redirect_uris` specified during the [provisioning acknowledgement](#ref-3-2-3), the following response will be sent:
 
 <pre>
 HTTP/1.1 302 Found
-Location: https://app.example.com/cb?state=security_token%3D{random_value}%26url%3Dhttps%3A%2F%2Fapp.example.com%2FmyHome&code={another_random_value}
+Location: https://app.example.com/cb?state=security_token%3D{random_value}%26url%3Dhttps%3A%2F%2Fapp.example.com%2Fhome&code={code}
 </pre>
 
 This redirect workflow means your server will finally receive the following request sent from the end-user navigator:
 
 <pre>
-GET /cb?state=security_token%3D{random_value}%26url%3Dhttps%3A%2F%2Fapp.example.com%2FmyHome&code={another_random_value} HTTP/1.1
+GET /cb?state=security_token%3D{random_value}%26url%3Dhttps%3A%2F%2Fapp.example.com%2Fhome&code={code} HTTP/1.1
 Host: app.example.com/
 </pre>
 
-##### FAILURE
+##### Failure
 
 The same `redirect_uri` callback will be notified of the authentication error according to the <a href="http://openid.net/specs/openid-connect-core-1_0.html#AuthError" target="_blank">spec</a>.
 
 #### #3 Response validation
 {: #ref-4-3-3}
 
-You should verify that both the `security_token` (within the `state`) and the `nonce` are the ones you sent first to Ozwillo, to decide that you can trust the response.
+You should verify that the `security_token` (within the `state`) is the one you sent first to Ozwillo during [step #1](#ref-4-3-1), to decide if you can trust the response. To do so, you should link it to the current user session. This operation ensures the user accessing Ozwillo response is the same that initiated the authentication request.
 
-TODO: usage of state
-{: .todo}
+If yes, you finally use the `code` to obtain an `access_token`. 
 
 #### #4 Requesting an access token
 {: #ref-4-3-4}
 
-#### #5 Access token validation
+The previous steps occured through the end-user navigator and redirects. From now on, the interaction is done directly between Ozwillo and provider APIs.
+
+##### Request command
+
+<pre>
+POST {token_endpoint_path} HTTP/1.1
+Host: {authentication_host}
+Content-Type: application/x-www-form-urlencoded
+Authorization: Basic {base64 encoding of client_id:client_secret}
+</pre>
+
+According to the <a href="https://accounts.ozwillo-preprod.eu/.well-known/openid-configuration" target="_blank">Well-Known URI Registry</a>, on the preprod environment it valuates to:
+
+<pre>
+POST /a/token HTTP/1.1
+Host: accounts.ozwillo-preprod.eu
+<strong>Content-Type: application/x-www-form-urlencoded</strong>
+Authorization: Basic {base64 encoding of client_id:client_secret}
+</pre>
+
+The authorization header needs to be set as described in [Calling the Kernel without an access_token](#ref-2-2--2) and the request body is sent as form serialization.
+
+##### Request body
+
+| Field name | Field description | Field type and format |
+| :-- | :-- | :-- |
+| **grant_type** | in our case the value is <a href="https://openid.net/specs/openid-connect-core-1_0.html#TokenRequest">always</a> `authorization_code` | string |
+| **redirect_uri** | the redirection URI to which the response will be sent | URI string |
+| **code** | the `code` sent to you in [step #1](#ref-4-3-2) | string |
+
+#### #5 Ozwillo response
 {: #ref-4-3-5}
 
-### FAQ
+Similarly to step #2, Ozwillo may accept or reject the previous request (especially depending on the `Authorization` header and the `code` parameter).
+
+##### Success status and headers
+
+In case of success, the following response will be sent:
+
+<pre>
+HTTP/1.1 200 OK
+Content-Type: application/json
+Cache-Control: no-store
+Pragma: no-cache
+</pre>
+
+##### Success body
+
+| Field name | Field description | Field type and format |
+| :-- | :-- | :-- |
+| **access_token** | access_token token value issued by the Authorization Server | string |
+| **token_type** | in our case the value is <a href="https://openid.net/specs/openid-connect-core-1_0.html#TokenResponse">always</a> `Bearer` | string |
+| scope | reminder of scopes associated with this access token | strings separated by spaces |
+| expires_in | expiration time of the access token in seconds | number |
+| **id_token** | value associated with the authenticated session | JWT string |
+
+##### Failure
+
+If Ozwillo rejects the previous request, a HTTP 400 error will be <a href="https://openid.net/specs/openid-connect-core-1_0.html#TokenErrorResponse" target="_blank">sent back</a>.
+
+#### #6 Token decoding and validation
+{: #ref-4-3-6}
+
+The `id_token` sent in the previous step is a JWT (JSON Web Token). You can do some tests by using this <a href="http://jwt.io/" target="_blank">online tools</a> or dedicated <a href="http://jwt.io/#libraries" target="_blank">libraries</a> (please check <a href="http://openid.net/developers/libraries/" target="_blank">these ones</a> too).
+
+These libraries also help you to check the `id_token` signature knowing Ozwillo public keys. The public keys URI is named `jwks_uri` on the <a href="https://accounts.ozwillo-preprod.eu/.well-known/openid-configuration" target="_blank">preproduction</a> or <a href="https://accounts.ozwillo.com/.well-known/openid-configuration" target="_blank">production</a> configurations. For instance on preproduction: https://accounts.ozwillo-preprod.eu/a/keys.
+
+If the signatures do not match, you can not trust the JWT. If they do match, the JWT contains the following fields:
+
+| Field name | Field description | Field type and format |
+| :-- | :-- | :-- |
+| **iss** | issuer identifier, typically `https://accounts.ozwillo-preprod.eu` | URI string |
+| **sub** | subject identifier, meaning the Ozwillo user id | string |
+| **aud** | audience, in our case the `client_id` | string |
+| **iat** | time at which the JWT was issued | number |
+| **exp** | expiration time | number |
+| **nonce** | used to mitigate replay attacks | string |
+| **app_user** | Ozwillo specific, used to describe the user role (see [explanation](#ref-1-5-1) | boolean |
+| **app_admin** | Ozwillo specific, used to describe the user role (see [explanation](#ref-1-5-1) | boolean |
+
+The last expected validation is that you check the `nonce` sent back in this response is the same you sent in [step 1](#ref-4-3-1).
+
+If all goes well and depending on your use cases, you may now enrich and qualify your end-user session with the issued `access_token` and `id_token`. The `access_token` is especially useful for further interactions use Ozwillo APIs, typically the user info endpoint.
+
+The `access_token` must not be leaked in a client-side cookie.
+{: .focus .important}
+
+### Sign-out
 {: #ref-4-4}
+
+Signing out a user is a 3-step process.
+
+#### #1 Revoke known tokens
+
+To prevent tokens from being used maliciously would they be leaked, the first step is to use the *revocation endpoint* as defined by <a href="https://tools.ietf.org/html/rfc7009" target="_blank">RFC 7009</a> to revoke all the tokens known to the application.
+
+Authentication to the revocation endpoint is done using the same mechanism and credentials as at the token endpoint to exchange authentication codes for tokens.
+
+##### Request command
+
+<pre>
+POST {revocation_path} HTTP/1.1
+Host: {authentication_host}
+Content-Type: application/x-www-form-urlencoded
+Authorization: Basic {base64 encoding of client_id:client_secret}
+</pre>
+
+According to the <a href="https://accounts.ozwillo-preprod.eu/.well-known/openid-configuration" target="_blank">Well-Known URI Registry</a>, on the preprod environment it valuates to:
+
+<pre>
+POST /a/revoke HTTP/1.1
+Host: accounts.ozwillo-preprod.eu
+<strong>Content-Type: application/x-www-form-urlencoded</strong>
+Authorization: Basic {base64 encoding of client_id:client_secret}
+</pre>
+
+The authorization header needs to be set as described in [Calling the Kernel without an access_token](#ref-2-2--2) and the request body is sent as form serialization.
+
+##### Request body
+
+| Field name | Field description | Field type and format |
+| :-- | :-- | :-- |
+| **token** | the value of the `access_token` | string |
+| **token_type_hint** | the type of the token, in this case the string `access_token` | string |
+
+#### #2 Invalidate the application's local session
+
+Whichever mean the application uses to maintain the user session, it should be invalidated so that when the users come back to the application (and/or if they had the application opened in several windows or tabs), they won't be recognized and the authentication process is triggered again.
+
+#### #3 Single sign-out
+
+If the user is still signed in on Ozwillo, going back to the service is going to transparently sign-in her/him back. Indeed the service redirects to Ozwillo authentication endpoint (see the [authentication request](#ref-4-3-1)), and knowing a session exists between the user and Ozwillo this step succeeds silently.
+
+This would be a surprising behavior for the user so he must be given the choice to sign out from the whole Ozwillo platform. This is done using the *end session endpoint* as defined by <a href="https://openid.net/specs/openid-connect-session-1_0.html#RPLogout" target="_blank">RP-Initiated Logout in OpenID Connect Session Management 1.0</a>.
+
+It means that, as a response to a sign-out action, you should issue a redirect:
+
+<pre>
+HTTP/1.1 302 Found
+Location: {end_session_endpoint}?{parameters}
+</pre>
+
+As a result, the end-user client will issue the following request:
+
+##### Request command
+
+<pre>
+GET {end_session_endpoint}?{parameters} HTTP/1.1
+Host: {authentication_host}
+</pre>
+
+As usual, you will find the `end_session_endpoint` value in the <a href="https://accounts.ozwillo-preprod.eu/.well-known/openid-configuration" target="_blank">preproduction</a> or <a href="https://accounts.ozwillo.com/.well-known/openid-configuration" target="_blank">production</a> configurations.
+
+On preproduction, the request looks like:
+
+<pre>
+GET /a/logout?{parameters} HTTP/1.1
+Host: accounts.ozwillo-preprod.eu
+</pre>
+
+##### Query parameters
+
+| Field name | Field description | Field type and format |
+| :-- | :-- | :-- |
+| **id_token_hint** | the `id_token` JWT value that was issued at the end of authentication | string |
+| **post_logout_redirect_uri** | the redirection URI to which the response will be sent | URI string |
+| state | opaque value used to maintain state between the request and the callback | string |
+
+The `post_logout_redirect_uri` value must match one of the `post_logout_redirect_uris` specified during the [provisioning acknowledgement](#ref-3-2-3).
+{: .focus .important}
