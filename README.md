@@ -62,6 +62,18 @@ The styling and behavior of the documentation is deeply inspired by [meteor docs
 
 - document refresh tokens (creation and revocation)
 
+### Documentation conventions
+
+Shorts lists items do not end with punctuation marks:
+- first item
+- second
+- and third
+
+Longer ones (those that contains several sentences) do:
+- sentence. Another one;
+- sentence;
+- sentence. Another one.
+
 ### Discussion
 
 For the moment the documentation relies on the following choices, that needs to be discussed:

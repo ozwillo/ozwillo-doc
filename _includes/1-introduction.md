@@ -11,6 +11,7 @@ From a user standpoint, the Ozwillo portal acts similarly to a mobile operating 
 - manage one's personal and application settings
 
 The main user interface components are:
+{: #ref-1-1--1}
 
 - information pages served under `www.ozwillo.com`
 - the portal (as defined above) and its store, served under `portal.ozwillo.com`
@@ -19,7 +20,7 @@ The main user interface components are:
 Except from the store, the portal pages are reserved to registered and logged users. They especially give access to:
 
 - one's desk, made of shortcut icons to launch services;
-- one's network, to create and manage organizations and links within organizations. Thanks to this, it is possible for someone to install applications on behalf organizations, in addition to a personal use, if one is an admin of this organization;
+- one's network, to create and manage organizations and links within organizations. Thanks to this, it is possible for someone to **install applications on behalf organizations**, in addition to a personal use, if one is an admin of this organization;
 - one's application settings, where one can give others access to a given service, typically an organization admin authorizing other organization members.
 
 ### Programming interface
@@ -27,7 +28,7 @@ Except from the store, the portal pages are reserved to registered and logged us
 
 From a provider standpoint, adapting to Ozwillo means:
 
-1. include the application deployment process within the [provisioning protocol](#ref-3) described below. This is dealt with requests exchanged between the Kernel REST API and provider endpoints (typically over a REST API too)
+1. include the application deployment process within the [provisioning protocol](#ref-3) described below. This is dealt with requests exchanged between Ozwillo REST API and provider endpoints (typically over a REST API too)
 2. if user authentication is needed, [delegate it](#ref-4) to Ozwillo OpenID Connect Identity Provider
 3. create, update and consume linked and shared data through the Datacore REST API
 
@@ -36,9 +37,12 @@ The Datacore API and its documentation are stabilizing. For the moment this docu
 
 In other words, Ozwillo programming interface is made of:
 
-- the Kernel API available under `kernel.ozwillo.com`
-- the Accounts API and web pages (single sign-in, single sign-out, forgotten password...) available under `accounts.ozwillo.com`
+- the API surface dedicated to authentication and authorization available under `accounts.ozwillo.com`
 - the Datacore API available under `data.ozwillo.com`
+- other APIs (for instance for provisioning) available under `kernel.ozwillo.com`
+
+As [previously](#ref-1-1--1) introduced, the `accounts` subdomain also serves a few web pages: single sign-in, single sign-out, forgotten password...
+{: .focus .soft}
 
 Ozwillo APIs access is over HTTPS, providers endpoints must be too.
 {: .focus .important}
@@ -75,26 +79,29 @@ Additional definitions to complement the picture:
   <dt id="def-purchaser">Purchaser</dt>
   <dd>A user that performed a purchase act;</dd>
   <dt id="def-app-factory">App factory</dt>
-  <dd>A REST API (implemented by the provider) that Ozwillo can call to initiate the <a href="#ref-3">provisioning</a> of an application instance, after a purchase act has occured.</dd>   
+  <dd>A REST API (implemented by the provider) that Ozwillo can call to initiate the provisioning of an application instance, after a purchase act has occured.</dd>   
 </dl>
 
 What may be confusing at first is that both *abstract* — not instantiated — applications and *tangible* — instantiated — services can be found in the store. From a user standpoint it makes sense: one does not worry about the technical implications behind a purchase act. But since the documentation reader cares, here is the difference:
 
 - installing an application triggers the provisioning protocol, leading to software deployment on the provider side, and then to a declaration of the created instance to Ozwillo. It requires communication between Ozwillo and the provider servers;
-- installing a service is simply the process of bookmarking the service URI as an icon on the user's desktop. This is instantaneous and does not require communication between Ozwillo and the provider servers.
+- installing a service is simply the process of bookmarking the service URI as a user desk shortcut. This is instantaneous and does not require communication between Ozwillo and the provider servers.
 
 ### Visibility vs restricted access
 {: #ref-1-4}
 
-If an application or service is visible, it only means it is publicly referenced and shown under Ozwillo's store.
+If a store entry is visible, it only means it is publicly referenced and shown under Ozwillo's store.
 
-A `visible:false` (hidden) application may be under review or not be available at this time. A hidden service is typically targeted to certain users (depending on who purchased the instance): it is shown as a "service launcher icon" under one's desk, but not listed in the store.
+A `visible:false` (hidden) application may be under review or not be available at this time. A hidden service is typically targeted to certain users (depending on who purchased the instance): it is only shown as a desk shortcut for given authorized users, but not listed in the store.
 
 The fact that a service is visible or not in the store is yet separated to how its access is managed, possibly being restricted to certain users. All of these scenarios are possible:
 
 - a visible service whose access is restricted to given users (for example if the service owner wants to explicitely grant access to requesting users)
-- a hidden service with public access (for example if the service owner does not want to be referenced under Ozwillo's store)
-- more typically services that are either visible and public, or hidden and protected.
+- a hidden service with public access (for example if the service owner does not want to reference it on Ozwillo's store)
+- more typically services that are either visible and public, or hidden and protected
+
+More to come: a `neverVisible` property for services will likely be introduced in the future. Indeed, there are valid scenarios where services could be updated from `visible:false` to `visible:true` over time, when there are others where we want to be sure it won't happen: it would be the purpose of `neverVisible:true`.
+{: .focus .soft}
 
 The [Provisioning](#ref-3) section shows how these settings are set.
 
@@ -104,36 +111,39 @@ The [Provisioning](#ref-3) section shows how these settings are set.
 ### `app_admin` vs `app_user`
 {: #ref-1-5-1}
 
-The case for restricted services is that only specific users are allowed to access and interact with them. By default, the user that purchased the instance is an `app_admin`, meaning that s/he has the right to add new `app_admin` or `app_user` users.
+The case for `restricted:true` services is that only specific users are allowed to access and interact with them. By default, the user that purchased the instance is an `app_admin`, meaning that s/he has the right to add new `app_admin` or `app_user` users.
 
 Both `app_admin` and `app_user` are considered authorized users of the instance, but an `app_user` can not add other authorized users. These rules (who can add who) are internal to Ozwillo and frame the organization management under the portal.
 
 As a provider, you will also get this info (is the user an `app_admin` or `app_user`) and are free to give it whatever meaning best suits your application behavior. Yet, on application instances side, it's typical that `app_admin` maps the role with the highest privileges and is allowed to configure the roles of others (`app_user`). Then `app_user` may hold a variety of different user types from the application point of view. Since Ozwillo can not know all business-specific roles of all applications, you can define a finer granularity of users under the global `app_user` concept linked to Ozwillo.
 
-To sum-up, it is typical that on the application side:
+To sum-up, it is typical (but not imposed) that on the application side:
 
-- `app_admin` characterises users with the highest privileges;
-- `app_user` is generic and may apply to different business roles (for instance: moderator, editor...).
+- `app_admin` characterises users with the highest privileges
+- `app_user` is generic and may apply to different business roles (for instance: moderator, editor...)
 
-Now, when your services are accessed by internet users, how do you know they are indeed authorized users (`app_admin` or `app_user`)? This will be answered in depth in the [User Authentication](#ref-4) section, but let's give a glimpse of it, it will also helps introduce the *scope* concept.
+Now, when your services are accessed by internet users, how do you know they are indeed authorized users (`app_admin` or `app_user`)? This will be answered in depth in the [User Authentication](#ref-4) section. But let's give a glimpse of it: it will also helps introduce the *scope* concept.
 
 ### Authorization in brief
 {: #ref-1-5-2}
 
 Let's say an internet user arrives at one of the URIs corresponding to the protected area of your service, typically the service URI entrypoint.
 
-Without Ozwillo, you would check that you know this user (existing session) and if not trigger authentication to check if s/he can identify as an authorized user.
+Without Ozwillo, you would check that you know this user (there is an existing session) and if not trigger authentication to check if s/he can identify as an authorized user.
 
 With Ozwillo, you delegate authentication and authorization: Ozwillo is both an identity provider and an authorization server. It means that without a valid session on your server, you redirect the user to Ozwillo authentication page, passing it interesting parameters like:
 
-- a `client_id` that helps identify the application instance in which the service resides;
-- a `scope` list that will be explained in the next paragraph;
-- and others that will be detailed in the [User Authentication](#ref-1-4) section.
+- a `client_id` that helps identify the application instance in which the service resides
+- a `scope` list that will be explained in the next paragraph
+- and others that will be detailed in the [User Authentication](#ref-1-4) section
 
 So let's focus on the `client_id`: thanks to it, Ozwillo knows what application instance the user is trying to access. Ozwillo then checks if s/he is indeed a valid `app_admin` or `app_user` of this instance, and now there are two cases depending on the service configuration:
 
-- if the service is `restricted:true` Ozwillo authentication will only succeed for an `app_admin` or `app_user`: you can rely on it;
-- if the service is `restricted:false` Ozwillo authentication will succeed even if the user is neither an `app_admin` nor a `app_user`, but the service will be notified of it.
+- if the service is `restricted:true` Ozwillo authentication will only succeed for an `app_admin` or `app_user` (you can rely on it)
+- if the service is `restricted:false` Ozwillo authentication will succeed even if the user is neither an `app_admin` nor a `app_user`, but the service will be notified of it
+
+There are other reasons for the authentication and authorization to fail: for instance users may refuse to accept the [scopes](#ref-1-5-3) claimed by your instance.
+{: .focus .soft}
 
 If authentication is successful, your service will be given at the end of the [authorization code flow](#ref-4-3) an `access_token` that can be seen as an "Ozwillo session id". Now you have an `access_token`, you can create a session linking the user and this `access_token`, so that authentifying the user won't be necessary on each requested page. For security measures, the `access_token` must not be leaked on the client side.
 
@@ -142,7 +152,7 @@ In short, you condition the creation of a session on your server to the retrieva
 ### Scopes
 {: #ref-1-5-3}
 
-First of all, Ozwillo as an authentication and authorization solution is an implementation of <a href="http://openid.net/connect/" target="_blank">OpenID Connect</a> Authorization Server, and as such uses scopes introduced by the protocol to specify access privileges.
+First of all, Ozwillo as an authentication and authorization server is an implementation of <a href="http://openid.net/connect/" target="_blank">OpenID Connect</a> Authorization Server, and as such uses scopes introduced by the protocol to specify access privileges.
 
 For instance and if we focus on scopes <a href="http://openid.net/specs/openid-connect-basic-1_0.html#Scopes" target="_blank">introduced</a> by OpenID Connect, the provider may ask for an `access_token` with the `email` scope. When authenticating, users are prompted to know if they want to share their email address with this instance. As a result, the `access_token` created is associated to this scope (if granted by user) on Ozwillo side.
 
@@ -150,18 +160,18 @@ When the instance wants to indeed access the email through one of Ozwillo API en
 
 As you will see later, you can ask for scopes at several occasions:
 
-- during the application instance installation (users will globally accept or deny it for their future usage of the application instance);
-- when accessing a service (prompt during authentication) and for the lifetime of the `access_token`;
-- on a per action basis.
+- during the application instance installation (users will globally accept or deny it for their future usage of the application instance)
+- when accessing a service (prompt during authentication) and for the lifetime of the `access_token`
+- on a per action basis
 
-When a claimed scope is refused by users, the instance will always be able to ask for it again later, and explain a given operation won't be possible until they accept it.
+When a claimed scope is refused by users, the instance will be able to ask for it again later, and explain a given operation won't be possible until they accept it.
 
-Scopes are typically used to access private profile information (see those inherent in <a href="http://openid.net/specs/openid-connect-basic-1_0.html#Scopes" target="_blank">OpenID Connect</a> like email, address or phone). But we will see that this mechanism is flexible enough to use additional scopes defined by application instances during [provisioning](#ref-3-2-3-scope).
+Scopes are typically used to access private profile information (see those inherent to <a href="http://openid.net/specs/openid-connect-basic-1_0.html#Scopes" target="_blank">OpenID Connect</a> like email, address or phone). But we will see that this mechanism is flexible enough to use additional scopes defined by application instances during [provisioning](#ref-3-2-3-scope).
 
 ### Documentation conventions
 {: #ref-1-6}
 
-HTTP requests and responses bodies (and data models) are described in tables. Within these tables the first column is dedicated to field or parameter names; when they are displayed in **boldface**, it means they are mandatory.
+HTTP requests and responses bodies (and data models) are described in tables. Within these tables the first column is dedicated to parameter names; when they are displayed in **boldface**, it means they are mandatory.
 
 When you see curly brackets {} in a code sample, it means the content should be evaluated. Curly brackets typically contain variable names or describe an operation, for example:
 

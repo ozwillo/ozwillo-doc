@@ -159,7 +159,7 @@ Host: accounts.ozwillo-preprod.eu
 Authorization: Basic {base64 encoding of client_id:client_secret}
 </pre>
 
-The authorization header needs to be set as described in [Calling the Kernel without an access_token](#ref-2-2--2) and the request body is sent as form serialization.
+The authorization header needs to be set as described in [Calling the Kernel without an access_token](#ref-2-3--2) and the request body is sent as form serialization.
 
 ##### Request body
 
@@ -255,7 +255,7 @@ Host: accounts.ozwillo-preprod.eu
 Authorization: Basic {base64 encoding of client_id:client_secret}
 </pre>
 
-The authorization header needs to be set as described in [Calling the Kernel without an access_token](#ref-2-2--2) and the request body is sent as form serialization.
+The authorization header needs to be set as described in [Calling the Kernel without an access_token](#ref-2-3--2) and the request body is sent as form serialization.
 
 ##### Request body
 

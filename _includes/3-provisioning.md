@@ -3,10 +3,10 @@
 
 This section explains the provisioning protocol triggered between Ozwillo and the provider APIs when a [purchase act](#def-purchase-act) occurs on the portal. The outcome of a successful provisioning is an application instance that is both:
 
-1. allocated and reachable on the provider servers;
-2. declared with appropriate settings, especially regarding access rights, on Ozwillo;
+1. allocated and reachable on the provider servers
+2. declared with appropriate settings, especially regarding access rights, on Ozwillo
 
-where (2) enables the creation of [desk shortcuts](#def-desk-shortcuts) so that users can access (1).
+where (2) enables the creation of [desk shortcuts](#def-desk-shortcuts) so that users can access (1)
 {: .where}
 
 The creation of an application instance on the provider side may imply configuration changes or new resources allocation. These implementation details are left unconstrained: the protocol focuses only on API communication. It means existing deployment operations does not have to be affected and should rather be exposed through this protocol.
@@ -65,11 +65,11 @@ There is no official spec about secret strings, but 30 characters within a rich 
 
 ##### Summary
 
-You will likely need to read the remainder of this section to fully understand how fields are used, especially those related to the App factory. It means these setup steps are required before receiving provisioning requests from Ozwillo:
+You will likely need to read the remainder of this section to fully understand how fields are used, especially those related to the app factory. It means these setup steps are required before receiving provisioning requests from Ozwillo:
 
-1. gather all parameters info needed as described in the previous tables;
-2. send it to <a mailto="providers@ozwillo.com">providers@ozwillo.com</a> along with your display name as an application provider (typically the name of your company);
-3. you will be notified when the application is made available on the [preproduction](#ref-2-1).
+1. gather all parameters info needed as described in the previous tables
+2. send it to <a mailto="providers@ozwillo.com">providers@ozwillo.com</a> along with your display name as an application provider (typically the name of your company)
+3. you will be notified when the application is made available on the [preproduction](#ref-2-1)
 
 To ease the process, you may submit a first and simplified version of the commercial info fields, focusing on simple versions of **required** fields, and resubmit it later with enriched contents.
 
@@ -88,7 +88,7 @@ The actual behavior of Ozwillo is that `instance_id` and `client_id` are given t
 
 ##### Request command
 
-Don't forget to read our [conventions](#ref-1-5) and [recommendations](#ref-2-3).
+Don't forget to read our [conventions](#ref-1-5) and [recommendations](#ref-2-4).
 {: .focus .soft}
 
 The following HTTP request is sent from Ozwillo to the provider at `instantiation_uri` (decomposed in `instantiation_path` and `instantiation_host` below). 
@@ -171,7 +171,7 @@ Authorization: Basic {base64 encoding of client_id:client_secret}
 Content-Type: application/json;charset=UTF-8
 </pre>
 
-The host is typically either `kernel.ozwillo-preprod.eu` (preproduction) or `kernel.ozwillo.com` (production). The authorization header needs to be set as described in [Calling the Kernel without an access_token](#ref-2-2--2).
+The host is typically either `kernel.ozwillo-preprod.eu` (preproduction) or `kernel.ozwillo.com` (production). The authorization header needs to be set as described in [Calling the Kernel without an access_token](#ref-2-3--2).
 
 ##### Request body
 
