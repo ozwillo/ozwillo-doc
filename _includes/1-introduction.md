@@ -137,7 +137,7 @@ With Ozwillo, you delegate authentication and authorization: Ozwillo is both an 
 - a `scope` list that will be explained in the next paragraph
 - and others that will be detailed in the [User Authentication](#ref-1-4) section
 
-So let's focus on the `client_id`: thanks to it, Ozwillo knows what application instance the user is trying to access. Ozwillo then checks if s/he is indeed a valid `app_admin` or `app_user` of this instance, and now there are two cases depending on the service configuration:
+Let's focus on the `client_id`: thanks to it, Ozwillo knows what application instance the user is trying to access. Ozwillo then checks if s/he is indeed a valid `app_admin` or `app_user` of this instance, and now there are two cases depending on the service configuration:
 
 - if the service is `restricted:true` Ozwillo authentication will only succeed for an `app_admin` or `app_user` (you can rely on it)
 - if the service is `restricted:false` Ozwillo authentication will succeed even if the user is neither an `app_admin` nor a `app_user`, but the service will be notified of it
@@ -145,9 +145,18 @@ So let's focus on the `client_id`: thanks to it, Ozwillo knows what application 
 There are other reasons for the authentication and authorization to fail: for instance users may refuse to accept the [scopes](#ref-1-5-3) claimed by your instance.
 {: .focus .soft}
 
-If authentication is successful, your service will be given at the end of the [authorization code flow](#ref-4-3) an `access_token` that can be seen as an "Ozwillo session id". Now you have an `access_token`, you can create a session linking the user and this `access_token`, so that authentifying the user won't be necessary on each requested page. For security measures, the `access_token` must not be leaked on the client side.
+If authentication is successful, your service will be given at the end of the [authorization code flow](#ref-4-3) two tokens:
 
-In short, you condition the creation of a session on your server to the retrieval of an `access_token` from Ozwillo.
+- an `id_token` assessing authentication is successful and giving information about the user identity
+- an `access_token` which authorizes you to access and interact with Ozwillo APIs (depending on granted scopes) on behalf this user, during a limited period
+
+On your server, you may associate a user session with these two tokens to deal with forthcoming requests to Ozwillo APIs, but they must not be leaked client-side.
+
+In short, you can:
+
+- restrict the access to certain web pages depending on the ability to retrieve an `id_token`
+- possibly refine capabilities offered to the user depending on `app_admin` and `app_user` properties (which are wrapped in the `id_token`)
+- ask to access Ozwillo API resources on behalf the user thanks to the `access_token`
 
 ### Scopes
 {: #ref-1-5-3}
