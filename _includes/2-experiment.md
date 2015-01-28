@@ -19,12 +19,15 @@ As of today, the preproduction fulfills two different objectives:
 
 That's why providers are asked to implement provisioning and authentication on preproduction first. Once validated, their applications are declared to production.
 
+From now on, the documentation focuses on preproduction hosts, in particular in HTTP request samples. Hosts should be put in variables so that you can update them to the production ones when needed.
+{: .focus .important}
+
 ### OpenID configuration
 {: #ref-2-2}
 
-Ozwillo provides API endpoints that implement OpenID Connect. Their configuration is accessible as a well-known registry resource: here are the <a href="https://accounts.ozwillo-preprod.eu/.well-known/openid-configuration" target="_blank">preproduction</a> and <a href="https://accounts.ozwillo-preprod.eu/.well-known/openid-configuration" target="_blank">production</a> ones.
+Ozwillo provides API endpoints that implement OpenID Connect. Their configuration is accessible as a well-known registry resource: here is the <a href="https://accounts.ozwillo-preprod.eu/.well-known/openid-configuration" target="_blank">preproduction</a> one.
 
-For instance, the preproduction configuration shows the `authorization_endpoint` is accessible at `https://accounts.ozwillo-preprod.eu/a/auth`
+For instance, the configuration shows the `authorization_endpoint` is accessible at `https://accounts.ozwillo-preprod.eu/a/auth`
 
 These endpoints are also listed in the [API reference](#ref-5) section.
 
@@ -34,6 +37,7 @@ These endpoints are also listed in the [API reference](#ref-5) section.
 This paragraph provides an overview of authentication and authorization schemes that occur between Ozwillo and provider APIs.
 
 ##### Recognize and trust Ozwillo
+{: #ref-2-3--1}
 
 As you will [soon](#ref-3-2-1) see, a purchase act on the portal causes Ozwillo to POST provisioning requests to a provider endpoint. Encoding the payload of the request and sending the resulting signature as a HTTP header allows the provider to recognize Ozwillo as the request issuer.
 
@@ -48,7 +52,7 @@ Having an `access_token` means an end user has successfully [authenticated](#ref
 - when answering the provisioning request described in the previous paragraph
 - when posting notifications or events
 
-In those cases, the provider servers must issue HTTP requests to Ozwillo with [basic authentication](https://tools.ietf.org/html/rfc2617#section-2) using the `client_id`/`client_secret` pair as user-ID and password, and base64 encode them in an `Authorization: Basic {client_id:client_secret base64}` HTTP header.
+In those cases, the provider servers must issue HTTP requests to Ozwillo with [basic authentication](https://tools.ietf.org/html/rfc2617#section-2) using the `client_id`/`client_secret` pair as user-ID and password, and base64 encode them in an `Authorization: Basic {base64 encoding of client_id:client_secret}` HTTP header.
 
 ##### Calling Ozwillo with an access_token
 

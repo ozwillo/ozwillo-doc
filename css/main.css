@@ -893,7 +893,7 @@ body.toc-open #top {
 #main h2 {
   font-size: 1.7em;
   padding-bottom: .3em;
-  margin: 1em 0;
+  margin: 3em 0 1em;
   border-bottom: 1px solid #ccc;
 }
 #main h3 {
@@ -906,6 +906,12 @@ body.toc-open #top {
 }
 #main h5 {
   margin: 1.4em 0 .6em;
+  text-transform: uppercase;
+  font-size: 0.9em;
+  font-weight: bold;
+  color: #959595;
+}
+#main span.h5 {
   text-transform: uppercase;
   font-size: 0.9em;
   font-weight: bold;

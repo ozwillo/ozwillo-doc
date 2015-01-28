@@ -12,7 +12,7 @@ In this respect, the provider acts as a Relying Party:
 
 > **OAuth 2.0 Client** application requiring End-User Authentication and Claims from an OpenID Provider.
 
-You may refer to the previous [Authentication in brief](#ref-1-5-2) and [scopes](#ref-1-5-3) paragraphs for a remainder, but the outcome of a successful authentication is the creation of an `access_token` that links three resources (during a limited period of time):
+You may refer to the previous [Authentication in brief](#ref-1-5-2) and [scopes](#ref-1-5-3) paragraphs for a reminder, but the outcome of a successful authentication is the creation of an `access_token` that links three resources (during a limited period of time):
 
 - a user
 - an application instance identified by a `client_id`
@@ -27,7 +27,7 @@ That's how Ozwillo provides both authentication *and* authorization features.
 
 You will [soon](#ref-4-3-1) see that you ask Ozwillo to authenticate users against a `client_id`. Since this in an [outcome](#ref-3-2-1) of the provisioning process, you should implement provisioning first.
 
-In the case that what you offer is not an instantiable application, but a unique and singleton one, your product may be considered as a service, and you may ask for a `client_id` to <a mailto="providers@ozwillo.com">providers@ozwillo.com</a>.
+In the particular case where what you offer is not an instantiable application, but a unique and singleton one, your product may be considered as a service, and you may ask for a `client_id` to <a mailto="providers@ozwillo.com">providers@ozwillo.com</a>.
 
 ### Authorization code flow
 {: #ref-4-3}
@@ -38,7 +38,7 @@ Two particularities may be noted in comparison with the official spec:
 
 - if there is a one-to-one mapping between `client_id`s and application instances, in Ozwillo we also add a one-to-many relation between applications instances and services. It means that several services (end-user endpoints) may exist within the same `client_id`;
 
-- the ID Token sent by Ozwillo as an outcome of [step #3](#ref-4-3-3) contains the <a href="http://openid.net/specs/openid-connect-core-1_0.html#IDToken" target="_blank">official</a> required fields, plus Ozwillo specific settings (`app_user` and `app_admin` boolean values).
+- the ID Token sent by Ozwillo as an outcome of [step #5](#ref-4-3-5) contains the <a href="http://openid.net/specs/openid-connect-core-1_0.html#IDToken" target="_blank">official</a> required fields, plus Ozwillo specific properties (`app_user` and `app_admin` boolean values).
 
 Still within the context of the official spec, some optional features may not be implemented as of today, for instance passing a `max_age` parameter to the authentication endpoint.
 
@@ -52,29 +52,20 @@ HTTP/1.1 302 Found
 Location: {authentication_endpoint}?{parameters}
 </pre>
 
-As a result, the end-user client will issue the following request:
+Knowing Ozwillo <a href="https://accounts.ozwillo-preprod.eu/.well-known/openid-configuration" target="_blank">OpenID configuration</a>, the end-user navigator will issue the following request :
 
 ##### Request command
-
-<pre>
-GET {authentication_endpoint_path}?{parameters} HTTP/1.1
-Host: {authentication_host}
-</pre>
-
-Knowing that we consider the context of our [preproduction](#ref-2-1) environment, the authentication endpoint path is `/a/auth` under the `accounts.ozwillo-preprod.eu` host, according to the <a href="https://accounts.ozwillo-preprod.eu/.well-known/openid-configuration" target="_blank">Well-Known URI Registry</a>.
-
-Before describing the query `{parameters}` are described in the following table, the request would then looks like:
 
 <pre>
 GET /a/auth?{parameters} HTTP/1.1
 Host: accounts.ozwillo-preprod.eu
 </pre>
 
-##### Query parameters
+##### Query {parameters}
 
 | Field name | Field description | Field type and format |
 | :-- | :-- | :-- |
-| **response_type** | determines the authorization processing flow, in our case the value is <a href="https://openid.net/specs/openid-connect-core-1_0.html#AuthRequest" target="_blank">always</a> `code` | string |
+| **response_type** | determines the authorization processing flow, in our case the value is <a href="https://openid.net/specs/openid-connect-core-1_0.html#AuthRequest" target="_blank">always</a> "code" | string |
 | **client_id** | the `client_id` associated to the application instance | string |
 | **scope** | list of scopes requested by the instance, it must at least contain `openid` | strings separated by spaces |
 | **redirect_uri** | the redirection URI to which the response will be sent | URI string |
@@ -107,7 +98,7 @@ Several operations are then conducted on Ozwillo side:
 
 The user experience (points 2 and 3) may vary if previous interaction between the users and Ozwillo has occured or not: do they have an account (or do they have to register)? Are they currently logged to Ozwillo? Have they previously granted *this* instance to use *those* scopes? In particular, if all the answers to these questions are yes, 2 and 3 are validated silently by Ozwillo, meaning that no sign-in or grant web page is shown.
 
-In short, the [authentication endpoint](#api-a-auth){: .api} implements a rich behaviour and may not display the same user interface depending on an existing history between the end user and Ozwillo through a given web client.
+In short, the authentication endpoint implements a rich behaviour and may not display the same user interface depending on an existing history between the end user and Ozwillo through a given web client.
 
 ##### Success
 
@@ -134,23 +125,16 @@ The same `redirect_uri` callback will be notified of the authentication error ac
 
 You should verify that the `security_token` (within the `state`) is the one you sent first to Ozwillo during [step #1](#ref-4-3-1), to decide if you can trust the response. To do so, you should link it to the current user session. This operation ensures the user accessing Ozwillo response is the same that initiated the authentication request.
 
-If yes, you finally use the `code` to obtain an `access_token`. 
+If validation passes, you finally exchange the received `code` for an `access_token`. 
 
 #### #4 Requesting an access token
 {: #ref-4-3-4}
 
-The previous steps occured through the end-user navigator and redirects. From now on, the interaction is done directly between Ozwillo and provider APIs.
+The previous steps occured through the end-user navigator thanks to redirects. From now on, the interaction is done directly between Ozwillo and provider APIs.
 
 ##### Request command
 
-<pre>
-POST {token_endpoint_path} HTTP/1.1
-Host: {authentication_host}
-Content-Type: application/x-www-form-urlencoded
-Authorization: Basic {base64 encoding of client_id:client_secret}
-</pre>
-
-According to the <a href="https://accounts.ozwillo-preprod.eu/.well-known/openid-configuration" target="_blank">Well-Known URI Registry</a>, on the preprod environment it valuates to:
+Referring to the `token_endpoint` declared in Ozwillo <a href="https://accounts.ozwillo-preprod.eu/.well-known/openid-configuration" target="_blank">OpenID configuration</a>, you should issue the following request:
 
 <pre>
 POST /a/token HTTP/1.1
@@ -159,13 +143,13 @@ Host: accounts.ozwillo-preprod.eu
 Authorization: Basic {base64 encoding of client_id:client_secret}
 </pre>
 
-The authorization header needs to be set as described in [Calling the Kernel without an access_token](#ref-2-3--2) and the request body is sent as form serialization.
+The authorization header needs to be set as described in [Calling Ozwillo without an access_token](#ref-2-3--2). As shown in the `Content-Type` header, the following request body is sent as a serialized form.
 
 ##### Request body
 
 | Field name | Field description | Field type and format |
 | :-- | :-- | :-- |
-| **grant_type** | in our case the value is <a href="https://openid.net/specs/openid-connect-core-1_0.html#TokenRequest">always</a> `authorization_code` | string |
+| **grant_type** | in our case the value is <a href="https://openid.net/specs/openid-connect-core-1_0.html#TokenRequest">always</a> "authorization_code" | string |
 | **redirect_uri** | the redirection URI to which the response will be sent | URI string |
 | **code** | the `code` sent to you in [step #1](#ref-4-3-2) | string |
 
@@ -190,7 +174,7 @@ Pragma: no-cache
 | Field name | Field description | Field type and format |
 | :-- | :-- | :-- |
 | **access_token** | access_token token value issued by the Authorization Server | string |
-| **token_type** | in our case the value is <a href="https://openid.net/specs/openid-connect-core-1_0.html#TokenResponse">always</a> `Bearer` | string |
+| **token_type** | in our case the value is <a href="https://openid.net/specs/openid-connect-core-1_0.html#TokenResponse">always</a> "Bearer" | string |
 | scope | reminder of scopes associated with this access token | strings separated by spaces |
 | expires_in | expiration time of the access token in seconds | number |
 | **id_token** | value associated with the authenticated session | JWT string |
@@ -202,22 +186,22 @@ If Ozwillo rejects the previous request, a HTTP 400 error will be <a href="https
 #### #6 Token decoding and validation
 {: #ref-4-3-6}
 
-The `id_token` sent in the previous step is a JWT (JSON Web Token). You can do some tests by using this <a href="http://jwt.io/" target="_blank">online tools</a> or dedicated <a href="http://jwt.io/#libraries" target="_blank">libraries</a> (please check <a href="http://openid.net/developers/libraries/" target="_blank">these ones</a> too).
+The `id_token` sent in the previous step is a JWT (JSON Web Token). You can do some tests by using this <a href="http://jwt.io/" target="_blank">online tool</a> or dedicated <a href="http://jwt.io/#libraries" target="_blank">libraries</a> (please check <a href="http://openid.net/developers/libraries/" target="_blank">these ones</a> too).
 
-These libraries also help you to check the `id_token` signature knowing Ozwillo public keys. The public keys URI is named `jwks_uri` on the <a href="https://accounts.ozwillo-preprod.eu/.well-known/openid-configuration" target="_blank">preproduction</a> or <a href="https://accounts.ozwillo.com/.well-known/openid-configuration" target="_blank">production</a> configurations. For instance on preproduction: https://accounts.ozwillo-preprod.eu/a/keys.
+These libraries also help you check the `id_token` signature knowing Ozwillo public keys. The public keys URI is named `jwks_uri` in the <a href="https://accounts.ozwillo-preprod.eu/.well-known/openid-configuration" target="_blank">OpenID configuration</a>.
 
 If the signatures do not match, you can not trust the JWT. If they do match, the JWT contains the following fields:
 
 | Field name | Field description | Field type and format |
 | :-- | :-- | :-- |
-| **iss** | issuer identifier, typically `https://accounts.ozwillo-preprod.eu` | URI string |
+| **iss** | issuer identifier, typically "https://accounts.ozwillo-preprod.eu" | URI string |
 | **sub** | subject identifier, meaning the Ozwillo user id | string |
 | **aud** | audience, in our case the `client_id` | string |
 | **iat** | time at which the JWT was issued | number |
 | **exp** | expiration time | number |
 | **nonce** | used to mitigate replay attacks | string |
-| **app_user** | Ozwillo specific, used to describe the user role (see [explanation](#ref-1-5-1) | boolean |
-| **app_admin** | Ozwillo specific, used to describe the user role (see [explanation](#ref-1-5-1) | boolean |
+| **app_user** | Ozwillo specific, used to describe the user role (see [explanation](#ref-1-5-1)) | boolean |
+| **app_admin** | Ozwillo specific, used to describe the user role (see [explanation](#ref-1-5-1)) | boolean |
 
 The last expected validation is that you check the `nonce` sent back in this response is the same you sent in [step 1](#ref-4-3-1).
 
@@ -239,14 +223,7 @@ Authentication to the revocation endpoint is done using the same mechanism and c
 
 ##### Request command
 
-<pre>
-POST {revocation_path} HTTP/1.1
-Host: {authentication_host}
-Content-Type: application/x-www-form-urlencoded
-Authorization: Basic {base64 encoding of client_id:client_secret}
-</pre>
-
-According to the <a href="https://accounts.ozwillo-preprod.eu/.well-known/openid-configuration" target="_blank">Well-Known URI Registry</a>, on the preprod environment it valuates to:
+Knowing Ozwillo <a href="https://accounts.ozwillo-preprod.eu/.well-known/openid-configuration" target="_blank">OpenID configuration</a>, the request looks like:
 
 <pre>
 POST /a/revoke HTTP/1.1
@@ -262,7 +239,7 @@ The authorization header needs to be set as described in [Calling the Kernel wit
 | Field name | Field description | Field type and format |
 | :-- | :-- | :-- |
 | **token** | the value of the `access_token` | string |
-| **token_type_hint** | the type of the token, in this case the string `access_token` | string |
+| **token_type_hint** | the type of the token, in this case the string "access_token" | string |
 
 #### #2 Invalidate the application's local session
 
@@ -274,11 +251,11 @@ If the user is still signed in on Ozwillo, going back to the service is going to
 
 This would be a surprising behavior for the user so he must be given the choice to sign out from the whole Ozwillo platform. This is done using the *end session endpoint* as defined by <a href="https://openid.net/specs/openid-connect-session-1_0.html#RPLogout" target="_blank">RP-Initiated Logout in OpenID Connect Session Management 1.0</a>.
 
-It means that, as a response to a sign-out action, you should issue a redirect:
+According to Ozwillo <a href="https://accounts.ozwillo-preprod.eu/.well-known/openid-configuration" target="_blank">OpenID configuration</a>, you should then issue a redirect to conclude the sign-out:
 
 <pre>
 HTTP/1.1 302 Found
-Location: {end_session_endpoint}?{parameters}
+Location: https://accounts.ozwillo-preprod.eu/a/logout?{parameters}
 </pre>
 
 As a result, the end-user client will issue the following request:
@@ -286,20 +263,11 @@ As a result, the end-user client will issue the following request:
 ##### Request command
 
 <pre>
-GET {end_session_endpoint}?{parameters} HTTP/1.1
-Host: {authentication_host}
-</pre>
-
-As usual, you will find the `end_session_endpoint` value in the <a href="https://accounts.ozwillo-preprod.eu/.well-known/openid-configuration" target="_blank">preproduction</a> or <a href="https://accounts.ozwillo.com/.well-known/openid-configuration" target="_blank">production</a> configurations.
-
-On preproduction, the request looks like:
-
-<pre>
 GET /a/logout?{parameters} HTTP/1.1
 Host: accounts.ozwillo-preprod.eu
 </pre>
 
-##### Query parameters
+##### Query {parameters}
 
 | Field name | Field description | Field type and format |
 | :-- | :-- | :-- |

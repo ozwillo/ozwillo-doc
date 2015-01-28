@@ -104,7 +104,7 @@ Content-Type: application/json;charset=UTF-8
 The body of this request is encoded in JSON. A HMAC-SHA1 hash of the JSON string is computed using the application's `instantiated_secret` as key with an uppercase hexadecimal output format. This computed HMAC-SHA1 signature is then inserted in the X-Hub-Signature (as per <a href="https://pubsubhubbub.googlecode.com/git/pubsubhubbub-core-0.4.html#authednotify" target="_blank">PubSubHubbub Core 0.4</a>).
 {: #ref-hmac-signature}
 
-The provider must recompute the signature of the request body with the same secret key and method. If signatures match, this reasonably certifies the instantiation request comes from Ozwillo (which is the only one knowing the `instantiated_secret`) and then can be trusted. If not, you may log the request for further analysis, and ignore it.
+As introduced in [Recognize and trust Ozwillo](#ref-2-3--1), the provider must recompute the signature of the request body with the same secret key and method. If signatures match, this reasonably certifies the instantiation request comes from Ozwillo (which is the only one knowing the `instantiated_secret`) and then can be trusted. If not, you may log the request for further analysis but you must not process it.
 
 ##### Request body
 
@@ -126,18 +126,18 @@ That said, if your application `target_audience` (as declared in [store filters]
 
 Accepted status codes:
 
-- 2xx: request acknowledged, the app factory will do the job;
-- 4xx: request cannot be honoured (for instance, the organization already owns an instance of this application and it is limited to one);
-- any other non-2xx will be declared a failure too (maybe we'll follow redirect, but let's say for now that we won't).
+- 2xx: request acknowledged, the app factory will do the job
+- 4xx: request cannot be honoured (for instance, the organization already owns an instance of this application and it is limited to one)
+- any other non-2xx will be declared a failure too (maybe we'll follow redirect, but let's say for now that we won't)
 
 #### #2 Provider provisioning
 {: #ref-3-2-2}
 
 By provider provisioning we mean the installation process needed on the provider servers. As previously explained in the [introduction](#ref-3) to this section, this step can be implemented in various ways:
 
-- fully automatic (for instance - but not restricted to - a multitenant architecture where a single software instance manages several application instances);
-- half automatic (requires a manual validation);
-- fully manual (requires a manual installation).
+- fully automatic (for instance - but not restricted to - a multitenant architecture where a single software instance manages several application instances)
+- half automatic (requires a manual validation)
+- fully manual (requires a manual installation)
 
 Moreover this process also depends on existing software and architectural choices. That being said, we can give the following guidelines:
 
@@ -153,11 +153,11 @@ From a user perspective, until the [step #3](#ref-3-2-3) is done, purchase acts 
 
 In this step, the provider declares the precise configuration of the installed instance, including in particular:
 
-- services composing the instance (the user endpoints);
-- scopes needed for the instance to work (for instance the OpenID Connect `email` scope if you need to know the user email to configure the instance);
-- scopes declared by the instance, so that other instances may require them as needed if they want to use this very instance exposed API.
+- services composing the instance (the user endpoints)
+- scopes needed for the instance to work (for instance the OpenID Connect `email` scope if you need to know the user email to configure the instance)
+- scopes declared by the instance, so that other instances may require them as needed if they want to use this very instance exposed API
 
-This list is not exhaustive and is detailed in the "Request body" paragraph below.
+This list is not exhaustive and is detailed in the <span class="h5">Request body</span> paragraph below.
 
 ##### Request command
 
@@ -165,13 +165,13 @@ The following HTTP request is sent from the provider to Ozwillo.
 
 <pre>
 POST /apps/pending-instance/{instance_id} HTTP/1.1
-Host: {kernel API host}
+Host: kernel.ozwillo-preprod.eu
 Accept: application/json, application/*+json
 Authorization: Basic {base64 encoding of client_id:client_secret}
 Content-Type: application/json;charset=UTF-8
 </pre>
 
-The host is typically either `kernel.ozwillo-preprod.eu` (preproduction) or `kernel.ozwillo.com` (production). The authorization header needs to be set as described in [Calling the Kernel without an access_token](#ref-2-3--2).
+The authorization header needs to be set as described in [Calling Ozwillo without an access_token](#ref-2-3--2).
 
 ##### Request body
 
