@@ -1,8 +1,8 @@
 ## Experiment
-{: #2-experiment}
+{: #s2-experiment}
 
 ### Preproduction sandbox
-{: #2-preproduction-sandbox}
+{: #s2-preproduction-sandbox}
 
 The previous section (especially [Programming interface](#1-terminology)) lists the production hosts of Ozwillo, all of which being subdomains of `ozwillo.com`. Ozwillo preproduction environment mirrors this setup under `ozwillo-preprod.eu` by providing the following hosts:
 
@@ -23,7 +23,7 @@ From now on, the documentation focuses on preproduction hosts, in particular in 
 {: .focus .important}
 
 ### OpenID configuration
-{: #2-openid-configuration}
+{: #s2-openid-configuration}
 
 Ozwillo provides API endpoints that implement OpenID Connect. Their configuration is accessible as a well-known registry resource: here is the <a href="https://accounts.ozwillo-preprod.eu/.well-known/openid-configuration" target="_blank">preproduction</a> one.
 
@@ -32,19 +32,19 @@ For instance, the configuration shows the `authorization_endpoint` is accessible
 These endpoints are also listed in the [API reference](#5-api-reference) section.
 
 ### Authentication schemes
-{: #2-authentication-schemes}
+{: #s2-authentication-schemes}
 
 This paragraph provides an overview of authentication and authorization schemes that occur between Ozwillo and provider APIs.
 
 ##### Recognize and trust Ozwillo
-{: #2-trust-ozwillo}
+{: #s2-trust-ozwillo}
 
 As you will [soon](#3-1-ozwillo-request) see, a purchase act on the portal causes Ozwillo to POST provisioning requests to a provider endpoint. Encoding the payload of the request and sending the resulting signature as a HTTP header allows the provider to recognize Ozwillo as the request issuer.
 
 Knowing this request intent is to create a new application instance, it includes a `client_id`/`client_secret` pair used in the following authentication schemes.
 
 ##### Calling Ozwillo without an access_token
-{: #2-auth-without-token}
+{: #s2-auth-without-token}
 
 Having an `access_token` means an end user has successfully [authenticated](#4-user-authentication) to Ozwillo (within a given `client_id`). But there is a number of cases where the provider try to reach Ozwillo before or outside an authenticated user context:
 
@@ -55,14 +55,14 @@ Having an `access_token` means an end user has successfully [authenticated](#4-u
 In those cases, the provider servers must issue HTTP requests to Ozwillo with [basic authentication](https://tools.ietf.org/html/rfc2617#section-2) using the `client_id`/`client_secret` pair as user-ID and password, and base64 encode them in an `Authorization: Basic {base64 encoding of client_id:client_secret}` HTTP header.
 
 ##### Calling Ozwillo with an access_token
-{: #2-auth-with-token}
+{: #s2-auth-with-token}
 
 When the provider calls Ozwillo with an `access_token`, it means the request is done on behalf a user. It helps Ozwillo to decide if a particular operation is allowed depending on the user identity, [scopes]() and client_id associated with this `access_token`.
 
 The corresponding resquests require [OAuth 2.0 Bearer](http://tools.ietf.org/html/rfc6750), meaning that the `access_token` is sent in an `Authorization: Bearer {access_token_value}` HTTP header.
 
 ### Recommendations
-{: #2-recommendations}
+{: #s2-recommendations}
 
 ##### HTTPS
 

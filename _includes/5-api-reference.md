@@ -1,5 +1,5 @@
 ## API Reference
-{: #5-api-reference}
+{: #s5-api-reference}
 
 The API reference is under work and can't be trusted as of today.
 {: .warning}
@@ -38,7 +38,7 @@ Where:
 - <span class="scopes">SCOPES</span> is filled when the endpoint response depends on these scopes being previously granted by the end-user and thus associated to an `access_token` (it means this **scopes** option will only appear for `bearer` **auth**)
 
 ### Users
-{: #5-api-users}
+{: #s5-api-users}
 
 <div class="api-entry">
 	<div class="api-command">GET /a/userinfo</div>
@@ -110,18 +110,18 @@ Where:
 {: .request}
 
 ### Memberships
-{: #5-api-memberships}
+{: #s5-api-memberships}
 
 ### Tokens
-{: #5-api-tokens}
+{: #s5-api-tokens}
 
 ### Instances
-{: #5-api-instances}
+{: #s5-api-instances}
 
 ### Services
-{: #5-api-services}
+{: #s5-api-services}
 
 ### Subscriptions
-{: #5-api-subscriptions}
+{: #s5-api-subscriptions}
 
 Coming soon!

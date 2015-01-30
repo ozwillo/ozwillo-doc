@@ -1,8 +1,8 @@
 ## User Authentication
-{: #4-user-authentication} 
+{: #s4-user-authentication} 
 
 ### Introduction
-{: #4-introduction}
+{: #s4-introduction}
 
 Ozwillo implements the <a href="http://openid.net/connect/" target="_blank">OpenID Connect</a> protocol acting as an OpenID Provider, which is defined as (see OpenID <a href="http://openid.net/specs/openid-connect-core-1_0.html#Terminology" target="_blank">terminology</a>):
 
@@ -23,14 +23,14 @@ Then, anytime the application instance tries to interact with user-related resou
 That's how Ozwillo provides both authentication *and* authorization features.
 
 ### Prerequesite
-{: #4-prerequesite}
+{: #s4-prerequesite}
 
 You will [soon](#4-1-authentication-request) see that you ask Ozwillo to authenticate users against a `client_id`. Since this in an [outcome](#3-1-ozwillo-request) of the provisioning process, you should implement provisioning first.
 
 In the particular case where what you offer is not an instantiable application, but a unique and singleton one, your product may be considered as a service, and you may ask for a `client_id` to <a mailto="providers@ozwillo.com">providers@ozwillo.com</a>.
 
 ### Authorization code flow
-{: #4-auth-code-flow}
+{: #s4-auth-code-flow}
 
 You may refer to the official OpenID Connect <a href="http://openid.net/specs/openid-connect-core-1_0.html#CodeFlowSteps" target="_blank">authorization code flow</a> in addition to this documentation.
 
@@ -43,7 +43,7 @@ Two particularities may be noted in comparison with the official spec:
 Still within the context of the official spec, some optional features may not be implemented as of today, for instance passing a `max_age` parameter to the authentication endpoint.
 
 #### #1 Authentication request
-{: #4-1-authentication-request}
+{: #s4-1-authentication-request}
 
 In this step, the application instance has detected an authentication of the user is needed and delegates it to Ozwillo by **redirecting** the end-user request to Ozwillo authentication endpoint.
 
@@ -88,7 +88,7 @@ Host: accounts.ozwillo-preprod.eu
 In this example, some characters (among space = & : /) have been URL-escaped.
 
 #### #2 Ozwillo response
-{: #4-2-ozwillo-response}
+{: #s4-2-ozwillo-response}
 
 Several operations are then conducted on Ozwillo side:
 
@@ -121,14 +121,14 @@ Host: app.example.com/
 The same `redirect_uri` callback will be notified of the authentication error according to the <a href="http://openid.net/specs/openid-connect-core-1_0.html#AuthError" target="_blank">spec</a>.
 
 #### #3 Response validation
-{: #4-3-response-validation}
+{: #s4-3-response-validation}
 
 You should verify that the `security_token` (within the `state`) is the one you sent first to Ozwillo during [step #1](#4-1-authentication-request), to decide if you can trust the response. To do so, you should link it to the current user session. This operation ensures the user accessing Ozwillo response is the same that initiated the authentication request.
 
 If validation passes, you finally exchange the received `code` for an `access_token`. 
 
 #### #4 Requesting an access token
-{: #4-4-token-request}
+{: #s4-4-token-request}
 
 The previous steps occured through the end-user navigator thanks to redirects. From now on, the interaction is done directly between Ozwillo and provider APIs.
 
@@ -154,7 +154,7 @@ The authorization header needs to be set as described in [Calling Ozwillo withou
 | **code** | the `code` sent to you in [step #1](#4-2-ozwillo-response) | string |
 
 #### #5 Ozwillo response
-{: #4-5-ozwillo-response}
+{: #s4-5-ozwillo-response}
 
 Similarly to step #2, Ozwillo may accept or reject the previous request (especially depending on the `Authorization` header and the `code` parameter).
 
@@ -184,7 +184,7 @@ Pragma: no-cache
 If Ozwillo rejects the previous request, a HTTP 400 error will be <a href="https://openid.net/specs/openid-connect-core-1_0.html#TokenErrorResponse" target="_blank">sent back</a>.
 
 #### #6 Token decoding and validation
-{: #4-6-token-validation}
+{: #s4-6-token-validation}
 
 The `id_token` sent in the previous step is a JWT (JSON Web Token). You can do some tests by using this <a href="http://jwt.io/" target="_blank">online tool</a> or dedicated <a href="http://jwt.io/#libraries" target="_blank">libraries</a> (please check <a href="http://openid.net/developers/libraries/" target="_blank">these ones</a> too).
 
@@ -211,7 +211,7 @@ The `access_token` must not be leaked in a client-side cookie.
 {: .focus .important}
 
 ### Sign-out
-{: #4-sign-out}
+{: #s4-sign-out}
 
 Signing out a user is a 3-step process.
 

@@ -1,5 +1,5 @@
 ## Provisioning
-{: #3-provisioning}
+{: #s3-provisioning}
 
 This section explains the provisioning protocol triggered between Ozwillo and the provider APIs when a [purchase act](#def-purchase-act) occurs on the portal. The outcome of a successful provisioning is an application instance that is both:
 
@@ -12,14 +12,14 @@ where (2) enables the creation of [desk shortcuts](#def-desk-shortcuts) so that 
 The creation of an application instance on the provider side may imply configuration changes or new resources allocation. These implementation details are left unconstrained: the protocol focuses only on API communication. It means existing deployment operations does not have to be affected and should rather be exposed through this protocol.
 
 ### Prerequesite
-{: #3-prerequesite}
+{: #s3-prerequesite}
 
 Since provisioning starts when a user performs a purchase act, it means the purchased application is declared in the [catalog](#def-catalog) **and** Ozwillo knows how to forward the request to the provider through its [app factory](#def-app-factory).
 
 Thus the following information is needed to have a well described *and* installable application in the catalog:
 
 ##### Commercial information
-{: #3-commercial-info}
+{: #s3-commercial-info}
 
 | Field name | Field description | Field type and format |
 | :-- | :-- | :-- |
@@ -43,7 +43,7 @@ A few comments on this table:
 - <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank">here</a> is a description of the markdown syntax. In particular, you may include raw text separated by two line breaks to shape paragraphs.
 
 ##### Store filters
-{: #3-store-filters}
+{: #s3-store-filters}
 
 | Field name | Field description | Field type and format |
 | :-- | :-- | :-- |
@@ -74,10 +74,10 @@ You will likely need to read the remainder of this section to fully understand h
 To ease the process, you may submit a first and simplified version of the commercial info fields, focusing on simple versions of **required** fields, and resubmit it later with enriched contents.
 
 ### Protocol
-{: #3-protocol}
+{: #s3-protocol}
 
 #### #1 Ozwillo request
-{: #3-1-ozwillo-request}
+{: #s3-1-ozwillo-request}
 
 ##### Description
 
@@ -131,7 +131,7 @@ Accepted status codes:
 - any other non-2xx will be declared a failure too (maybe we'll follow redirect, but let's say for now that we won't)
 
 #### #2 Provider provisioning
-{: #3-2-provider-provisioning}
+{: #s3-2-provider-provisioning}
 
 By provider provisioning we mean the installation process needed on the provider servers. As previously explained in the [introduction](#3-provisioning) to this section, this step can be implemented in various ways:
 
@@ -147,7 +147,7 @@ Moreover this process also depends on existing software and architectural choice
 From a user perspective, until the [step #3](#3-3-provider-acknowledgement) is done, purchase acts are materialized as grey and disabled desktop shortcuts.
 
 #### #3 Provider acknowledgement
-{: #3-3-provider-acknowledgement}
+{: #s3-3-provider-acknowledgement}
 
 ##### Description
 
@@ -231,7 +231,7 @@ A few remarks on this table:
 The motivation helps understand users why they should grant specific privileges (associated to the `scope_id) to the instance, and thus help them decide if they will.
 
 **Embedded Scope objects**
-{: #3-3-provider-acknowledgement-scope}
+{: #s3-3-provider-acknowledgement-scope}
 
 | Field name | Field description | Type |
 | :-- | :-- | :-- |
@@ -276,7 +276,7 @@ At this stage:
 - `visible:true` services are listed in store.
 
 #### #3bis Provider dismiss
-{: #3-3bis-provider-dismiss}
+{: #s3-3bis-provider-dismiss}
 
 If the instance creation has failed for some reason during [step #2](#3-2-provider-provisioning), the provider must issue a DELETE request on the instance registration URL so that Ozwillo does not show endless "pending" instance creation requests:
 
@@ -289,7 +289,7 @@ DELETE /apps/pending-instance/{instance_id} HTTP/1.1
 </pre>
 
 #### Instance destruction
-{: #3-destruction}
+{: #s3-destruction}
 
 Instance destruction is not part of the initial provisioning that occurs between steps #1 to #3, but will occur whenever an admin of the organization that purchased the application decides to destroy it.
 
@@ -320,7 +320,7 @@ The destruction endpoint must respond with a successful status (200, 202 or 204)
 If the request times out, the Kernel will delete the instance from its database nevertheless. Any (timely) non-successful status will abort the destruction (so it can be retried later).
 
 ### FAQ
-{: #3-faq}
+{: #s3-faq}
 
 **What is the difference between cancellation and destruction URIs?**
 
