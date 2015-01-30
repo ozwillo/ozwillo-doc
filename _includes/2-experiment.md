@@ -55,6 +55,7 @@ Having an `access_token` means an end user has successfully [authenticated](#ref
 In those cases, the provider servers must issue HTTP requests to Ozwillo with [basic authentication](https://tools.ietf.org/html/rfc2617#section-2) using the `client_id`/`client_secret` pair as user-ID and password, and base64 encode them in an `Authorization: Basic {base64 encoding of client_id:client_secret}` HTTP header.
 
 ##### Calling Ozwillo with an access_token
+{: #ref-2-3--3}
 
 When the provider calls Ozwillo with an `access_token`, it means the request is done on behalf a user. It helps Ozwillo to decide if a particular operation is allowed depending on the user identity, [scopes]() and client_id associated with this `access_token`.
 

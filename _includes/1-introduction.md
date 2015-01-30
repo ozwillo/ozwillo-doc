@@ -103,7 +103,7 @@ The fact that a service is visible or not in the store is yet separated to how i
 More to come: a `neverVisible` property for services will likely be introduced in the future. Indeed, there are valid scenarios where services could be updated from `visible:false` to `visible:true` over time, when there are others where we want to be sure it won't happen: it would be the purpose of `neverVisible:true`.
 {: .focus .soft}
 
-The [Provisioning](#ref-3) section shows how these settings are set.
+The [Provisioning](#ref-3) section shows how these settings are defined.
 
 ### Authorized users
 {: #ref-1-5}

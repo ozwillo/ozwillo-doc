@@ -986,6 +986,81 @@ body.toc-open #top {
 #main table > thead > tr > th {
   background: #eee;
 }
+#main hr {
+  border: 0;
+  border-bottom: 1px solid #ccc;
+  background: #999;
+  margin: 12px 0;
+}
+#main a[href^="http://"]:before,
+#main a[href^="https://"]:before {
+  content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAVklEQVR4Xn3PgQkAMQhDUXfqTu7kTtkpd5RA8AInfArtQ2iRXFWT2QedAfttj2FsPIOE1eCOlEuoWWjgzYaB/IkeGOrxXhqB+uA9Bfcm0lAZuh+YIeAD+cAqSz4kCMUAAAAASUVORK5CYII=) " ";
+}
+#main .api-entry {
+  background: #fafafa;
+  border: 1px solid #bbb;
+  border-left: 4px solid #bbb;
+  padding: 5px;
+  padding-left: 8px;
+  margin: 36px 0 10px;
+}
+#main .api-entry .api-command {
+  font-family: monospace;
+  margin-bottom: 12px;
+}
+#main .api-entry .api-options .api-request {
+  float: left;
+}
+#main .api-entry .api-options .api-response {
+  float: right;
+}
+#main .api-entry .api-options .api-response:before {
+  content: "\2192 ";
+}
+#main .api-entry .api-options span {
+  padding: 0 5px;
+  border-radius: 5px;
+  border: 1px solid #aaa;
+  font-size: 0.9em;
+}
+#main .api-entry .api-options span.api-host {
+  background: #fff;
+}
+#main .api-entry .api-options span.api-auth {
+  color: #fff;
+  background: #666;
+  border-color: #666;
+}
+#main .api-entry .api-options span.api-input {
+  color: #fff;
+  background: #52a9f1;
+  border-color: #2392ed;
+}
+#main .api-entry .api-options span.api-output {
+  color: #fff;
+  background: #5fbfa3;
+  border-color: #4db899;
+}
+#main .api-entry .api-options:before,
+#main .api-entry .api-options:after {
+  content: " ";
+  display: table;
+}
+#main .api-entry .api-options:after {
+  clear: both;
+}
+#main .api-entry .api-scopes {
+  margin-top: 8px;
+  padding-top: 4px;
+  border-top: 1px solid #eee;
+  font-size: 0.9em;
+}
+#main .api-entry .api-scopes span {
+  font-size: 0.9em;
+  margin-right: 3px;
+  font-weight: bold;
+  color: #959595;
+}
 #main .todo {
   display: none;
 }

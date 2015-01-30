@@ -1,2 +1,126 @@
 ## API Reference
 {: #ref-5}
+
+The API reference is under work and can't be trusted as of today.
+{: .warning}
+
+As a reminder the APIs are served accross several hosts depending on their topic (authentication, provisioning, data...). Endpoints descriptions follow this format:
+
+<div class="api-entry">
+	<div class="api-command">{method} {path}</div>
+	<div class="api-options">
+		<div class="api-request">
+			<span class="api-host">host</span>
+			<span class="api-auth">auth</span>
+			<span class="api-input">input</span>
+		</div>
+		<div class="api-response">
+			<span class="api-output">output</span>
+		</div>
+	</div>
+	<div class="api-scopes">
+		<span>SCOPES</span>
+		<code>{scopes}</code>
+	</div>
+</div>
+
+Where:
+
+- **host** value is shortened to the host subdomain among `accounts`, `kernel` or `data` (read [more](#ref-1-2))
+- **auth** value is:
+  - `basic` for basic auth**entication** with a valid `client_id`/`client_secret` pair (read [more](#ref-2-3--2))
+  - `bearer` for bearer auth**orization** with a valid `access_token` (read [more](#ref-2-3--3))
+  - missing if the endpoint requires no authorization
+- **input** describes a specific required input content type:
+	- missing for the implicit default content type `JSON` 
+	- `form` for `Content-Type: application/x-www-form-urlencoded
+- **output** describes available output content types (`JWT` implying **signed** `JWT`)
+- **scopes** is filled when the endpoint response depends on these scopes being previously granted by the end-user and thus associated to an `access_token` (it means only `bearer` **auth** value may include a **scopes** option)
+
+### Users
+{: #ref-api-users}
+
+<div class="api-entry">
+	<div class="api-command">GET /a/userinfo</div>
+	<div class="api-options">
+		<div class="api-request">
+			<span class="api-host">accounts</span>
+			<span class="api-auth">bearer</span>
+		</div>
+		<div class="api-response">
+			<span class="api-output">JSON</span>
+			<span class="api-output">JWT</span>
+		</div>
+	</div>
+	<div class="api-scopes">
+		<span>SCOPES</span>
+		<code>openid profile email name address</code>
+	</div>
+</div>
+
+<p>See the <a href="http://openid.net/specs/openid-connect-basic-1_0.html#UserInfo" target="_blank">OpenID Connect Draft</a>, the <a href="http://tools.ietf.org/html/draft-ietf-oauth-json-web-token-08" target="_blank">JWT Draft</a> and the <a href="http://tools.ietf.org/html/draft-ietf-jose-json-web-signature-11" target="_blank">JWS Draft</a> for more information.</p>
+
+##### Response body
+
+| Field name | Field description | Type |
+| :-- | :-- | :-- |
+| **sub** | ... | string |
+| **name** | ... | string |
+| **family_name** | ... | string |
+| **given_name** | ... | string |
+| **zoneinfo** | ... | string |
+| **locale** | ... | string |
+| **updated_at** | ... | string |
+{: .request}
+
+<hr/>
+
+<div class="api-entry">
+	<div class="api-command">POST /a/userinfo</div>
+	<div class="api-options">
+		<div class="api-request">
+			<span class="api-host">accounts</span>
+			<span class="api-auth">bearer</span>
+		</div>
+		<div class="api-response">
+			<span class="api-output">JSON</span>
+			<span class="api-output">JWT</span>
+		</div>
+	</div>
+	<div class="api-scopes">
+		<span>SCOPES</span>
+		<code>openid profile email name address</code>
+	</div>
+</div>
+
+<p>See the <a href="http://openid.net/specs/openid-connect-basic-1_0.html#UserInfo" target="_blank">OpenID Connect Draft</a>, the <a href="http://tools.ietf.org/html/draft-ietf-oauth-json-web-token-08" target="_blank">JWT Draft</a> and the <a href="http://tools.ietf.org/html/draft-ietf-jose-json-web-signature-11" target="_blank">JWS Draft</a> for more information.</p>
+
+##### Request body
+
+| Field name | Field description | Type |
+| :-- | :-- | :-- |
+| **sub** | ... | string |
+| **name** | ... | string |
+| **family_name** | ... | string |
+| **given_name** | ... | string |
+| **zoneinfo** | ... | string |
+| **locale** | ... | string |
+| **updated_at** | ... | string |
+{: .request}
+
+### Memberships
+{: #ref-api-memberships}
+
+### Tokens
+{: #ref-api-tokens}
+
+### Instances
+{: #ref-api-instances}
+
+### Services
+{: #ref-api-services}
+
+### Subscriptions
+{: #ref-api-subscriptions}
+
+Coming soon!
