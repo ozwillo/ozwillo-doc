@@ -179,7 +179,18 @@ body.toc-open {
 	}
 
 	a {
-		color: #952;
+		color: #36b;
+		text-decoration: none;
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+
+	a[href^="http://"],	a[href^="https://"] {
+		background: no-repeat;
+		background-position: 100% 50%, 100% 50%;
+	  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAVklEQVR4Xn3PgQkAMQhDUXfqTu7kTtkpd5RA8AInfArtQ2iRXFWT2QedAfttj2FsPIOE1eCOlEuoWWjgzYaB/IkeGOrxXhqB+uA9Bfcm0lAZuh+YIeAD+cAqSz4kCMUAAAAASUVORK5CYII=);
+	  padding-right: 13px;
 	}
 
 	code {
@@ -225,8 +236,22 @@ body.toc-open {
     margin: 12px 0;
 	}
 
-	a[href^="http://"]:before,	a[href^="https://"]:before {
-	    content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAVklEQVR4Xn3PgQkAMQhDUXfqTu7kTtkpd5RA8AInfArtQ2iRXFWT2QedAfttj2FsPIOE1eCOlEuoWWjgzYaB/IkeGOrxXhqB+uA9Bfcm0lAZuh+YIeAD+cAqSz4kCMUAAAAASUVORK5CYII=) " ";
+	span[class^="api-"] {
+		padding: 0 5px;
+		border-radius: 5px;
+		border: 1px solid #aaa;
+		font-size: 0.9em;
+		&.api-host { background: #fff; }
+		&.api-auth { color: #fff; background: #666; border-color: #666; }
+		&.api-input { color: #fff; background: lighten(#0f6ab4, 25%); border-color: lighten(#0f6ab4, 15%); }
+		&.api-output { color: #fff; background: lighten(#3c967c, 15%); border-color: lighten(#3c967c, 10%); }
+	}
+
+	span.scopes {
+		font-size: 0.9em;
+		margin-right: 3px;
+		font-weight: bold;
+		color: #959595;
 	}
 
 	.api-entry {
@@ -243,16 +268,6 @@ body.toc-open {
 		.api-options {
 			.api-request { float: left; }
 			.api-response { float: right; &:before{content: "\2192 "; } }
-			span {
-				padding: 0 5px;
-				border-radius: 5px;
-				border: 1px solid #aaa;
-				font-size: 0.9em;
-				&.api-host { background: #fff; }
-				&.api-auth { color: #fff; background: #666; border-color: #666; }
-				&.api-input { color: #fff; background: lighten(#0f6ab4, 25%); border-color: lighten(#0f6ab4, 15%); }
-				&.api-output { color: #fff; background: lighten(#3c967c, 15%); border-color: lighten(#3c967c, 10%); }
-			}
 			// clearfix
 			&:before,
 		  &:after {
@@ -268,12 +283,6 @@ body.toc-open {
 			padding-top: 4px;
 			border-top: 1px solid #eee;
 			font-size: 0.9em;
-			span {
-				font-size: 0.9em;
-				margin-right: 3px;
-				font-weight: bold;
-				color: #959595;
-			}
 		}
 	}
 
