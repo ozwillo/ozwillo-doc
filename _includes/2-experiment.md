@@ -1,10 +1,10 @@
 ## Experiment
-{: #ref-2}
+{: #2-experiment}
 
 ### Preproduction sandbox
-{: #ref-2-1}
+{: #2-preproduction-sandbox}
 
-The previous section (especially [Programming interface](#ref-1-3)) lists the production hosts of Ozwillo, all of which being subdomains of `ozwillo.com`. Ozwillo preproduction environment mirrors this setup under `ozwillo-preprod.eu` by providing the following hosts:
+The previous section (especially [Programming interface](#1-terminology)) lists the production hosts of Ozwillo, all of which being subdomains of `ozwillo.com`. Ozwillo preproduction environment mirrors this setup under `ozwillo-preprod.eu` by providing the following hosts:
 
 - `accounts.ozwillo-preprod.eu` for authentication pages and the accounts API root
 - `data.ozwillo-preprod.eu` as the the Datacore API root
@@ -23,46 +23,46 @@ From now on, the documentation focuses on preproduction hosts, in particular in 
 {: .focus .important}
 
 ### OpenID configuration
-{: #ref-2-2}
+{: #2-openid-configuration}
 
 Ozwillo provides API endpoints that implement OpenID Connect. Their configuration is accessible as a well-known registry resource: here is the <a href="https://accounts.ozwillo-preprod.eu/.well-known/openid-configuration" target="_blank">preproduction</a> one.
 
 For instance, the configuration shows the `authorization_endpoint` is accessible at `https://accounts.ozwillo-preprod.eu/a/auth`
 
-These endpoints are also listed in the [API reference](#ref-5) section.
+These endpoints are also listed in the [API reference](#5-api-reference) section.
 
 ### Authentication schemes
-{: #ref-2-3}
+{: #2-authentication-schemes}
 
 This paragraph provides an overview of authentication and authorization schemes that occur between Ozwillo and provider APIs.
 
 ##### Recognize and trust Ozwillo
-{: #ref-2-3--1}
+{: #2-trust-ozwillo}
 
-As you will [soon](#ref-3-2-1) see, a purchase act on the portal causes Ozwillo to POST provisioning requests to a provider endpoint. Encoding the payload of the request and sending the resulting signature as a HTTP header allows the provider to recognize Ozwillo as the request issuer.
+As you will [soon](#3-1-ozwillo-request) see, a purchase act on the portal causes Ozwillo to POST provisioning requests to a provider endpoint. Encoding the payload of the request and sending the resulting signature as a HTTP header allows the provider to recognize Ozwillo as the request issuer.
 
 Knowing this request intent is to create a new application instance, it includes a `client_id`/`client_secret` pair used in the following authentication schemes.
 
 ##### Calling Ozwillo without an access_token
-{: #ref-2-3--2}
+{: #2-auth-without-token}
 
-Having an `access_token` means an end user has successfully [authenticated](#ref-4) to Ozwillo (within a given `client_id`). But there is a number of cases where the provider try to reach Ozwillo before or outside an authenticated user context:
+Having an `access_token` means an end user has successfully [authenticated](#4-user-authentication) to Ozwillo (within a given `client_id`). But there is a number of cases where the provider try to reach Ozwillo before or outside an authenticated user context:
 
-- precisely when [asking for](#ref-4-3-4) an `access_token` during the authentication flow
+- precisely when [asking for](#4-4-token-request) an `access_token` during the authentication flow
 - when answering the provisioning request described in the previous paragraph
 - when posting notifications or events
 
 In those cases, the provider servers must issue HTTP requests to Ozwillo with [basic authentication](https://tools.ietf.org/html/rfc2617#section-2) using the `client_id`/`client_secret` pair as user-ID and password, and base64 encode them in an `Authorization: Basic {base64 encoding of client_id:client_secret}` HTTP header.
 
 ##### Calling Ozwillo with an access_token
-{: #ref-2-3--3}
+{: #2-auth-with-token}
 
 When the provider calls Ozwillo with an `access_token`, it means the request is done on behalf a user. It helps Ozwillo to decide if a particular operation is allowed depending on the user identity, [scopes]() and client_id associated with this `access_token`.
 
 The corresponding resquests require [OAuth 2.0 Bearer](http://tools.ietf.org/html/rfc6750), meaning that the `access_token` is sent in an `Authorization: Bearer {access_token_value}` HTTP header.
 
 ### Recommendations
-{: #ref-2-4}
+{: #2-recommendations}
 
 ##### HTTPS
 
@@ -79,4 +79,4 @@ Your endpoints must be robust to new parameters or parameters not described in t
 
 ##### Monitoring
 
-In some cases, API calls may need a manual operation on the provider side (for instance during [provisioning](#ref-3-2-2) depending on the process you put in place) or may [fail](#ref-ack-422). It's good practice to be sure a real person is notified when such cases occur, and don't let the issue sleep.
+In some cases, API calls may need a manual operation on the provider side (for instance during [provisioning](#3-2-provider-provisioning) depending on the process you put in place) or may [fail](#ref-ack-422). It's good practice to be sure a real person is notified when such cases occur, and don't let the issue sleep.

@@ -1,5 +1,5 @@
 ## Provisioning
-{: #ref-3}
+{: #3-provisioning}
 
 This section explains the provisioning protocol triggered between Ozwillo and the provider APIs when a [purchase act](#def-purchase-act) occurs on the portal. The outcome of a successful provisioning is an application instance that is both:
 
@@ -12,14 +12,14 @@ where (2) enables the creation of [desk shortcuts](#def-desk-shortcuts) so that 
 The creation of an application instance on the provider side may imply configuration changes or new resources allocation. These implementation details are left unconstrained: the protocol focuses only on API communication. It means existing deployment operations does not have to be affected and should rather be exposed through this protocol.
 
 ### Prerequesite
-{: #ref-3-1}
+{: #3-prerequesite}
 
 Since provisioning starts when a user performs a purchase act, it means the purchased application is declared in the [catalog](#def-catalog) **and** Ozwillo knows how to forward the request to the provider through its [app factory](#def-app-factory).
 
 Thus the following information is needed to have a well described *and* installable application in the catalog:
 
 ##### Commercial information
-{: #ref-3-1--1}
+{: #3-commercial-info}
 
 | Field name | Field description | Field type and format |
 | :-- | :-- | :-- |
@@ -43,7 +43,7 @@ A few comments on this table:
 - <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank">here</a> is a description of the markdown syntax. In particular, you may include raw text separated by two line breaks to shape paragraphs.
 
 ##### Store filters
-{: #ref-3-1--2}
+{: #3-store-filters}
 
 | Field name | Field description | Field type and format |
 | :-- | :-- | :-- |
@@ -69,15 +69,15 @@ You will likely need to read the remainder of this section to fully understand h
 
 1. gather all parameters info needed as described in the previous tables
 2. send it to <a mailto="providers@ozwillo.com">providers@ozwillo.com</a> along with your display name as an application provider (typically the name of your company)
-3. you will be notified when the application is made available on the [preproduction](#ref-2-1)
+3. you will be notified when the application is made available on the [preproduction](#2-preproduction-sandbox)
 
 To ease the process, you may submit a first and simplified version of the commercial info fields, focusing on simple versions of **required** fields, and resubmit it later with enriched contents.
 
 ### Protocol
-{: #ref-3-2}
+{: #3-protocol}
 
 #### #1 Ozwillo request
-{: #ref-3-2-1}
+{: #3-1-ozwillo-request}
 
 ##### Description
 
@@ -88,7 +88,7 @@ The actual behavior of Ozwillo is that `instance_id` and `client_id` are given t
 
 ##### Request command
 
-Don't forget to read our [conventions](#ref-1-5) and [recommendations](#ref-2-4).
+Don't forget to read our [conventions](#1-authorized-users) and [recommendations](#2-recommendations).
 {: .focus .soft}
 
 The following HTTP request is sent from Ozwillo to the provider at `instantiation_uri` (decomposed in `instantiation_path` and `instantiation_host` below). 
@@ -104,7 +104,7 @@ Content-Type: application/json;charset=UTF-8
 The body of this request is encoded in JSON. A HMAC-SHA1 hash of the JSON string is computed using the application's `instantiated_secret` as key with an uppercase hexadecimal output format. This computed HMAC-SHA1 signature is then inserted in the X-Hub-Signature (as per <a href="https://pubsubhubbub.googlecode.com/git/pubsubhubbub-core-0.4.html#authednotify" target="_blank">PubSubHubbub Core 0.4</a>).
 {: #ref-hmac-signature}
 
-As introduced in [Recognize and trust Ozwillo](#ref-2-3--1), the provider must recompute the signature of the request body with the same secret key and method. If signatures match, this reasonably certifies the instantiation request comes from Ozwillo (which is the only one knowing the `instantiated_secret`) and then can be trusted. If not, you may log the request for further analysis but you must not process it.
+As introduced in [Recognize and trust Ozwillo](#2-trust-ozwillo), the provider must recompute the signature of the request body with the same secret key and method. If signatures match, this reasonably certifies the instantiation request comes from Ozwillo (which is the only one knowing the `instantiated_secret`) and then can be trusted. If not, you may log the request for further analysis but you must not process it.
 
 ##### Request body
 
@@ -120,7 +120,7 @@ As introduced in [Recognize and trust Ozwillo](#ref-2-3--1), the provider must r
 
 It's important to know that purchasers may install an application either on behalf an organization, either for their personal user. In the latter case, there is no organization associated to the purchase, so there is no `organization` field in the request body.
 
-That said, if your application `target_audience` (as declared in [store filters](#ref-3-1--2)) does not contain `CITIZENS`, it means purchase acts will always be on behalf an organization and thus the `organization` field will be sent.
+That said, if your application `target_audience` (as declared in [store filters](#3-store-filters)) does not contain `CITIZENS`, it means purchase acts will always be on behalf an organization and thus the `organization` field will be sent.
 
 ##### Response from provider
 
@@ -131,9 +131,9 @@ Accepted status codes:
 - any other non-2xx will be declared a failure too (maybe we'll follow redirect, but let's say for now that we won't)
 
 #### #2 Provider provisioning
-{: #ref-3-2-2}
+{: #3-2-provider-provisioning}
 
-By provider provisioning we mean the installation process needed on the provider servers. As previously explained in the [introduction](#ref-3) to this section, this step can be implemented in various ways:
+By provider provisioning we mean the installation process needed on the provider servers. As previously explained in the [introduction](#3-provisioning) to this section, this step can be implemented in various ways:
 
 - fully automatic (for instance - but not restricted to - a multitenant architecture where a single software instance manages several application instances)
 - half automatic (requires a manual validation)
@@ -141,13 +141,13 @@ By provider provisioning we mean the installation process needed on the provider
 
 Moreover this process also depends on existing software and architectural choices. That being said, we can give the following guidelines:
 
-- there should be an internal process that stores [step #1](#ref-3-2-1) request properties and link them to services declared in [step #3](#ref-3-2-1). This configuration will be useful during authentication (for instance, you will soon see that a service accessible at a given `service_uri` has to know to what `instance_id` it belongs);
-- you should be able to treat both preproduction and production provisioning requests, and identify them as such. Knowing you will start implementing provisioning against Ozwillo preproduction, and then move it to production while keeping the preproduction tests up, you need to know to what API [hosts](#ref-2-1) your servers communicate with.
+- there should be an internal process that stores [step #1](#3-1-ozwillo-request) request properties and link them to services declared in [step #3](#3-1-ozwillo-request). This configuration will be useful during authentication (for instance, you will soon see that a service accessible at a given `service_uri` has to know to what `instance_id` it belongs);
+- you should be able to treat both preproduction and production provisioning requests, and identify them as such. Knowing you will start implementing provisioning against Ozwillo preproduction, and then move it to production while keeping the preproduction tests up, you need to know to what API [hosts](#2-preproduction-sandbox) your servers communicate with.
 
-From a user perspective, until the [step #3](#ref-3-2-3) is done, purchase acts are materialized as grey and disabled desktop shortcuts.
+From a user perspective, until the [step #3](#3-3-provider-acknowledgement) is done, purchase acts are materialized as grey and disabled desktop shortcuts.
 
 #### #3 Provider acknowledgement
-{: #ref-3-2-3}
+{: #3-3-provider-acknowledgement}
 
 ##### Description
 
@@ -171,7 +171,7 @@ Authorization: Basic {base64 encoding of client_id:client_secret}
 Content-Type: application/json;charset=UTF-8
 </pre>
 
-The authorization header needs to be set as described in [Calling Ozwillo without an access_token](#ref-2-3--2).
+The authorization header needs to be set as described in [Calling Ozwillo without an access_token](#2-auth-without-token).
 
 ##### Request body
 
@@ -217,8 +217,8 @@ The authorization header needs to be set as described in [Calling Ozwillo withou
 
 A few remarks on this table:
 
-- you may compare it with the declaration of [applications](#ref-3-1) in the catalog, and find many common features due to the fact both applications and services are [store entries](#def-store-entry);
-- `redirect_uris` and `post_logout_redirect_uris` are related to [User authentication](#ref-4).
+- you may compare it with the declaration of [applications](#3-prerequesite) in the catalog, and find many common features due to the fact both applications and services are [store entries](#def-store-entry);
+- `redirect_uris` and `post_logout_redirect_uris` are related to [User authentication](#4-user-authentication).
 
 **Embedded NeededScope objects**
 
@@ -231,7 +231,7 @@ A few remarks on this table:
 The motivation helps understand users why they should grant specific privileges (associated to the `scope_id) to the instance, and thus help them decide if they will.
 
 **Embedded Scope objects**
-{: #ref-3-2-3-scope}
+{: #3-3-provider-acknowledgement-scope}
 
 | Field name | Field description | Type |
 | :-- | :-- | :-- |
@@ -276,9 +276,9 @@ At this stage:
 - `visible:true` services are listed in store.
 
 #### #3bis Provider dismiss
-{: #ref-3-2-4}
+{: #3-3bis-provider-dismiss}
 
-If the instance creation has failed for some reason during [step #2](#ref-3-2-2), the provider must issue a DELETE request on the instance registration URL so that Ozwillo does not show endless "pending" instance creation requests:
+If the instance creation has failed for some reason during [step #2](#3-2-provider-provisioning), the provider must issue a DELETE request on the instance registration URL so that Ozwillo does not show endless "pending" instance creation requests:
 
 ##### Request command
 
@@ -289,13 +289,13 @@ DELETE /apps/pending-instance/{instance_id} HTTP/1.1
 </pre>
 
 #### Instance destruction
-{: #ref-3-2-5}
+{: #3-destruction}
 
 Instance destruction is not part of the initial provisioning that occurs between steps #1 to #3, but will occur whenever an admin of the organization that purchased the application decides to destroy it.
 
 ##### Request command
 
-The following HTTP request is sent from Ozwillo to the provider at the `destruction_uri` defined in [step #3](#ref-3-2-3) (decomposed in `destruction_path` and `destruction_host` below). 
+The following HTTP request is sent from Ozwillo to the provider at the `destruction_uri` defined in [step #3](#3-3-provider-acknowledgement) (decomposed in `destruction_path` and `destruction_host` below). 
 
 <pre>
 POST {destruction_path}
@@ -320,11 +320,11 @@ The destruction endpoint must respond with a successful status (200, 202 or 204)
 If the request times out, the Kernel will delete the instance from its database nevertheless. Any (timely) non-successful status will abort the destruction (so it can be retried later).
 
 ### FAQ
-{: #ref-3-3}
+{: #3-faq}
 
 **What is the difference between cancellation and destruction URIs?**
 
-Pending instances (those for which a request has been made to the app factory, but for which no [acknowledgement](#ref-3-2-3) has been sent) can be cancelled using the same mechanism as [Instance destruction](#ref-3-2-5) but at the application wide `cancellation_uri`.
+Pending instances (those for which a request has been made to the app factory, but for which no [acknowledgement](#3-3-provider-acknowledgement) has been sent) can be cancelled using the same mechanism as [Instance destruction](#3-destruction) but at the application wide `cancellation_uri`.
 
 So `cancellation_uri` (and associated secret) is linked to the app factory, when `destruction_uri` is linked to an application instance. It means in particular that `cancellation_uri` should reject the destruction of provisionned instances.
 
