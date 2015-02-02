@@ -115,6 +115,38 @@ Where:
 ### Tokens
 {: #s5-api-tokens}
 
+<div class="api-entry">
+	<div class="api-command">POST /a/tokeninfo</div>
+	<div class="api-options">
+		<div class="api-request">
+			<span class="api-host">accounts</span>
+			<span class="api-auth">bearer</span>
+		</div>
+		<div class="api-response">
+			<span class="api-output">JSON</span>
+		</div>
+	</div>
+</div>
+
+<p>Token introspection endpoint: see the OAuth Token Introspection <a href="https://tools.ietf.org/html/draft-richer-oauth-introspection" target="_blank">draft</a> for more information.</p>
+
+##### Response body
+
+| Field name | Field description | Type |
+| :-- | :-- | :-- |
+| active | ... | boolean |
+| exp | ... | integer |
+| iat | ... | integer |
+| scope | list of granted scopes | strings separated by spaces |
+| client_id | ... | string |
+| sub | ... | string |
+| aud | ... | string |
+| token_type | ... | string |
+| sub_groups | ... | string |
+{: .request}
+
+<hr/>
+
 ### Instances
 {: #s5-api-instances}
 

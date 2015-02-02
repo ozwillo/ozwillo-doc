@@ -4,7 +4,15 @@
 ### Introduction
 {: #s4-introduction}
 
-Ozwillo implements the <a href="http://openid.net/connect/" target="_blank">OpenID Connect</a> protocol acting as an OpenID Provider, which is defined as (see OpenID <a href="http://openid.net/specs/openid-connect-core-1_0.html#Terminology" target="_blank">terminology</a>):
+Ozwillo authentication and authorization service implements the following international standards:
+
+- <a href="https://openid.net/specs/openid-connect-core-1_0.html" target="_blank">OpenID Connect Core 1.0</a> (using the Authorization Code flow only)
+- <a href="https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderConfig" target="_blank">OpenID Connect Discovery 1.0</a> (provider configuration only)
+- <a href="https://openid.net/specs/openid-connect-session-1_0.html" target="_blank">OpenID Connect Session Management 1.0</a> (RP-Initiated Logout only for now)
+- <a href="https://tools.ietf.org/html/draft-richer-oauth-introspection" target="_blank">OAuth Token Introspection</a>
+- <a href="https://tools.ietf.org/html/rfc7009" target="_blank">OAuth Token Revocation (RFC 7009)</a>
+
+In this matter, Ozwillo acts as an OpenID Provider, which is defined as (see OpenID <a href="http://openid.net/specs/openid-connect-core-1_0.html#Terminology" target="_blank">terminology</a>):
 
 > **OAuth 2.0 Authorization Server** that is capable of Authenticating the End-User and providing Claims to a Relying Party about the Authentication event and the End-User.
 
@@ -20,7 +28,7 @@ You may refer to the previous [Authentication in brief](#1-authorization) and [s
 
 Then, anytime the application instance tries to interact with user-related resources (typically due to user action) through Ozwillo API, this `access_token` is sent to Ozwillo so that it can check the operation is allowed.
 
-That's how Ozwillo provides both authentication *and* authorization features.
+That's how Ozwillo provides both authentication and authorization features.
 
 ### Prerequesite
 {: #s4-prerequesite}
@@ -176,7 +184,7 @@ Pragma: no-cache
 | **access_token** | access_token token value issued by the Authorization Server | string |
 | **token_type** | in our case the value is <a href="https://openid.net/specs/openid-connect-core-1_0.html#TokenResponse">always</a> "Bearer" | string |
 | scope | reminder of scopes associated with this access token | strings separated by spaces |
-| expires_in | expiration time of the access token in seconds | number |
+| expires_in | expiration time of the access token in seconds | integer |
 | **id_token** | value associated with the authenticated session | JWT string |
 
 ##### Failure
@@ -197,8 +205,8 @@ If the signatures do not match, you can not trust the JWT. If they do match, the
 | **iss** | issuer identifier, typically "https://accounts.ozwillo-preprod.eu" | URI string |
 | **sub** | subject identifier, meaning the Ozwillo user id | string |
 | **aud** | audience, in our case the `client_id` | string |
-| **iat** | time at which the JWT was issued | number |
-| **exp** | expiration time | number |
+| **iat** | time at which the JWT was issued | integer |
+| **exp** | expiration time | integer |
 | **nonce** | used to mitigate replay attacks | string |
 | **app_user** | Ozwillo specific, used to describe the user role (see [explanation](#1-app-admin-app-user)) | boolean |
 | **app_admin** | Ozwillo specific, used to describe the user role (see [explanation](#1-app-admin-app-user)) | boolean |
