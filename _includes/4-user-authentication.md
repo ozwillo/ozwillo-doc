@@ -75,7 +75,7 @@ Host: accounts.ozwillo-preprod.eu
 | :-- | :-- | :-- |
 | **response_type** | determines the authorization processing flow, in our case the value is <a href="https://openid.net/specs/openid-connect-core-1_0.html#AuthRequest" target="_blank">always</a> "code" | string |
 | **client_id** | the `client_id` associated to the application instance | string |
-| **scope** | list of scopes requested by the instance, it must at least contain `openid` | strings separated by spaces |
+| **scope** | list of scopes requested by the instance, it must at least contain `openid` | string (scopes separated by spaces) |
 | **redirect_uri** | the redirection URI to which the response will be sent | URI string |
 | **state** | opaque value used to maintain state between the request and the callback | string |
 | **nonce** | unique random string used to mitigate replay attacks | string |

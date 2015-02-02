@@ -137,7 +137,7 @@ Where:
 | active | ... | boolean |
 | exp | ... | integer |
 | iat | ... | integer |
-| scope | list of granted scopes | strings separated by spaces |
+| scope | list of granted scopes | string (scopes separated by spaces) |
 | client_id | ... | string |
 | sub | ... | string |
 | aud | ... | string |
@@ -156,4 +156,45 @@ Where:
 ### Subscriptions
 {: #s5-api-subscriptions}
 
-Coming soon!
+### Notifications
+{: #s5-api-notifications}
+
+<div class="api-entry">
+	<div class="api-command">GET /n/{user_id}/messages?instance={instance_id}</div>
+	<div class="api-options">
+		<div class="api-request">
+			<span class="api-host">kernel</span>
+			<span class="api-auth">bearer</span>
+		</div>
+		<div class="api-response">
+			<span class="api-output">JSON</span>
+		</div>
+	</div>
+</div>
+
+Get all unread notifications for a defined user and a filter.
+
+It will give you the notifications for the given user and app-instance; note that the instance_id must be the one for which you obtained the access_token. You can also pass an additional `status=READ` or `status=UNREAD` query-string parameter to filter notifications to only those that have been read or are still unread.
+
+##### Response body
+
+<hr/>
+
+<div class="api-entry">
+	<div class="api-command">POST /n/{user_id}/messages</div>
+	<div class="api-options">
+		<div class="api-request">
+			<span class="api-host">kernel</span>
+			<span class="api-auth">bearer</span>
+		</div>
+		<div class="api-response">
+			<span class="api-output">JSON</span>
+		</div>
+	</div>
+</div>
+
+##### Request body
+
+<p>JSON payload like { message_ids: [<array of message IDs], status: "READ" } allows you to change the status of the given notifications (status can obviously also be "UNREAD" if needed).</p>
+
+<hr/>
