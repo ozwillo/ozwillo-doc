@@ -10,5 +10,8 @@ Ozwillo principles are to remain:
 
 The outline of the documentation is as follows: (1) introduction to Ozwillo architecture and semantics, (2) how to play with Ozwillo APIs — prerequesites, tools and recommendations — (3) thorough description of provisioning services and then (4) enabling user authentication to access these services, (5) reference of the API that has been exhibited in the previous sections.
 
-**Contributions are welcome!** If you think this documentation could be improved, please <a href="https://github.com/ozwillo/ozwillo-doc/issues" target="_blank">open an issue</a> and describe the problem (about completeness, correctness, clarity...). You may also directly fork and contribute to the documentation github <a href="https://github.com/ozwillo/ozwillo-doc" target="_blank">repository</a>.
+**Contributions are welcome!** If you think this documentation could be improved, please <a href="https://github.com/ozwillo/ozwillo-doc/issues" target="_blank">open an issue</a> and describe the problem (about completeness, correctness, clarity...).
 {: .focus .soft}
+
+Follow the doc updates on twitter: <a href="https://twitter.com/OzwilloDev" target="_blank">@OzwilloDev</a>
+{: .focus .important}

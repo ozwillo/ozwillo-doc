@@ -1,6 +1,7 @@
 ## Ozwillo documentation contributions
 
 The doc is served on <a href="http://doc.ozwillo.com" target="_blank">doc.ozwillo.com</a>
+Follow modifications on the github served gh-pages branch on twitter [@OzwilloDev](https://twitter.com/OzwilloDev)
 
 ### Installation
 
