@@ -1,6 +1,3 @@
-Warning: this is a draft, intended to be stabilized and completed by 31 January 2015.
-{: .warning}
-
 **Ozwillo is a platform that distributes online services from a variety of SaaS editors. It's underlying and strategic goal is to forge open, linked and reusable data thanks to the daily use of services.**
 
 The Ozwillo platform was formerly known as *Oasis*, due to the European project it was funded upon.
