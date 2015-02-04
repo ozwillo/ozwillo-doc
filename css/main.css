@@ -1039,7 +1039,7 @@ body.toc-open #top {
   border-left: 4px solid #bbb;
   padding: 5px;
   padding-left: 8px;
-  margin: 36px 0 10px;
+  margin: 6px 0;
 }
 #main .api-entry .api-command {
   font-family: monospace;
