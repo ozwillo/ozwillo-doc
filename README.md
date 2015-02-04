@@ -82,5 +82,5 @@ For the moment the documentation relies on the following choices, that needs to 
 - no mention to territory_id
 - no description of subscription callback for the moment, since it remains to be implemented
 - replaced Kernel by Ozwillo when we're talking about APIs
-- http://openid.net/specs/openid-connect-core-1_0.html#IDToken it seems all required fields are not sent by the Kernel
+- https://openid.net/specs/openid-connect-core-1_0.html#IDToken it seems all required fields are not sent by the Kernel
 - in our protocol, state and nonce are mandatory but in OpenID connect they are recommended and optional.

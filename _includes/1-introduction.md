@@ -161,9 +161,9 @@ In short, you can:
 ### Scopes
 {: #s1-scopes}
 
-First of all, Ozwillo as an authentication and authorization server is an implementation of <a href="http://openid.net/connect/" target="_blank">OpenID Connect</a> Authorization Server, and as such uses scopes introduced by the protocol to specify access privileges.
+First of all, Ozwillo as an authentication and authorization server is an implementation of <a href="https://openid.net/connect/" target="_blank">OpenID Connect</a> Authorization Server, and as such uses scopes introduced by the protocol to specify access privileges.
 
-For instance and if we focus on scopes <a href="http://openid.net/specs/openid-connect-basic-1_0.html#Scopes" target="_blank">introduced</a> by OpenID Connect, the provider may ask for an `access_token` with the `email` scope. When authenticating, users are prompted to know if they want to share their email address with this instance. As a result, the `access_token` created is associated to this scope (if granted by user) on Ozwillo side.
+For instance and if we focus on scopes <a href="https://openid.net/specs/openid-connect-basic-1_0.html#Scopes" target="_blank">introduced</a> by OpenID Connect, the provider may ask for an `access_token` with the `email` scope. When authenticating, users are prompted to know if they want to share their email address with this instance. As a result, the `access_token` created is associated to this scope (if granted by user) on Ozwillo side.
 
 When the instance wants to indeed access the email through one of Ozwillo API endpoints, it will send an HTTP request with this `access_token`, and Ozwillo is then able to decide if the operation is permitted or not.
 
@@ -175,7 +175,7 @@ As you will see later, you can ask for scopes at several occasions:
 
 When a claimed scope is refused by users, the instance will be able to ask for it again later, and explain a given operation won't be possible until they accept it.
 
-Scopes are typically used to access private profile information (see those inherent to <a href="http://openid.net/specs/openid-connect-basic-1_0.html#Scopes" target="_blank">OpenID Connect</a> like email, address or phone). But we will see that this mechanism is flexible enough to use additional scopes defined by application instances during [provisioning](#s3-3-provider-acknowledgement-scope).
+Scopes are typically used to access private profile information (see those inherent to <a href="https://openid.net/specs/openid-connect-basic-1_0.html#Scopes" target="_blank">OpenID Connect</a> like email, address or phone). But we will see that this mechanism is flexible enough to use additional scopes defined by application instances during [provisioning](#s3-3-provider-acknowledgement-scope).
 
 ### Documentation conventions
 {: #s1-conventions}

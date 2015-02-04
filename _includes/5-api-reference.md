@@ -72,7 +72,7 @@ Retrieve the public key used for OpenID Connect:
 	</div>
 </div>
 
-Returns a JSON Web Key Set containing the public key. See the <a href="http://tools.ietf.org/html/draft-ietf-jose-json-web-key-18" target="_blank">RFC</a> for more informations about JWKS.
+Returns a JSON Web Key Set containing the public key. See the <a href="https://tools.ietf.org/html/draft-ietf-jose-json-web-key-18" target="_blank">RFC</a> for more informations about JWKS.
 
 <hr/>
 
@@ -102,7 +102,7 @@ Return claims about the end-user:
 	</div>
 </div>
 
-<p>See the <a href="http://openid.net/specs/openid-connect-basic-1_0.html#UserInfo" target="_blank">OpenID Connect Draft</a>, the <a href="http://tools.ietf.org/html/draft-ietf-oauth-json-web-token-08" target="_blank">JWT Draft</a> and the <a href="http://tools.ietf.org/html/draft-ietf-jose-json-web-signature-11" target="_blank">JWS Draft</a> for more information.</p>
+<p>See the <a href="https://openid.net/specs/openid-connect-basic-1_0.html#UserInfo" target="_blank">OpenID Connect Draft</a>, the <a href="https://tools.ietf.org/html/draft-ietf-oauth-json-web-token-08" target="_blank">JWT Draft</a> and the <a href="https://tools.ietf.org/html/draft-ietf-jose-json-web-signature-11" target="_blank">JWS Draft</a> for more information.</p>
 
 ##### Response body
 
@@ -140,7 +140,7 @@ Return claims about the end-user:
 	</div>
 </div>
 
-<p>See the <a href="http://openid.net/specs/openid-connect-basic-1_0.html#UserInfo" target="_blank">OpenID Connect Draft</a>, the <a href="http://tools.ietf.org/html/draft-ietf-oauth-json-web-token-08" target="_blank">JWT Draft</a> and the <a href="http://tools.ietf.org/html/draft-ietf-jose-json-web-signature-11" target="_blank">JWS Draft</a> for more information.</p>
+<p>See the <a href="https://openid.net/specs/openid-connect-basic-1_0.html#UserInfo" target="_blank">OpenID Connect Draft</a>, the <a href="https://tools.ietf.org/html/draft-ietf-oauth-json-web-token-08" target="_blank">JWT Draft</a> and the <a href="https://tools.ietf.org/html/draft-ietf-jose-json-web-signature-11" target="_blank">JWS Draft</a> for more information.</p>
 
 ##### Request body
 
@@ -174,7 +174,7 @@ Grant authorizations to the client application:
 	</div>
 </div>
 
-See the <a href="http://tools.ietf.org/html/rfc6749#section-3.2" target="_blank">OAuth 2.0 RFC</a> and <a href="http://openid.net/specs/openid-connect-basic-1_0.html#ObtainingTokens" target="_blank">OpenID Connect RFC</a> for more information.
+See the <a href="https://tools.ietf.org/html/rfc6749#section-3.2" target="_blank">OAuth 2.0 RFC</a> and <a href="https://openid.net/specs/openid-connect-basic-1_0.html#ObtainingTokens" target="_blank">OpenID Connect RFC</a> for more information.
 
 <hr/>
 
@@ -190,7 +190,7 @@ Grant authorizations to the client application:
 	</div>
 </div>
 
-See the <a href="http://tools.ietf.org/html/rfc6749#section-3.2" target="_blank">OAuth 2.0 RFC</a> and <a href="http://openid.net/specs/openid-connect-basic-1_0.html#ObtainingTokens" target="_blank">OpenID Connect RFC</a> for more information.
+See the <a href="https://tools.ietf.org/html/rfc6749#section-3.2" target="_blank">OAuth 2.0 RFC</a> and <a href="https://openid.net/specs/openid-connect-basic-1_0.html#ObtainingTokens" target="_blank">OpenID Connect RFC</a> for more information.
 
 <hr/>
 
@@ -216,7 +216,7 @@ Exchange an authorization code or a refresh token for an access token:
 	</div>
 </div>
 
-See the <a href="http://tools.ietf.org/html/rfc6749#section-3.2" target="_blank">OAuth 2.0 RFC</a> and <a href="http://openid.net/specs/openid-connect-basic-1_0.html#ObtainingTokens" target="_blank">OpenID Connect RFC</a> for more information.
+See the <a href="https://tools.ietf.org/html/rfc6749#section-3.2" target="_blank">OAuth 2.0 RFC</a> and <a href="https://openid.net/specs/openid-connect-basic-1_0.html#ObtainingTokens" target="_blank">OpenID Connect RFC</a> for more information.
 
 <hr/>
 
@@ -270,7 +270,7 @@ Revoke a token:
 	</div>
 </div>
 
-See the <a href="http://tools.ietf.org/html/rfc7009" target="_blank">OAuth 2.0 Token Revocation RFC</a> for more information.
+See the <a href="https://tools.ietf.org/html/rfc7009" target="_blank">OAuth 2.0 Token Revocation RFC</a> for more information.
 
 <hr/>
 

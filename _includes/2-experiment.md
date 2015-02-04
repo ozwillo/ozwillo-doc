@@ -52,14 +52,14 @@ Having an `access_token` means an end user has successfully [authenticated](#4-u
 - when answering the provisioning request described in the previous paragraph
 - when posting notifications or events
 
-In those cases, the provider servers must issue HTTP requests to Ozwillo with [basic authentication](https://tools.ietf.org/html/rfc2617#section-2) using the `client_id`/`client_secret` pair as user-ID and password, and base64 encode them in an `Authorization: Basic {base64 encoding of client_id:client_secret}` HTTP header.
+In those cases, the provider servers must issue HTTP requests to Ozwillo with [basic authentication](https://tools.ietf.org/html/rfc2617#section-2) using the `client_id`/`client_secret` pair as userid and password respectively.
 
 ##### Calling Ozwillo with an access_token
 {: #s2-auth-with-token}
 
-When the provider calls Ozwillo with an `access_token`, it means the request is done on behalf a user. It helps Ozwillo to decide if a particular operation is allowed depending on the user identity, [scopes]() and client_id associated with this `access_token`.
+When the provider calls Ozwillo with an `access_token`, it means the request is done on behalf a user. It helps Ozwillo to decide if a particular operation is allowed depending on the user identity, [scopes]() and `client_id` associated with this `access_token`.
 
-The corresponding resquests require [OAuth 2.0 Bearer](http://tools.ietf.org/html/rfc6750), meaning that the `access_token` is sent in an `Authorization: Bearer {access_token_value}` HTTP header.
+The corresponding requests require [OAuth 2.0 Bearer](https://tools.ietf.org/html/rfc6750#section-2.1) authentication, meaning that the `access_token` is sent in an `Authorization: Bearer {access_token}` HTTP header.
 
 ### Recommendations
 {: #s2-recommendations}

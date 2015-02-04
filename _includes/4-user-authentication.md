@@ -12,7 +12,7 @@ Ozwillo authentication and authorization service implements the following intern
 - <a href="https://tools.ietf.org/html/draft-richer-oauth-introspection" target="_blank">OAuth Token Introspection</a>
 - <a href="https://tools.ietf.org/html/rfc7009" target="_blank">OAuth Token Revocation (RFC 7009)</a>
 
-In this matter, Ozwillo acts as an OpenID Provider, which is defined as (see OpenID <a href="http://openid.net/specs/openid-connect-core-1_0.html#Terminology" target="_blank">terminology</a>):
+In this matter, Ozwillo acts as an OpenID Provider, which is defined as (see OpenID <a href="https://openid.net/specs/openid-connect-core-1_0.html#Terminology" target="_blank">terminology</a>):
 
 > **OAuth 2.0 Authorization Server** that is capable of Authenticating the End-User and providing Claims to a Relying Party about the Authentication event and the End-User.
 
@@ -40,13 +40,13 @@ In the particular case where what you offer is not an instantiable application, 
 ### Authorization code flow
 {: #s4-auth-code-flow}
 
-You may refer to the official OpenID Connect <a href="http://openid.net/specs/openid-connect-core-1_0.html#CodeFlowSteps" target="_blank">authorization code flow</a> in addition to this documentation.
+You may refer to the official OpenID Connect <a href="https://openid.net/specs/openid-connect-core-1_0.html#CodeFlowSteps" target="_blank">authorization code flow</a> in addition to this documentation.
 
 Two particularities may be noted in comparison with the official spec:
 
 - if there is a one-to-one mapping between `client_id`s and application instances, in Ozwillo we also add a one-to-many relation between applications instances and services. It means that several services (end-user endpoints) may exist within the same `client_id`;
 
-- the `id_token` sent by Ozwillo as an outcome of [step #5](#4-5-ozwillo-response) contains the <a href="http://openid.net/specs/openid-connect-core-1_0.html#IDToken" target="_blank">official</a> required fields, plus Ozwillo specific properties (`app_user` and `app_admin` boolean values).
+- the `id_token` sent by Ozwillo as an outcome of [step #5](#4-5-ozwillo-response) contains the <a href="https://openid.net/specs/openid-connect-core-1_0.html#IDToken" target="_blank">official</a> required fields, plus Ozwillo specific properties (`app_user` and `app_admin` boolean values).
 
 Still within the context of the official spec, some optional features may not be implemented as of today, for instance passing a `max_age` parameter to the authentication endpoint.
 
@@ -126,7 +126,7 @@ Host: app.example.com/
 
 ##### Failure
 
-The same `redirect_uri` callback will be notified of the authentication error according to the <a href="http://openid.net/specs/openid-connect-core-1_0.html#AuthError" target="_blank">spec</a>.
+The same `redirect_uri` callback will be notified of the authentication error according to the <a href="https://openid.net/specs/openid-connect-core-1_0.html#AuthError" target="_blank">spec</a>.
 
 #### #3 Response validation
 {: #s4-3-response-validation}
@@ -194,7 +194,7 @@ If Ozwillo rejects the previous request, a HTTP 400 error will be <a href="https
 #### #6 Token decoding and validation
 {: #s4-6-token-validation}
 
-The `id_token` sent in the previous step is a JWT (JSON Web Token). You can do some tests by using this <a href="http://jwt.io/" target="_blank">online tool</a> or dedicated <a href="http://jwt.io/#libraries" target="_blank">libraries</a> (please check <a href="http://openid.net/developers/libraries/" target="_blank">these ones</a> too).
+The `id_token` sent in the previous step is a JWT (JSON Web Token). You can do some tests by using this <a href="http://jwt.io/" target="_blank">online tool</a> or dedicated <a href="http://jwt.io/#libraries" target="_blank">libraries</a> (please check <a href="https://openid.net/developers/libraries/" target="_blank">these ones</a> too).
 
 These libraries also help you check the `id_token` signature knowing Ozwillo public keys. The public keys URI is named `jwks_uri` in the <a href="https://accounts.ozwillo-preprod.eu/.well-known/openid-configuration" target="_blank">OpenID configuration</a>.
 
