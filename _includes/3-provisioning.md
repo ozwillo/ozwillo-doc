@@ -335,7 +335,7 @@ If the request times out, the Kernel will delete the instance from its database 
 
 Pending instances (those for which a request has been made to the app factory, but for which no [acknowledgement](#s3-3-provider-acknowledgement) has been sent) can be canceled using the same mechanism as [Instance destruction](#s3-destruction) but at the application wide `cancellation_uri`.
 
-So `cancellation_uri` (and associated secret) is linked to the app factory, when `destruction_uri` is linked to an application instance. It means in particular that `cancellation_uri` should reject the destruction of provisionned instances.
+Note that because the `instance_id` is sent in the request payload, the `cancellation_uri` and the `destruction_uri` for each instance (and their seecrets) can technically be the same. If you choose to make them different, then the `cancellation_uri` should reject the destruction of provisioned instances.
 
 TODO: use cases examples.
 {: .todo}
