@@ -122,9 +122,9 @@ As introduced in [Recognize and trust Ozwillo](#2-trust-ozwillo), the provider m
 | **instance_registration_uri** | the endpoint that must be used to acknowledge the provisioning back to Ozwillo | URI string |
 {: .request}
 
-It's important to know that purchasers may install an application either on behalf an organization, either for their personal user. In the latter case, there is no organization associated to the purchase, so there is no `organization` field in the request body.
+It's important to know that purchasers may install an application either on behalf an organization, or for their personal use. In the latter case, there is no organization associated to the purchase, so there is no `organization` field in the request body.
 
-That said, if your application `target_audience` (as declared in [store filters](#3-store-filters)) does not contain `CITIZENS`, it means purchase acts will always be on behalf an organization and thus the `organization` field will be sent.
+That said, if your application's `target_audience` (as declared in [store filters](#3-store-filters)) does not contain `CITIZENS`, it means purchase acts will always be on behalf of an organization and thus the `organization` field will always be sent.
 
 ##### Response from provider
 
@@ -233,9 +233,9 @@ A few remarks on this table:
 | :-- | :-- | :-- |
 | **scope_id** | full identifier of the needed scope | string |
 | **motivation** | motivation for using the scope, in the default language | string |
-| motivation#{l} | motivation for using the scope, in the give language | string |
+| motivation#{l} | motivation for using the scope, in the given language | string |
 
-The motivation helps understand users why they should grant specific privileges (associated to the `scope_id) to the instance, and thus help them decide if they will.
+The motivation helps users understand why they should grant specific privileges (associated to the `scope_id`) to the instance, and thus help them decide if they will.
 
 **Embedded Scope objects**
 {: #s3-3-provider-acknowledgement-scope}
@@ -280,7 +280,7 @@ At this stage:
 - its services are declared in the catalog;
 - its scopes are declared and available for use by other applications;
 - the purchaser has desktop shortcuts for the created services;
-- `visible:true` services are listed in store.
+- `visible: true` services are listed in store.
 
 #### #3bis Provider dismiss
 {: #s3-3bis-provider-dismiss}
@@ -322,7 +322,7 @@ This scheme allows sharing the same destruction URI and secret among several ins
 
 ##### Response from provider
 
-The destruction endpoint must respond with a successful status (200, 202 or 204) in a timely manner (not necessarily waiting for the underlying ressources to be actually released or archived). Ozwillo will then delete the instance (and its associated resources, like services) from its database and it will be impossible for users to authenticate to it.
+The destruction endpoint must respond with a successful status (200, 202 or 204) in a timely manner (not necessarily waiting for the underlying resources to be actually released or archived). Ozwillo will then delete the instance (and its associated resources, like services) from its database and it will be impossible for users to authenticate to it.
 
 If the request times out, the Kernel will delete the instance from its database nevertheless. Any (timely) non-successful status will abort the destruction (so it can be retried later).
 
@@ -331,7 +331,7 @@ If the request times out, the Kernel will delete the instance from its database 
 
 **What is the difference between cancellation and destruction URIs?**
 
-Pending instances (those for which a request has been made to the app factory, but for which no [acknowledgement](#3-3-provider-acknowledgement) has been sent) can be cancelled using the same mechanism as [Instance destruction](#3-destruction) but at the application wide `cancellation_uri`.
+Pending instances (those for which a request has been made to the app factory, but for which no [acknowledgement](#3-3-provider-acknowledgement) has been sent) can be canceled using the same mechanism as [Instance destruction](#s3-destruction) but at the application-wide `cancellation_uri`.
 
 So `cancellation_uri` (and associated secret) is linked to the app factory, when `destruction_uri` is linked to an application instance. It means in particular that `cancellation_uri` should reject the destruction of provisionned instances.
 
