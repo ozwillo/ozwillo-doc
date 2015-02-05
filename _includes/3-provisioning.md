@@ -35,14 +35,14 @@ Thus the following information is needed to have a well described *and* installa
 | icon#{l} | app icon URI in the given language, a 64px x 64px png is expected | URI string |
 | screenshot_uris | list of screenshot URIs, a 850px x 450px png are expected | array of URI strings |
 | **contacts** | list of URLs to contact the provider or its support | array of URI (URL or mailto) strings |
-| supported_locales | list of supported locales (end-user UI) in the application | array of {l} strings |
+| supported_locales | list of supported locales (end-user UI) in the application | array of `{l}` strings |
 | geographical_areas | optional geographical areas of interest | array of territory_ids |
 | restricted_areas | if the application can only be purchased by organizations in given areas | array of territory_ids |
 
 A few comments on this table:
 
-- `{l}` identifies a language following <a href="https://tools.ietf.org/html/bcp47" target="_blank">BCP 47</a>. Some examples regarding the fields introduced above: `name#es`, `description#fr-FR`, `description#fr-BE`.
 - by default the store will only present the applications that support (`supported_locales`) the user preferred language (the user may disable this restriction);
+- `{l}` identifies a language following <a href="https://tools.ietf.org/html/bcp47" target="_blank">BCP 47</a>. Some examples regarding the fields introduced above: `name#es`, `description#fr-FR`, `description#fr-BE`. When looking up values, matching is currently done following the <a href="https://docs.oracle.com/javase/7/docs/api/java/util/ResourceBundle.Control.html#getCandidateLocales(java.lang.String,%20java.util.Locale)" target="_blank">Java algorithm for finding resource bundles</a>; it might change in the future to follow the <a href="http://www.unicode.org/reports/tr35/#LanguageMatching" target="_blank">Unicode Consortium rules for language matching</a>.
 - the *default* language information is what will be displayed if the user preferred language information is not available (no matching custom `{l}` version). It can be whatever language suits best your target audience;
 - <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank">here</a> is a description of the markdown syntax. In particular, you may include raw text separated by two line breaks to shape paragraphs.
 
