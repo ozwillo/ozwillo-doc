@@ -20,7 +20,7 @@ In this respect, the provider acts as a Relying Party:
 
 > **OAuth 2.0 Client** application requiring End-User Authentication and Claims from an OpenID Provider.
 
-You may refer to the previous [Authentication in brief](#1-authorization) and [scopes](#1-scopes) paragraphs for a reminder, but the outcome of a successful authentication is the creation of an `access_token` that links three resources (during a limited period of time):
+You may refer to the previous [Authentication in brief](#s1-authorization) and [scopes](#s1-scopes) paragraphs for a reminder, but the outcome of a successful authentication is the creation of an `access_token` that links three resources (during a limited period of time):
 
 - a user
 - an application instance identified by a `client_id`
@@ -33,7 +33,7 @@ That's how Ozwillo provides both authentication and authorization features.
 ### Prerequesite
 {: #s4-prerequesite}
 
-You will [soon](#4-1-authentication-request) see that you ask Ozwillo to authenticate users against a `client_id`. Since this in an [outcome](#3-1-ozwillo-request) of the provisioning process, you should implement provisioning first.
+You will [soon](#s4-1-authentication-request) see that you ask Ozwillo to authenticate users against a `client_id`. Since this in an [outcome](#s3-1-ozwillo-request) of the provisioning process, you should implement provisioning first.
 
 In the particular case where what you offer is not an instantiable application, but a unique and singleton one, your product may be considered as a service, and you may ask for a `client_id` to <a href="mailto:providers@ozwillo.com">providers@ozwillo.com</a>.
 
@@ -46,7 +46,7 @@ Two particularities may be noted in comparison with the official spec:
 
 - if there is a one-to-one mapping between `client_id`s and application instances, in Ozwillo we also add a one-to-many relation between applications instances and services. It means that several services (end-user endpoints) may exist within the same `client_id`;
 
-- the `id_token` sent by Ozwillo as an outcome of [step #5](#4-5-ozwillo-response) contains the <a href="https://openid.net/specs/openid-connect-core-1_0.html#IDToken" target="_blank">official</a> required fields, plus Ozwillo specific properties (`app_user` and `app_admin` boolean values).
+- the `id_token` sent by Ozwillo as an outcome of [step #5](#s4-5-ozwillo-response) contains the <a href="https://openid.net/specs/openid-connect-core-1_0.html#IDToken" target="_blank">official</a> required fields, plus Ozwillo specific properties (`app_user` and `app_admin` boolean values).
 
 Still within the context of the official spec, some optional features may not be implemented as of today, for instance passing a `max_age` parameter to the authentication endpoint.
 
@@ -110,7 +110,7 @@ In short, the authentication endpoint implements a rich behaviour and may not di
 
 ##### Success
 
-If the previous operations succeed, and if the `redirect_uri` value specified in [step #1](#4-1-authentication-request) matches one of the `redirect_uris` specified during the [provisioning acknowledgement](#3-3-provider-acknowledgement), the following response will be sent:
+If the previous operations succeed, and if the `redirect_uri` value specified in [step #1](#s4-1-authentication-request) matches one of the `redirect_uris` specified during the [provisioning acknowledgement](#s3-3-provider-acknowledgement), the following response will be sent:
 
 <pre>
 HTTP/1.1 302 Found
@@ -131,7 +131,7 @@ The same `redirect_uri` callback will be notified of the authentication error ac
 #### #3 Response validation
 {: #s4-3-response-validation}
 
-You should verify that the `security_token` (within the `state`) is the one you sent first to Ozwillo during [step #1](#4-1-authentication-request), to decide if you can trust the response. To do so, you should link it to the current user session. This operation ensures the user accessing Ozwillo response is the same that initiated the authentication request.
+You should verify that the `security_token` (within the `state`) is the one you sent first to Ozwillo during [step #1](#s4-1-authentication-request), to decide if you can trust the response. To do so, you should link it to the current user session. This operation ensures the user accessing Ozwillo response is the same that initiated the authentication request.
 
 If validation passes, you finally exchange the received `code` for an `access_token`. 
 
@@ -151,7 +151,7 @@ Host: accounts.ozwillo-preprod.eu
 Authorization: Basic {base64 encoding of client_id:client_secret}
 </pre>
 
-The authorization header needs to be set as described in [Calling Ozwillo without an access_token](#2-auth-without-token). As shown in the `Content-Type` header, the following request body is sent as a serialized form.
+The authorization header needs to be set as described in [Calling Ozwillo without an access_token](#s2-auth-without-token). As shown in the `Content-Type` header, the following request body is sent as a serialized form.
 
 ##### Request body
 
@@ -159,7 +159,7 @@ The authorization header needs to be set as described in [Calling Ozwillo withou
 | :-- | :-- | :-- |
 | **grant_type** | in our case the value is <a href="https://openid.net/specs/openid-connect-core-1_0.html#TokenRequest">always</a> "authorization_code" | string |
 | **redirect_uri** | the redirection URI to which the response will be sent | URI string |
-| **code** | the `code` sent to you in [step #1](#4-2-ozwillo-response) | string |
+| **code** | the `code` sent to you in [step #1](#s4-2-ozwillo-response) | string |
 
 #### #5 Ozwillo response
 {: #s4-5-ozwillo-response}
@@ -208,10 +208,10 @@ If the signatures do not match, you can not trust the JWT. If they do match, the
 | **iat** | time at which the JWT was issued | integer |
 | **exp** | expiration time | integer |
 | **nonce** | used to mitigate replay attacks | string |
-| **app_user** | Ozwillo specific, used to describe the user role (see [explanation](#1-app-admin-app-user)) | boolean |
-| **app_admin** | Ozwillo specific, used to describe the user role (see [explanation](#1-app-admin-app-user)) | boolean |
+| **app_user** | Ozwillo specific, used to describe the user role (see [explanation](#s1-app-admin-app-user)) | boolean |
+| **app_admin** | Ozwillo specific, used to describe the user role (see [explanation](#s1-app-admin-app-user)) | boolean |
 
-The last expected validation is that you check the `nonce` sent back in this response is the same you sent in [step 1](#4-1-authentication-request).
+The last expected validation is that you check the `nonce` sent back in this response is the same you sent in [step 1](#s4-1-authentication-request).
 
 If all goes well and depending on your use cases, you may now enrich and qualify your end-user session with the issued `access_token` and `id_token`. The `access_token` is especially useful for further interactions use Ozwillo APIs, typically the user info endpoint.
 
@@ -240,7 +240,7 @@ Host: accounts.ozwillo-preprod.eu
 Authorization: Basic {base64 encoding of client_id:client_secret}
 </pre>
 
-The authorization header needs to be set as described in [Calling the Kernel without an access_token](#2-auth-without-token) and the request body is sent as form serialization.
+The authorization header needs to be set as described in [Calling the Kernel without an access_token](#s2-auth-without-token) and the request body is sent as form serialization.
 
 ##### Request body
 
@@ -255,7 +255,7 @@ Whichever mean the application uses to maintain the user session, it should be i
 
 #### #3 Single sign-out
 
-If the user is still signed in on Ozwillo, going back to the service is going to transparently sign-in her/him back. Indeed the service redirects to Ozwillo authentication endpoint (see the [authentication request](#4-1-authentication-request)), and knowing a session exists between the user and Ozwillo this step succeeds silently.
+If the user is still signed in on Ozwillo, going back to the service is going to transparently sign-in her/him back. Indeed the service redirects to Ozwillo authentication endpoint (see the [authentication request](#s4-1-authentication-request)), and knowing a session exists between the user and Ozwillo this step succeeds silently.
 
 This would be a surprising behavior for the user so he must be given the choice to sign out from the whole Ozwillo platform. This is done using the *end session endpoint* as defined by <a href="https://openid.net/specs/openid-connect-session-1_0.html#RPLogout" target="_blank">RP-Initiated Logout in OpenID Connect Session Management 1.0</a>.
 
@@ -283,5 +283,5 @@ Host: accounts.ozwillo-preprod.eu
 | **post_logout_redirect_uri** | the redirection URI to which the response will be sent | URI string |
 | state | opaque value used to maintain state between the request and the callback | string |
 
-The `post_logout_redirect_uri` value must match one of the `post_logout_redirect_uris` specified during the [provisioning acknowledgement](#3-3-provider-acknowledgement).
+The `post_logout_redirect_uri` value must match one of the `post_logout_redirect_uris` specified during the [provisioning acknowledgement](#s3-3-provider-acknowledgement).
 {: .focus .important}

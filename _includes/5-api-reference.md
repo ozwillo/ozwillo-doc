@@ -32,10 +32,10 @@ As a reminder the APIs are served accross several hosts depending on their topic
 
 Where:
 
-- <span class="api-host">host</span> value is shortened to the host subdomain among `accounts`, `kernel` or `data` (read [more](#1-programming-interface))
+- <span class="api-host">host</span> value is shortened to the host subdomain among `accounts`, `kernel` or `data` (read [more](#s1-programming-interface))
 - <span class="api-auth">auth</span> value is:
-  - `basic` for basic auth**entication** with a valid `client_id`/`client_secret` pair (read [more](#2-auth-without-token))
-  - `bearer` for bearer auth**orization** with a valid `access_token` (read [more](#2-auth-with-token))
+  - `basic` for basic auth**entication** with a valid `client_id`/`client_secret` pair (read [more](#s2-auth-without-token))
+  - `bearer` for bearer auth**orization** with a valid `access_token` (read [more](#s2-auth-with-token))
   - dismissed if the endpoint requires no authorization
 - <span class="api-input">input</span> describes a specific required input content type:
 	- `JSON` for `Content-Type: application/json;charset=UTF-8`

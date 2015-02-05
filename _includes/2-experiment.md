@@ -4,7 +4,7 @@
 ### Preproduction sandbox
 {: #s2-preproduction-sandbox}
 
-The previous section (especially [Programming interface](#1-terminology)) lists the production hosts of Ozwillo, all of which being subdomains of `ozwillo.com`. Ozwillo preproduction environment mirrors this setup under `ozwillo-preprod.eu` by providing the following hosts:
+The previous section (especially [Programming interface](#s1-terminology)) lists the production hosts of Ozwillo, all of which being subdomains of `ozwillo.com`. Ozwillo preproduction environment mirrors this setup under `ozwillo-preprod.eu` by providing the following hosts:
 
 - `accounts.ozwillo-preprod.eu` for authentication pages and the accounts API root
 - `data.ozwillo-preprod.eu` as the the Datacore API root
@@ -29,7 +29,7 @@ Ozwillo provides API endpoints that implement OpenID Connect. Their configuratio
 
 For instance, the configuration shows the `authorization_endpoint` is accessible at `https://accounts.ozwillo-preprod.eu/a/auth`
 
-These endpoints are also listed in the [API reference](#5-api-reference) section.
+These endpoints are also listed in the [API reference](#s5-api-reference) section.
 
 ### Authentication schemes
 {: #s2-authentication-schemes}
@@ -39,16 +39,16 @@ This paragraph provides an overview of authentication and authorization schemes 
 ##### Recognize and trust Ozwillo
 {: #s2-trust-ozwillo}
 
-As you will [soon](#3-1-ozwillo-request) see, a purchase act on the portal causes Ozwillo to POST provisioning requests to a provider endpoint. Encoding the payload of the request and sending the resulting signature as a HTTP header allows the provider to recognize Ozwillo as the request issuer.
+As you will [soon](#s3-1-ozwillo-request) see, a purchase act on the portal causes Ozwillo to POST provisioning requests to a provider endpoint. Encoding the payload of the request and sending the resulting signature as a HTTP header allows the provider to recognize Ozwillo as the request issuer.
 
 Knowing this request intent is to create a new application instance, it includes a `client_id`/`client_secret` pair used in the following authentication schemes.
 
 ##### Calling Ozwillo without an access_token
 {: #s2-auth-without-token}
 
-Having an `access_token` means an end user has successfully [authenticated](#4-user-authentication) to Ozwillo (within a given `client_id`). But there is a number of cases where the provider try to reach Ozwillo before or outside an authenticated user context:
+Having an `access_token` means an end user has successfully [authenticated](#s4-user-authentication) to Ozwillo (within a given `client_id`). But there is a number of cases where the provider try to reach Ozwillo before or outside an authenticated user context:
 
-- precisely when [asking for](#4-4-token-request) an `access_token` during the authentication flow
+- precisely when [asking for](#s4-4-token-request) an `access_token` during the authentication flow
 - when answering the provisioning request described in the previous paragraph
 - when posting notifications or events
 
@@ -79,4 +79,4 @@ Your endpoints must be robust to new parameters or parameters not described in t
 
 ##### Monitoring
 
-In some cases, API calls may need a manual operation on the provider side (for instance during [provisioning](#3-2-provider-provisioning) depending on the process you put in place) or may [fail](#ref-ack-422). It's good practice to be sure a real person is notified when such cases occur, and don't let the issue sleep.
+In some cases, API calls may need a manual operation on the provider side (for instance during [provisioning](#s3-2-provider-provisioning) depending on the process you put in place) or may [fail](#ref-ack-422). It's good practice to be sure a real person is notified when such cases occur, and don't let the issue sleep.
