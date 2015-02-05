@@ -72,7 +72,7 @@ There is no official spec about secret strings, but 30 characters within a rich 
 You will likely need to read the remainder of this section to fully understand how fields are used, especially those related to the app factory. It means these setup steps are required before receiving provisioning requests from Ozwillo:
 
 1. gather all parameters info needed as described in the previous tables
-2. send it to <a mailto="providers@ozwillo.com">providers@ozwillo.com</a> along with your display name as an application provider (typically the name of your company)
+2. send it to <a href="mailto:providers@ozwillo.com">providers@ozwillo.com</a> along with your display name as an application provider (typically the name of your company)
 3. you will be notified when the application is made available on the [preproduction](#2-preproduction-sandbox)
 
 To ease the process, you may submit a first and simplified version of the commercial info fields, focusing on simple versions of **required** fields, and resubmit it later with enriched contents.
