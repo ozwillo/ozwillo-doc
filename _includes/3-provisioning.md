@@ -105,10 +105,10 @@ X-Hub-Signature: sha1={HMAC-SHA1 digest of payload}
 Content-Type: application/json;charset=UTF-8
 </pre>
 
-The body of this request is encoded in JSON. A HMAC-SHA1 hash of the JSON string is computed using the application's `instantiated_secret` as key with an uppercase hexadecimal output format. This computed HMAC-SHA1 signature is then inserted in the X-Hub-Signature (as per <a href="https://pubsubhubbub.googlecode.com/git/pubsubhubbub-core-0.4.html#authednotify" target="_blank">PubSubHubbub Core 0.4</a>).
+The body of this request is encoded in JSON. A HMAC-SHA1 hash of the body is computed using the application's `instantiated_secret` as key. This computed HMAC-SHA1 signature is then inserted in the `X-Hub-Signature` header in hexadecimal, prefixed with the string `sha1=` (as per <a href="https://pubsubhubbub.googlecode.com/git/pubsubhubbub-core-0.4.html#authednotify" target="_blank">PubSubHubbub Core 0.4</a>).
 {: #ref-hmac-signature}
 
-As introduced in [Recognize and trust Ozwillo](#2-trust-ozwillo), the provider must recompute the signature of the request body with the same secret key and method. If signatures match, this reasonably certifies the instantiation request comes from Ozwillo (which is the only one knowing the `instantiated_secret`) and then can be trusted. If not, you may log the request for further analysis but you must not process it.
+As introduced in [Recognize and trust Ozwillo](#2-trust-ozwillo), the provider must recompute the signature of the request body with the same secret key and method. If signatures match, this reasonably certifies the instantiation request comes from Ozwillo (which is the only one knowing the `instantiated_secret`) and then can be trusted. If not, you may log the request for further analysis but you must not process it. Note that the `sha1=` prefix must be compared case-sensitively, but the case of the hexadecimal signature value doesn't matter.
 
 ##### Request body
 
