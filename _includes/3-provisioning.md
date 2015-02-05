@@ -258,19 +258,21 @@ The full identifier of an instance scope is in the form `{instance_id}:{local_id
 
 Possible status codes:
 
-- 200: means the acknowledgement is valid and processed;
+- 201: means the acknowledgement is valid and processed;
 - <span id="ref-ack-422">422</span>: means there is a problem with the acknowledgement request, additional information about the particular error is given in the response body.
 
-For successful 200 responses, the body response is in the form of:
+For successful 201 responses, the body response is in the form of:
 
-<pre>
+```
 {
-	"back-end" : "a15243e3-17a0-4511-b15c-c88e6784e287",
- 	"front-end" : "31336385-f2ff-4488-8835-1f7da53669b9"
+  "back-end": "a15243e3-17a0-4511-b15c-c88e6784e287",
+  "front-end": "31336385-f2ff-4488-8835-1f7da53669b9"
 }
-</pre>
+```
 
 Where `back-end` and `front-end` would be the `local_id` of two declared services within the instance, and the corresponding GUIDs being their internal Ozwillo ids.
+
+The 201 responses also include a `Location:` header with the URI of a resource about the created instance ([see below](#s5-api-app-instances)).
 
 ##### Effects
 
