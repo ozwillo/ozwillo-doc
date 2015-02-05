@@ -41,7 +41,7 @@ Thus the following information is needed to have a well described *and* installa
 
 A few comments on this table:
 
-- `{l}` identifies a language following <a href="https://tools.ietf.org/html/bcp47" target="_blank">BCP 47</a>. Some examples regarding the fields introduced above: `name#es`, `description#fr_FR`, `description#fr_BE`;
+- `{l}` identifies a language following <a href="https://tools.ietf.org/html/bcp47" target="_blank">BCP 47</a>. Some examples regarding the fields introduced above: `name#es`, `description#fr-FR`, `description#fr-BE`.
 - by default the store will only present the applications that support (`supported_locales`) the user preferred language (the user may disable this restriction);
 - the *default* language information is what will be displayed if the user preferred language information is not available (no matching custom `{l}` version). It can be whatever language suits best your target audience;
 - <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank">here</a> is a description of the markdown syntax. In particular, you may include raw text separated by two line breaks to shape paragraphs.
