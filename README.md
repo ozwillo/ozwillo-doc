@@ -57,7 +57,7 @@ More info [here](http://kramdown.gettalong.org/quickref.html#block-attributes).
 
 ### Credits
 
-The styling and behavior of the documentation is deeply inspired by [meteor docs](http://docs.meteor.com/). The CSS relies on [normalize](git.io/normalize) and [typeplate](http://typeplate.com).
+The styling and behavior of the documentation is deeply inspired by [meteor docs](http://docs.meteor.com/). The CSS relies on [normalize](https://necolas.github.io/normalize.css/) and [typeplate](http://typeplate.com).
 
 ### TODO
 
@@ -79,8 +79,5 @@ Longer ones (those that contains several sentences) do:
 
 For the moment the documentation relies on the following choices, that needs to be discussed:
 
-- no mention to territory_id
 - no description of subscription callback for the moment, since it remains to be implemented
 - replaced Kernel by Ozwillo when we're talking about APIs
-- https://openid.net/specs/openid-connect-core-1_0.html#IDToken it seems all required fields are not sent by the Kernel
-- in our protocol, state and nonce are mandatory but in OpenID connect they are recommended and optional.
