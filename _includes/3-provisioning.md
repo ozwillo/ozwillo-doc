@@ -184,7 +184,7 @@ The authorization header needs to be set as described in [Calling Ozwillo withou
 | **instance_id** | Ozwillo application instance id | string |
 | **services** | services (at least one) to be declared on Ozwillo, more details below | array of Service objects |
 | **destruction_uri** | destruction endpoint of this instance | URI string |
-| **destruction_secret** | secret used to compute the destruction request signature | URI string |
+| **destruction_secret** | secret used to compute the destruction request signature | string |
 | needed_scopes | scopes needed by the instance | array of NeededScope objects |
 | scopes | scopes declared by the instance | array of Scope objects |
 
