@@ -4,9 +4,6 @@
 ### Introduction
 {: #s5-introduction}
 
-The API reference is under work and can't be trusted as of today.
-{: .warning}
-
 #### Endpoints description
 {: #s5-endpoints-description}
 
@@ -55,9 +52,6 @@ It prevents from altering resources that have been modified elsewhere since the 
 ### Keys
 {: #s5-api-keys}
 
-The API reference is under work and can't be trusted as of today.
-{: .warning}
-
 #### Retrieve the public key used for OpenID Connect
 
 <div class="api-entry">
@@ -81,9 +75,6 @@ Note that this API requires Basic authentication not for security concerns, but 
 
 ### Users
 {: #s5-api-users}
-
-The API reference is under work and can't be trusted as of today.
-{: .warning}
 
 #### Return claims about the end-user
 
@@ -161,9 +152,6 @@ See the <a href="https://openid.net/specs/openid-connect-basic-1_0.html#UserInfo
 ### Authorization
 {: #s5-api-authorization}
 
-The API reference is under work and can't be trusted as of today.
-{: .warning}
-
 #### Grant authorizations to the client application
 
 <div class="api-entry">
@@ -199,9 +187,6 @@ See <a href="https://tools.ietf.org/html/rfc6749#section-3.2" target="_blank">OA
 
 ### Tokens
 {: #s5-api-tokens}
-
-The API reference is under work and can't be trusted as of today.
-{: .warning}
 
 #### Exchange an authorization code or a refresh token for an access token
 
@@ -297,9 +282,6 @@ See <a href="https://tools.ietf.org/html/rfc7009" target="_blank">OAuth 2.0 Toke
 ### Application instances
 {: #s5-api-app-instances}
 
-The API reference is under work and can't be trusted as of today.
-{: .warning}
-
 #### Acknowledge the provisioning of an instance
 
 <div class="api-entry">
@@ -330,25 +312,6 @@ See [above](#s3-3-provider-acknowledgement) for details.
 </div>
 
 See [above](s3-3bis-provider-dismiss) for details.
-
-<hr/>
-
-#### Retrieve information on an application instance
-
-<div class="api-entry">
-	<div class="api-command">GET /apps/instance/{instance_id}</div>
-	<div class="api-options">
-		<div class="api-request">
-			<span class="api-host">kernel</span>
-			<span class="api-auth">bearer</span>
-		</div>
-		<div class="api-response">
-			<span class="api-output">JSON</span>
-		</div>
-	</div>
-</div>
-
-##### Response body
 
 <hr/>
 
@@ -397,9 +360,6 @@ See [embedded service objects](#s3-3-provider-acknowledgement-service) used duri
 
 ### Services
 {: #s5-api-services}
-
-The API reference is under work and can't be trusted as of today.
-{: .warning}
 
 #### Retrieve information about a service
 
@@ -463,9 +423,6 @@ Note that the provided description _replaces_ the one stored in Ozwillo. This is
 ### Access control
 {: #s5-api-access-control}
 
-The API reference is under work and can't be trusted as of today.
-{: .warning}
-
 Ozwillo manages access control lists that links user to application instances.
 
 #### Retrieve app_users of the app instance
@@ -492,9 +449,6 @@ TODO: only for app_admins?
 
 ### Notifications
 {: #s5-api-notifications}
-
-The API reference is under work and can't be trusted as of today.
-{: .warning}
 
 #### Get all unread notifications for a defined user and a filter
 
@@ -595,7 +549,7 @@ The response is a JSON Array of messages, each with the following fields:
 ### Events
 {: #s5-api-events}
 
-The API reference is under work and can't be trusted as of today.
+The Events API documentation is under work and can't be trusted as of today.
 {: .warning}
 
 #### Subscribe to a typed event from the event bus
