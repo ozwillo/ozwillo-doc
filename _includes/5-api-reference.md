@@ -175,7 +175,7 @@ Grant authorizations to the client application:
 	</div>
 </div>
 
-See the <a href="https://tools.ietf.org/html/rfc6749#section-3.2" target="_blank">OAuth 2.0 RFC</a> and <a href="https://openid.net/specs/openid-connect-basic-1_0.html#ObtainingTokens" target="_blank">OpenID Connect RFC</a> for more information.
+See <a href="https://tools.ietf.org/html/rfc6749#section-3.2" target="_blank">OAuth 2.0</a> and <a href="https://openid.net/specs/openid-connect-basic-1_0.html#AuthenticationRequest" target="_blank">OpenID Connect 1.0</a> for more information.
 
 <hr/>
 
@@ -191,7 +191,9 @@ Grant authorizations to the client application:
 	</div>
 </div>
 
-See the <a href="https://tools.ietf.org/html/rfc6749#section-3.2" target="_blank">OAuth 2.0 RFC</a> and <a href="https://openid.net/specs/openid-connect-basic-1_0.html#ObtainingTokens" target="_blank">OpenID Connect RFC</a> for more information.
+Same as above, only the HTTP method changes, and parameters are sent in the request payload rather than the query string.
+
+See <a href="https://tools.ietf.org/html/rfc6749#section-3.2" target="_blank">OAuth 2.0</a> and <a href="https://openid.net/specs/openid-connect-basic-1_0.html#AuthenticationRequest" target="_blank">OpenID Connect 1.0</a> for more information.
 
 <hr/>
 
@@ -212,12 +214,12 @@ Exchange an authorization code or a refresh token for an access token:
 			<span class="api-input">form</span>
 		</div>
 		<div class="api-response">
-			<span class="api-output">JWT</span>
+			<span class="api-output">JSON</span>
 		</div>
 	</div>
 </div>
 
-See the <a href="https://tools.ietf.org/html/rfc6749#section-3.2" target="_blank">OAuth 2.0 RFC</a> and <a href="https://openid.net/specs/openid-connect-basic-1_0.html#ObtainingTokens" target="_blank">OpenID Connect RFC</a> for more information.
+See <a href="https://tools.ietf.org/html/rfc6749#section-3.2" target="_blank">OAuth 2.0</a> and <a href="https://openid.net/specs/openid-connect-basic-1_0.html#ObtainingTokens" target="_blank">OpenID Connect 1.0</a> for more information.
 
 <hr/>
 
