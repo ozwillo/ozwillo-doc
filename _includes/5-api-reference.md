@@ -101,7 +101,7 @@ Return claims about the end-user:
 	</div>
 	<div class="api-scopes">
 		<span class="scopes">SCOPES</span>
-		<code>openid profile email name address</code>
+		<code>openid</code> and optionally any of <code>profile email name address</code>
 	</div>
 </div>
 
@@ -109,15 +109,25 @@ Return claims about the end-user:
 
 ##### Response body
 
-| Field name | Field description | Type |
-| :-- | :-- | :-- |
-| **sub** | ... | string |
-| **name** | ... | string |
-| **family_name** | ... | string |
-| **given_name** | ... | string |
-| **zoneinfo** | ... | string |
-| **locale** | ... | string |
-| **updated_at** | ... | string |
+| Field name | Field description | Type | Included if scope |
+| :-- | :-- | :-- | :-- |
+| **sub** | Identifier of the user | string | `openid` |
+| name | User's full name in displayable form | string | `profile` |
+| given_name | Given name(s) or first name(s) of the user | string | `profile` |
+| family_name | Surname(s) or last name(s) of the user | string | `profile` |
+| middle_name | Middle name(s) of the user | string | `profile` |
+| nickname | Casual name of the user | string | `profile` |
+| picture | URL of the user's profile picture (avatar) | URI | `profile` |
+| gender | User's gender; either `male` or `female` | string | `profile` |
+| birthdate | User's birthday, in ISO 8601 `YYYY-MM-DD` format | string | `profile` |
+| zoneinfo | User's timezone, as a value from the [`tz` database](http://www.twinsun.com/tz/tz-link.htm) | string | `profile` |
+| locale | User's locale, as a [BCP47](https://tools.ietf.org/html/bcp47) language tag | string | `profile` |
+| email | User's e-mail address | string | `email` |
+| email_verified | True if the user's e-mail address has been verified; otherwise false. | boolean | `email` |
+| address | User's postal address | Address object | `address` |
+| phone_number | User's telephone number | string | `phone` |
+| phone_number_verfied | True if the user's phone number has been verified; potherwise false. | boolean | `phone` |
+| **updated_at** | Time the user's information was last updated, in seconds since Unix Epoch | number | `openid` |
 {: .request}
 
 <hr/>
@@ -130,7 +140,6 @@ Return claims about the end-user:
 		<div class="api-request">
 			<span class="api-host">accounts</span>
 			<span class="api-auth">bearer</span>
-			<span class="api-input">JSON</span>
 		</div>
 		<div class="api-response">
 			<span class="api-output">JSON</span>
@@ -143,20 +152,9 @@ Return claims about the end-user:
 	</div>
 </div>
 
-<p>See the <a href="https://openid.net/specs/openid-connect-basic-1_0.html#UserInfo" target="_blank">OpenID Connect Draft</a>, the <a href="https://tools.ietf.org/html/draft-ietf-oauth-json-web-token-08" target="_blank">JWT Draft</a> and the <a href="https://tools.ietf.org/html/draft-ietf-jose-json-web-signature-11" target="_blank">JWS Draft</a> for more information.</p>
+Same as above, only the HTTP method changes.
 
-##### Request body
-
-| Field name | Field description | Type |
-| :-- | :-- | :-- |
-| **sub** | ... | string |
-| **name** | ... | string |
-| **family_name** | ... | string |
-| **given_name** | ... | string |
-| **zoneinfo** | ... | string |
-| **locale** | ... | string |
-| **updated_at** | ... | string |
-{: .request}
+See the <a href="https://openid.net/specs/openid-connect-basic-1_0.html#UserInfo" target="_blank">OpenID Connect Draft</a>, the <a href="https://tools.ietf.org/html/draft-ietf-oauth-json-web-token-08" target="_blank">JWT Draft</a> and the <a href="https://tools.ietf.org/html/draft-ietf-jose-json-web-signature-11" target="_blank">JWS Draft</a> for more information.
 
 <hr/>
 
