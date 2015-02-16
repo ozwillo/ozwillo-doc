@@ -278,9 +278,6 @@ This endpoint is only accessible to _protected resources_ (in OAuth 2.0 parlance
 			<span class="api-auth">bearer</span>
 			<span class="api-input">form</span>
 		</div>
-		<div class="api-response">
-			<span class="api-output">JWT</span>
-		</div>
 	</div>
 </div>
 
