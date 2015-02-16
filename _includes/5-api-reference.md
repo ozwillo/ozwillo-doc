@@ -65,6 +65,7 @@ Retrieve the public key used for OpenID Connect:
 	<div class="api-options">
 		<div class="api-request">
 			<span class="api-host">accounts</span>
+			<span class="api-auth">basic</span>
 		</div>
 		<div class="api-response">
 			<span class="api-output">JWKS</span>
@@ -73,6 +74,8 @@ Retrieve the public key used for OpenID Connect:
 </div>
 
 Returns a JSON Web Key Set containing the public key. See the <a href="https://tools.ietf.org/html/draft-ietf-jose-json-web-key-18" target="_blank">RFC</a> for more informations about JWKS.
+
+Note that this API requires Basic authentication not for security concerns, but actually only so we can track who calls it and at which frequency.
 
 <hr/>
 
