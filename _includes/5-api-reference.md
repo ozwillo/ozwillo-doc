@@ -231,6 +231,7 @@ Get information about an access token:
 		<div class="api-request">
 			<span class="api-host">accounts</span>
 			<span class="api-auth">bearer</span>
+			<span class="api-input">form</span>
 		</div>
 		<div class="api-response">
 			<span class="api-output">JSON</span>
@@ -238,22 +239,32 @@ Get information about an access token:
 	</div>
 </div>
 
-<p>Token introspection endpoint: see the OAuth Token Introspection <a href="https://tools.ietf.org/html/draft-richer-oauth-introspection" target="_blank">draft</a> for more information.</p>
+See <a href="https://tools.ietf.org/html/draft-richer-oauth-introspection" target="_blank">OAuth 2.0 Token Introspection</a> for more information.
+
+This endpoint is only accessible to _protected resources_ (in OAuth 2.0 parlance) that need to validate whether a received `access_token` is valid and retrieve information about it. Other clients will get an `{ "active": false }` response; even the app-instance for which the token has been issued (this might change in the future though).
+
+##### Request body
+
+| Field name | Field description | Type |
+| :-- | :-- | :-- |
+| **token** | The string value of the token to introspect. | string |
+{: .request}
 
 ##### Response body
 
 | Field name | Field description | Type |
 | :-- | :-- | :-- |
-| active | ... | boolean |
-| exp | ... | integer |
-| iat | ... | integer |
-| scope | list of granted scopes | string (scopes separated by spaces) |
-| client_id | ... | string |
-| sub | ... | string |
-| aud | ... | string |
-| token_type | ... | string |
-| sub_groups | ... | string |
+| **active** | Indicator of whether or not the presented token is currently active | boolean |
+| scope | Space-separated list of scopes associated with this token | string |
+| client_id | Identifier of the app-instance for which the token was issued | string |
+| token_type | Type of the token (e.g. `Bearer`) | string |
+| exp | Timestamp (in seconds since Unix Epoch) indicating when the token will expire | integer |
+| iat | Timestamp (in seconds since Unix Epoch) indicating when the token was originally issued | integer |
+| nbf | Timestamp (in seconds since Unix Epoch) indicating when this token is not to be used before | integer |
+| sub | Identifier of the user who authorized this token. | string |
 {: .request}
+
+{::comment}Document sub_groups once we have proper (and stable) support for user groups.{:/}
 
 <hr/>
 
@@ -273,7 +284,16 @@ Revoke a token:
 	</div>
 </div>
 
-See the <a href="https://tools.ietf.org/html/rfc7009" target="_blank">OAuth 2.0 Token Revocation RFC</a> for more information.
+See <a href="https://tools.ietf.org/html/rfc7009" target="_blank">OAuth 2.0 Token Revocation (RFC 7009)</a> for more information.
+
+> Note: invalid tokens do not cause an error response since the client cannot handle such an error in a reasonable way. Moreover, the purpose of the revocation request, invalidating the particular token, is already achieved.
+
+##### Request body
+
+| Field name | Field description | Type |
+| :-- | :-- | :-- |
+| **token** | The string value of the token to introspect. | string |
+{: .request}
 
 <hr/>
 
