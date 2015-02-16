@@ -46,9 +46,9 @@ Where:
 #### Common behaviour
 {: #s5-common-behaviour}
 
-When trying to modify or delete a resource (`PUT` or `DELETE` command), it is expected that you've previously retrieved it (`GET` command) and got an associated `etag`.
+When trying to modify or delete a resource (`PUT` or `DELETE` command), it is expected that you've previously retrieved it (`GET` command) and got an associated ["ETag"](https://tools.ietf.org/html/rfc7232#section-2.3) (entity-tags are also returned in some responses).
 
-Then you should create your `UPDATE` or `DELETE` request with an <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.24" target="_blank">If-Match</a> header set with the etag.
+Then you should create your `UPDATE` or `DELETE` request with an <a href="https://tools.ietf.org/html/rfc7232#section-3.1" target="_blank">If-Match</a> header set with the entity-tag.
 
 It prevents from altering resources that have been modified elsewhere since the last time you accessed it. 
 
