@@ -313,7 +313,7 @@ The API reference is under work and can't be trusted as of today.
 	</div>
 </div>
 
-##### Request body
+See [above](#s3-3-provider-acknowledgement) for details.
 
 <hr/>
 
@@ -329,7 +329,7 @@ The API reference is under work and can't be trusted as of today.
 	</div>
 </div>
 
-##### Request body
+See [above](s3-3bis-provider-dismiss) for details.
 
 <hr/>
 
