@@ -369,6 +369,8 @@ See [above](s3-3bis-provider-dismiss) for details.
 
 ##### Response body
 
+The response is a JSON Array of [service objects](#s3-3-provider-acknowledgement-service) as used during provisioning.
+
 <hr/>
 
 #### Add a new service to the application instance
@@ -389,7 +391,7 @@ See [above](s3-3bis-provider-dismiss) for details.
 
 ##### Request body
 
-##### Response body
+See [embedded service objects](#s3-3-provider-acknowledgement-service) used during provisioning.
 
 <hr/>
 
@@ -416,6 +418,8 @@ The API reference is under work and can't be trusted as of today.
 
 ##### Response body
 
+See [embedded service objects](#s3-3-provider-acknowledgement-service) used during provisioning.
+
 <hr/>
 
 #### Update a service
@@ -434,11 +438,11 @@ The API reference is under work and can't be trusted as of today.
 	</div>
 </div>
 
-If-Match
-
 ##### Request body
 
-##### Response body
+See [embedded service objects](#s3-3-provider-acknowledgement-service) used during provisioning.
+
+Note that the provided description _replaces_ the one stored in Ozwillo. This is not a _patch_ or _partial update._
 
 <hr/>
 
@@ -453,12 +457,6 @@ If-Match
 		</div>
 	</div>
 </div>
-
-If-Match
-
-##### Request body
-
-##### Response body
 
 <hr/>
 

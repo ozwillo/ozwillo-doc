@@ -189,6 +189,7 @@ The authorization header needs to be set as described in [Calling Ozwillo withou
 | scopes | scopes declared by the instance | array of Scope objects |
 
 **Embedded Service objects**
+{: #s3-3-provider-acknowledgement-service}
 
 | Field name | Field description | Type |
 | :-- | :-- | :-- |
@@ -217,7 +218,8 @@ The authorization header needs to be set as described in [Calling Ozwillo withou
 | notification_uri | endpoint used when there are notifications for this service | URI string |
 | **redirect_uris** | whitelist of authentication callbacks, each URI must be unique to this service within the instance | array of URI strings |
 | post_logout_redirect_uris | whitelist of post-logout callbacks, each URI must be unique to this service within the instance | array of URI strings |
-| subscription_uri | endpoint of the subscription callback, usage is not implemented yet | array of URI strings |
+
+{::comment}Document subscription_uri and subscription_secret when they're implemented.{:/}
 
 **NB**: `redirect_uris` and `post_logout_redirect_uris` values can't be shared by different services within the same application instance. In some cases Ozwillo may identify a service thanks to either `instance_id` + `redirect_uri` or `instance_id` + `post_logout_redirect_uri` pairs. 
 {: .focus .important}
