@@ -352,22 +352,6 @@ See [above](s3-3bis-provider-dismiss) for details.
 
 <hr/>
 
-#### Destroy an application instance
-
-<div class="api-entry">
-	<div class="api-command">DELETE /apps/instance/{instance_id}</div>
-	<div class="api-options">
-		<div class="api-request">
-			<span class="api-host">kernel</span>
-			<span class="api-auth">bearer</span>
-		</div>
-	</div>
-</div>
-
-If-Match
-
-<hr/>
-
 #### Retrieve the services of the application instance
 
 <div class="api-entry">
@@ -505,69 +489,6 @@ TODO: only for app_admins?
 {: .todo}
 
 ##### Reponse body
-
-<hr/>
-
-#### Add an app_user to the app instance
-
-<div class="api-entry">
-	<div class="api-command">POST /apps/acl/instance/{instance_id}</div>
-	<div class="api-options">
-		<div class="api-request">
-			<span class="api-host">kernel</span>
-			<span class="api-auth">bearer</span>
-			<span class="api-input">JSON</span>
-		</div>
-		<div class="api-response">
-			<span class="api-output">JSON</span>
-		</div>
-	</div>
-</div>
-
-TODO: only for app_admins?
-{: .todo}
-
-##### Request body
-
-##### Reponse body
-
-<hr/>
-
-#### Retrieve an ACE
-
-<div class="api-entry">
-	<div class="api-command">GET /apps/acl/ace/{ace_id}</div>
-	<div class="api-options">
-		<div class="api-request">
-			<span class="api-host">kernel</span>
-			<span class="api-auth">bearer</span>
-		</div>
-		<div class="api-response">
-			<span class="api-output">JSON</span>
-		</div>
-	</div>
-</div>
-
-##### Response body
-
-<hr/>
-
-#### Delete an ACE
-
-<div class="api-entry">
-	<div class="api-command">DELETE /apps/acl/ace/{ace_id}</div>
-	<div class="api-options">
-		<div class="api-request">
-			<span class="api-host">kernel</span>
-			<span class="api-auth">bearer</span>
-		</div>
-		<div class="api-response">
-			<span class="api-output">JSON</span>
-		</div>
-	</div>
-</div>
-
-##### Response body
 
 <hr/>
 
