@@ -58,7 +58,7 @@ It prevents from altering resources that have been modified elsewhere since the 
 The API reference is under work and can't be trusted as of today.
 {: .warning}
 
-Retrieve the public key used for OpenID Connect:
+#### Retrieve the public key used for OpenID Connect
 
 <div class="api-entry">
 	<div class="api-command">GET /a/keys</div>
@@ -85,7 +85,7 @@ Note that this API requires Basic authentication not for security concerns, but 
 The API reference is under work and can't be trusted as of today.
 {: .warning}
 
-Return claims about the end-user:
+#### Return claims about the end-user
 
 <div class="api-entry">
 	<div class="api-command">GET /a/userinfo</div>
@@ -132,7 +132,7 @@ Return claims about the end-user:
 
 <hr/>
 
-Return claims about the end-user:
+#### Return claims about the end-user
 
 <div class="api-entry">
 	<div class="api-command">POST /a/userinfo</div>
@@ -164,7 +164,7 @@ See the <a href="https://openid.net/specs/openid-connect-basic-1_0.html#UserInfo
 The API reference is under work and can't be trusted as of today.
 {: .warning}
 
-Grant authorizations to the client application:
+#### Grant authorizations to the client application
 
 <div class="api-entry">
 	<div class="api-command">GET /a/auth</div>
@@ -179,7 +179,7 @@ See <a href="https://tools.ietf.org/html/rfc6749#section-3.2" target="_blank">OA
 
 <hr/>
 
-Grant authorizations to the client application:
+#### Grant authorizations to the client application
 
 <div class="api-entry">
 	<div class="api-command">POST /a/auth</div>
@@ -203,7 +203,7 @@ See <a href="https://tools.ietf.org/html/rfc6749#section-3.2" target="_blank">OA
 The API reference is under work and can't be trusted as of today.
 {: .warning}
 
-Exchange an authorization code or a refresh token for an access token:
+#### Exchange an authorization code or a refresh token for an access token
 
 <div class="api-entry">
 	<div class="api-command">POST /a/token</div>
@@ -223,7 +223,7 @@ See <a href="https://tools.ietf.org/html/rfc6749#section-3.2" target="_blank">OA
 
 <hr/>
 
-Get information about an access token:
+#### Get information about an access token
 
 <div class="api-entry">
 	<div class="api-command">POST /a/tokeninfo</div>
@@ -268,7 +268,7 @@ This endpoint is only accessible to _protected resources_ (in OAuth 2.0 parlance
 
 <hr/>
 
-Revoke a token:
+#### Revoke a token
 
 <div class="api-entry">
 	<div class="api-command">POST /a/revoke</div>
@@ -303,7 +303,7 @@ See <a href="https://tools.ietf.org/html/rfc7009" target="_blank">OAuth 2.0 Toke
 The API reference is under work and can't be trusted as of today.
 {: .warning}
 
-Acknowledge the provisioning of an instance:
+#### Acknowledge the provisioning of an instance
 
 <div class="api-entry">
 	<div class="api-command">POST /apps/pending-instance/{instance_id}</div>
@@ -316,11 +316,11 @@ Acknowledge the provisioning of an instance:
 	</div>
 </div>
 
-#### Request body
+##### Request body
 
 <hr/>
 
-Notify an error while provisioning the instance:
+#### Notify an error while provisioning the instance
 
 <div class="api-entry">
 	<div class="api-command">DELETE /apps/pending-instance/{instance_id}</div>
@@ -332,11 +332,11 @@ Notify an error while provisioning the instance:
 	</div>
 </div>
 
-#### Request body
+##### Request body
 
 <hr/>
 
-Retrieve information on an application instance:
+#### Retrieve information on an application instance
 
 <div class="api-entry">
 	<div class="api-command">GET /apps/instance/{instance_id}</div>
@@ -351,11 +351,11 @@ Retrieve information on an application instance:
 	</div>
 </div>
 
-#### Response body
+##### Response body
 
 <hr/>
 
-Destroy an application instance:
+#### Destroy an application instance
 
 <div class="api-entry">
 	<div class="api-command">DELETE /apps/instance/{instance_id}</div>
@@ -371,7 +371,7 @@ If-Match
 
 <hr/>
 
-Retrieve the services of the application instance:
+#### Retrieve the services of the application instance
 
 <div class="api-entry">
 	<div class="api-command">GET /apps/instance/{instance_id}/services</div>
@@ -386,11 +386,11 @@ Retrieve the services of the application instance:
 	</div>
 </div>
 
-#### Response body
+##### Response body
 
 <hr/>
 
-Add a new service to the application instance:
+#### Add a new service to the application instance
 
 <div class="api-entry">
 	<div class="api-command">POST /apps/instance/{instance_id}/services</div>
@@ -406,9 +406,9 @@ Add a new service to the application instance:
 	</div>
 </div>
 
-#### Request body
+##### Request body
 
-#### Response body
+##### Response body
 
 <hr/>
 
@@ -418,7 +418,7 @@ Add a new service to the application instance:
 The API reference is under work and can't be trusted as of today.
 {: .warning}
 
-Retrieve information about a service:
+#### Retrieve information about a service
 
 <div class="api-entry">
 	<div class="api-command">GET /apps/service/{service_id}</div>
@@ -433,11 +433,11 @@ Retrieve information about a service:
 	</div>
 </div>
 
-#### Response body
+##### Response body
 
 <hr/>
 
-Update a service:
+#### Update a service
 
 <div class="api-entry">
 	<div class="api-command">PUT /apps/service/{service_id}</div>
@@ -455,13 +455,13 @@ Update a service:
 
 If-Match
 
-#### Request body
+##### Request body
 
-#### Response body
+##### Response body
 
 <hr/>
 
-Delete a service:
+#### Delete a service
 
 <div class="api-entry">
 	<div class="api-command">DELETE /apps/service/{service_id}</div>
@@ -475,13 +475,13 @@ Delete a service:
 
 If-Match
 
-#### Request body
+##### Request body
 
-#### Response body
+##### Response body
 
 <hr/>
 
-### Acess control
+### Access control
 {: #s5-api-access-control}
 
 The API reference is under work and can't be trusted as of today.
@@ -489,7 +489,7 @@ The API reference is under work and can't be trusted as of today.
 
 Ozwillo manages access control lists that links user to application instances.
 
-Retrieve app_users of the app instance:
+#### Retrieve app_users of the app instance
 
 <div class="api-entry">
 	<div class="api-command">GET /apps/acl/instance/{instance_id}</div>
@@ -507,11 +507,11 @@ Retrieve app_users of the app instance:
 TODO: only for app_admins?
 {: .todo}
 
-#### Reponse body
+##### Reponse body
 
 <hr/>
 
-Add an app_user to the app instance:
+#### Add an app_user to the app instance
 
 <div class="api-entry">
 	<div class="api-command">POST /apps/acl/instance/{instance_id}</div>
@@ -530,13 +530,13 @@ Add an app_user to the app instance:
 TODO: only for app_admins?
 {: .todo}
 
-#### Request body
+##### Request body
 
-#### Reponse body
+##### Reponse body
 
 <hr/>
 
-Retrieve: an ACE:
+#### Retrieve an ACE
 
 <div class="api-entry">
 	<div class="api-command">GET /apps/acl/ace/{ace_id}</div>
@@ -551,11 +551,11 @@ Retrieve: an ACE:
 	</div>
 </div>
 
-### Response body
+##### Response body
 
 <hr/>
 
-Delete an ACE:
+#### Delete an ACE
 
 <div class="api-entry">
 	<div class="api-command">DELETE /apps/acl/ace/{ace_id}</div>
@@ -570,7 +570,7 @@ Delete an ACE:
 	</div>
 </div>
 
-### Response body
+##### Response body
 
 <hr/>
 
@@ -580,7 +580,7 @@ Delete an ACE:
 The API reference is under work and can't be trusted as of today.
 {: .warning}
 
-Get all unread notifications for a defined user and a filter:
+#### Get all unread notifications for a defined user and a filter
 
 <div class="api-entry">
 	<div class="api-command">GET /n/{user_id}/messages?instance={instance_id}</div>
@@ -614,7 +614,7 @@ TODO: detail Notification, Instant, Chronology, DateTimeZone
 
 <hr/>
 
-Publish a notification targeted to some users:
+#### Publish a notification targeted to some users
 
 <div class="api-entry">
 	<div class="api-command">POST /n/publish</div>
@@ -630,11 +630,11 @@ Publish a notification targeted to some users:
 	</div>
 </div>
 
-#### Request body
+##### Request body
 
 <hr/>
 
-Change status (read, unread) of notifications for a user:
+#### Change status (read, unread) of notifications for a user
 
 <div class="api-entry">
 	<div class="api-command">POST /n/{user_id}/messages</div>
@@ -660,7 +660,7 @@ Change status (read, unread) of notifications for a user:
 The API reference is under work and can't be trusted as of today.
 {: .warning}
 
-Subscribe to a typed event from the event bus:
+#### Subscribe to a typed event from the event bus
 
 <div class="api-entry">
 	<div class="api-command">POST /e/{instance_id}/subscriptions</div>
@@ -679,7 +679,7 @@ The returned location URL get access to the subscription (delete the subscriptio
 
 <hr/>
 
-Delete an event subscription:
+#### Delete an event subscription
 
 <div class="api-entry">
 	<div class="api-command">DELETE /e/subscription/{subscription_id}</div>
@@ -695,7 +695,7 @@ If-Match
 
 <hr/>
 
-Publish a typed event into the event bus:
+#### Publish a typed event into the event bus
 
 <div class="api-entry">
 	<div class="api-command">POST /e/publish</div>
