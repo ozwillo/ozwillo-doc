@@ -513,22 +513,52 @@ The API reference is under work and can't be trusted as of today.
 	</div>
 </div>
 
-It will give you the notifications for the given user and app-instance; note that the instance_id must be the one for which you obtained the access_token. You can also pass an additional `status=READ` or `status=UNREAD` query-string parameter to filter notifications to only those that have been read or are still unread.
+It will give you the notifications for the given user and app-instance; note that the `instance_id` must be the one for which you obtained the `access_token`. You can also pass an additional `status=READ` or `status=UNREAD` query-string parameter to filter notifications to only those that have been read or are still unread.
 
 ##### Response body
 
+The response is a JSON Array of messages, each with the following fields:
+
 | Field name | Field description | Type |
 | :-- | :-- | :-- |
-| Notification | ... | object |
-| Instant | ... | object |
-| Chronology | ... | object |
-| DateTimeZone | list of granted scopes | object |
+| **id** | Identifier for the message | string |
+| **user_id** | Identifier of the user that received the message | string |
+| **instance_id** | Identifier of the app-instance that emitted the message | string |
+| service_id | Identifier of the service that emitted the message | string |
+| **message** | Text of the message | string |
+| message#{l} | Localized text of the message | string |
+| action_uri | URI for the call to action | URI |
+| action_uri#{l} | Localized URI for the call to action | URI |
+| action_label | Label of the call to action | string |
+| action_label#{l} | Localized label of the call to action | string |
+| **time** | Timestamp at which the message was emitted, in milliseconds since Unix Epoch | number |
+| **status** | Read status of the message; either `READ` or `UNREAD` | string |
 {: .request}
 
 <p>JSON payload like { message_ids: [<array of message IDs], status: "READ" } allows you to change the status of the given notifications (status can obviously also be "UNREAD" if needed).</p>
 
-TODO: detail Notification, Instant, Chronology, DateTimeZone
-{: .todo}
+<hr/>
+
+#### Change read status of a user's notification messages
+
+<div class="api-entry">
+	<div class="api-command">POST /n/{user_id}/messages</div>
+	<div class="api-options">
+		<div class="api-request">
+			<span class="api-host">kernel</span>
+			<span class="api-auth">bearer</span>
+			<span class="api-input">JSON</span>
+		</div>
+	</div>
+</div>
+
+##### Request body
+
+| Field name | Field description | Type |
+| :-- | :-- | :-- |
+| **message_ids** | Identifiers of the message to update | array of strings |
+| **status** | New status for the identified messages; either `READ` or `UNREAD` | string |
+{: .request}
 
 <hr/>
 
@@ -550,25 +580,17 @@ TODO: detail Notification, Instant, Chronology, DateTimeZone
 
 ##### Request body
 
-<hr/>
-
-#### Change status (read, unread) of notifications for a user
-
-<div class="api-entry">
-	<div class="api-command">POST /n/{user_id}/messages</div>
-	<div class="api-options">
-		<div class="api-request">
-			<span class="api-host">kernel</span>
-			<span class="api-auth">bearer</span>
-			<span class="api-input">JSON</span>
-		</div>
-		<div class="api-response">
-			<span class="api-output">JSON</span>
-		</div>
-	</div>
-</div>
-
-##### Request body
+| Field name | Field description | Type |
+| :-- | :-- | :-- |
+| **user_ids** | Identifiers of the users to notify | array of strings |
+| **service_id** | Identifier of the service that emits the message | string |
+| **message** | Text of the message | string |
+| message#{l} | Localized text of the message | string |
+| action_uri | URI for the call to action | URI |
+| action_uri#{l} | Localized URI for the call to action | URI |
+| action_label | Label of the call to action | string |
+| action_label#{l} | Localized label of the call to action | string |
+{: .request}
 
 <hr/>
 
