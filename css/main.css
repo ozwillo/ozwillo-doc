@@ -870,7 +870,7 @@ body.toc-open #top {
 #main {
   position: relative;
   left: 230px;
-  padding: 20px;
+  padding: 30px;
   box-sizing: border-box;
   min-width: 400px;
   max-width: 700px;
@@ -889,6 +889,47 @@ body.toc-open #top {
 }
 #main p {
   margin: 0 0 .5em;
+}
+#main h2,
+#main h3,
+#main h4,
+#main h5,
+#main h6 {
+  position: relative;
+}
+#main h2 a.anchor,
+#main h3 a.anchor,
+#main h4 a.anchor,
+#main h5 a.anchor,
+#main h6 a.anchor {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: -35px;
+  width: 35px;
+  padding-right: 10px;
+  box-sizing: border-box;
+  text-align: right;
+  color: #36b;
+  text-decoration: none;
+}
+#main h2 a.anchor:hover,
+#main h3 a.anchor:hover,
+#main h4 a.anchor:hover,
+#main h5 a.anchor:hover,
+#main h6 a.anchor:hover {
+  display: block;
+  cursor: pointer;
+}
+#main h2:hover a.anchor,
+#main h3:hover a.anchor,
+#main h4:hover a.anchor,
+#main h5:hover a.anchor,
+#main h6:hover a.anchor {
+  display: block;
+}
+#main h5 a.anchor {
+  color: #959595;
 }
 #main h2 {
   font-size: 1.7em;

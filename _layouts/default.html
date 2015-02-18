@@ -35,7 +35,20 @@
 
 		      el.className = classes.join(' ');
 		    }
-		  })
+		  });
+
+		  // manage anchors
+		  var h2 = document.querySelectorAll('h2, h3, h4, h5, h6');
+		  Array.prototype.forEach.call(h2, function(el, i) {
+		  	var id = el.getAttribute('id');
+		  	if(id !== null) {
+			  	var anchor = document.createElement('a');
+			  	anchor.innerHTML = '#';
+			  	anchor.className += 'anchor';
+			  	anchor.setAttribute('href', '#' + id);
+			  	el.appendChild(anchor);
+			  }
+			});
 		});
 		</script>
 	</body>

@@ -7,9 +7,9 @@
 	@media (max-width: 767px) {
 		display: none;
 	}
-} 
-// layout
+}
 
+// layout
 
 @toc-width: 230px;
 @top-height: 45px;
@@ -81,7 +81,7 @@ body.toc-open {
 	position: relative;
 	left: @toc-width;
 
-	padding: 20px;
+	padding: 30px;
 	box-sizing: border-box;
 	min-width: 400px;
 	max-width: 700px;
@@ -99,6 +99,24 @@ body.toc-open {
 
 	p {
 		margin: 0 0 .5em;
+	}
+
+	h2, h3, h4, h5, h6 {
+		position: relative;
+		a.anchor {
+			display: none;
+			position: absolute;
+			top: 0;
+			left: -35px;
+			width: 35px;
+			padding-right: 10px;
+			box-sizing: border-box;
+			text-align: right;
+			color: #36b;
+			text-decoration: none;
+			&:hover { display: block; cursor: pointer; }
+		}
+		&:hover { a.anchor { display: block; }}
 	}
 
 	h2 {
