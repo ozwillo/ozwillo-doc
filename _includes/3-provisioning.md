@@ -265,12 +265,12 @@ Possible status codes:
 
 For successful 201 responses, the body response is in the form of:
 
-```
+<pre>
 {
   "back-end": "a15243e3-17a0-4511-b15c-c88e6784e287",
   "front-end": "31336385-f2ff-4488-8835-1f7da53669b9"
 }
-```
+</pre>
 
 Where `back-end` and `front-end` would be the `local_id` of two declared services within the instance, and the corresponding GUIDs being their internal Ozwillo ids.
 
