@@ -53,6 +53,7 @@ It prevents from altering resources that have been modified elsewhere since the 
 {: #s5-api-keys}
 
 #### Retrieve the public key used for OpenID Connect
+{: #s5-get-a-keys}
 
 <div class="api-entry">
 	<div class="api-command">GET /a/keys</div>
@@ -77,6 +78,7 @@ Note that this API requires Basic authentication not for security concerns, but 
 {: #s5-api-users}
 
 #### Return claims about the end-user
+{: #s5-get-a-userinfo}
 
 <div class="api-entry">
 	<div class="api-command">GET /a/userinfo</div>
@@ -124,6 +126,7 @@ Note that this API requires Basic authentication not for security concerns, but 
 <hr/>
 
 #### Return claims about the end-user
+{: #s5-post-a-userinfo}
 
 <div class="api-entry">
 	<div class="api-command">POST /a/userinfo</div>
@@ -153,6 +156,7 @@ See the <a href="https://openid.net/specs/openid-connect-basic-1_0.html#UserInfo
 {: #s5-api-authorization}
 
 #### Grant authorizations to the client application
+{: #s5-get-a-auth}
 
 <div class="api-entry">
 	<div class="api-command">GET /a/auth</div>
@@ -168,6 +172,7 @@ See <a href="https://tools.ietf.org/html/rfc6749#section-3.2" target="_blank">OA
 <hr/>
 
 #### Grant authorizations to the client application
+{: #s5-post-a-auth}
 
 <div class="api-entry">
 	<div class="api-command">POST /a/auth</div>
@@ -189,6 +194,7 @@ See <a href="https://tools.ietf.org/html/rfc6749#section-3.2" target="_blank">OA
 {: #s5-api-tokens}
 
 #### Exchange an authorization code or a refresh token for an access token
+{: #s5-post-a-token}
 
 <div class="api-entry">
 	<div class="api-command">POST /a/token</div>
@@ -209,6 +215,7 @@ See <a href="https://tools.ietf.org/html/rfc6749#section-3.2" target="_blank">OA
 <hr/>
 
 #### Get information about an access token
+{: #s5-post-a-tokeninfo}
 
 <div class="api-entry">
 	<div class="api-command">POST /a/tokeninfo</div>
@@ -254,6 +261,7 @@ This endpoint is only accessible to _protected resources_ (in OAuth 2.0 parlance
 <hr/>
 
 #### Revoke a token
+{: #s5-post-a-revoke}
 
 <div class="api-entry">
 	<div class="api-command">POST /a/revoke</div>
@@ -283,6 +291,7 @@ See <a href="https://tools.ietf.org/html/rfc7009" target="_blank">OAuth 2.0 Toke
 {: #s5-api-app-instances}
 
 #### Acknowledge the provisioning of an instance
+{: #s5-post-apps-pending-instance}
 
 <div class="api-entry">
 	<div class="api-command">POST /apps/pending-instance/{instance_id}</div>
@@ -300,6 +309,7 @@ See [above](#s3-3-provider-acknowledgement) for details.
 <hr/>
 
 #### Notify an error while provisioning the instance
+{: #s5-delete-apps-pending-instance}
 
 <div class="api-entry">
 	<div class="api-command">DELETE /apps/pending-instance/{instance_id}</div>
@@ -316,6 +326,7 @@ See [above](s3-3bis-provider-dismiss) for details.
 <hr/>
 
 #### Retrieve the services of the application instance
+{: #s5-get-apps-instance-id-services}
 
 <div class="api-entry">
 	<div class="api-command">GET /apps/instance/{instance_id}/services</div>
@@ -337,6 +348,7 @@ The response is a JSON Array of [service objects](#s3-3-provider-acknowledgement
 <hr/>
 
 #### Add a new service to the application instance
+{: #s5-post-apps-instance-id-services}
 
 <div class="api-entry">
 	<div class="api-command">POST /apps/instance/{instance_id}/services</div>
@@ -362,6 +374,7 @@ See [embedded service objects](#s3-3-provider-acknowledgement-service) used duri
 {: #s5-api-services}
 
 #### Retrieve information about a service
+{: #s5-get-apps-service}
 
 <div class="api-entry">
 	<div class="api-command">GET /apps/service/{service_id}</div>
@@ -383,6 +396,7 @@ See [embedded service objects](#s3-3-provider-acknowledgement-service) used duri
 <hr/>
 
 #### Update a service
+{: #s5-put-apps-service}
 
 <div class="api-entry">
 	<div class="api-command">PUT /apps/service/{service_id}</div>
@@ -407,6 +421,7 @@ Note that the provided description _replaces_ the one stored in Ozwillo. This is
 <hr/>
 
 #### Delete a service
+{: #s5-delete-apps-service}
 
 <div class="api-entry">
 	<div class="api-command">DELETE /apps/service/{service_id}</div>
@@ -426,6 +441,7 @@ Note that the provided description _replaces_ the one stored in Ozwillo. This is
 Ozwillo manages access control lists that links user to application instances.
 
 #### Retrieve app_users of the app instance
+{: #s5-get-apps-acl-instance}
 
 <div class="api-entry">
 	<div class="api-command">GET /apps/acl/instance/{instance_id}</div>
@@ -451,6 +467,7 @@ TODO: only for app_admins?
 {: #s5-api-notifications}
 
 #### Get all unread notifications for a defined user and a filter
+{: #s5-get-n-id-messages}
 
 <div class="api-entry">
 	<div class="api-command">GET /n/{user_id}/messages?instance={instance_id}</div>
@@ -492,6 +509,7 @@ The response is a JSON Array of messages, each with the following fields:
 <hr/>
 
 #### Change read status of a user's notification messages
+{: #s5-post-n-id-messages}
 
 <div class="api-entry">
 	<div class="api-command">POST /n/{user_id}/messages</div>
@@ -515,6 +533,7 @@ The response is a JSON Array of messages, each with the following fields:
 <hr/>
 
 #### Publish a notification targeted to some users
+{: #s5-post-n-publish}
 
 <div class="api-entry">
 	<div class="api-command">POST /n/publish</div>
@@ -553,6 +572,7 @@ The Events API documentation is under work and can't be trusted as of today.
 {: .warning}
 
 #### Subscribe to a typed event from the event bus
+{: #s5-post-e-id-subscriptions}
 
 <div class="api-entry">
 	<div class="api-command">POST /e/{instance_id}/subscriptions</div>
@@ -572,6 +592,7 @@ The returned location URL get access to the subscription (delete the subscriptio
 <hr/>
 
 #### Delete an event subscription
+{: #s5-delete-e-subscription}
 
 <div class="api-entry">
 	<div class="api-command">DELETE /e/subscription/{subscription_id}</div>
@@ -588,6 +609,7 @@ If-Match
 <hr/>
 
 #### Publish a typed event into the event bus
+{: #s5-post-e-publish}
 
 <div class="api-entry">
 	<div class="api-command">POST /e/publish</div>
