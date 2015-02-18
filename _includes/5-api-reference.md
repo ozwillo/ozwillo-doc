@@ -504,8 +504,6 @@ The response is a JSON Array of messages, each with the following fields:
 | **status** | Read status of the message; either `READ` or `UNREAD` | string |
 {: .request}
 
-<p>JSON payload like { message_ids: [<array of message IDs], status: "READ" } allows you to change the status of the given notifications (status can obviously also be "UNREAD" if needed).</p>
-
 <hr/>
 
 #### Change read status of a user's notification messages
