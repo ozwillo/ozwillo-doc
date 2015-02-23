@@ -122,6 +122,23 @@ As introduced in [Recognize and trust Ozwillo](#s2-trust-ozwillo), the provider 
 | **instance_registration_uri** | the endpoint that must be used to acknowledge the provisioning back to Ozwillo | URI string |
 {: .request}
 
+###### Embedded User object
+
+| Field name | Field description | Type |
+| :-- | :-- | :-- |
+| **id** | Ozwillo user id of the purchaser | string |
+| **name** | (non unique) display name of the purchaser | string |
+{: .request}
+
+###### Embedded Organization object
+
+| Field name | Field description | Type |
+| :-- | :-- | :-- |
+| **id** | Ozwillo organization id of the purchasing organization | string |
+| **name** | organization name | string |
+| **type** | "PUBLIC_BODY" or "COMPANY"  | string |
+{: .request}
+
 It's important to know that purchasers may install an application either on behalf an organization, or for their personal use. In the latter case, there is no organization associated to the purchase, so there is no `organization` field in the request body.
 
 That said, if your application's `target_audience` (as declared in [store filters](#s3-store-filters)) does not contain `CITIZENS`, it means purchase acts will always be on behalf of an organization and thus the `organization` field will always be sent.
