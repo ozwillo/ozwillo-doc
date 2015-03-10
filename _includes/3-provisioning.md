@@ -202,6 +202,8 @@ The authorization header needs to be set as described in [Calling Ozwillo withou
 | **services** | services (at least one) to be declared on Ozwillo, more details below | array of Service objects |
 | **destruction_uri** | destruction endpoint of this instance | URI string |
 | **destruction_secret** | secret used to compute the destruction request signature | string |
+| status_changed_uri | status-changed endpoint of this instance | URI string |
+| status_changed_secret | secret used to compute the status-changed request signature | string |
 | needed_scopes | scopes needed by the instance | array of NeededScope objects |
 | scopes | scopes declared by the instance | array of Scope objects |
 
@@ -316,14 +318,51 @@ The following HTTP request is sent from the provider to Ozwillo.
 DELETE /apps/pending-instance/{instance_id} HTTP/1.1
 </pre>
 
-#### Instance destruction
-{: #s3-destruction}
+#### Instance status change
+{: #s3-status-change}
 
-Instance destruction is not part of the initial provisioning that occurs between steps #1 to #3, but will occur whenever an admin of the organization that purchased the application decides to destroy it.
+Instance status change is not part of the initial provisioning that occurs between steps #1 to #3, but will occur whenever an admin of the organization that purchased the application decides to destroy it.
+
+As of March 10th, this is only available in preproduction.
+{: .focus .soft}
 
 ##### Request command
 
-The following HTTP request is sent from Ozwillo to the provider at the `destruction_uri` defined in [step #3](#s3-3-provider-acknowledgement) (decomposed in `destruction_path` and `destruction_host` below). 
+The following HTTP request is sent from Ozwillo to the provider at the `status_changed_uri` defined in [step #3](#s3-3-provider-acknowledgement) (decomposed in `status_changed_path` and `status_changed_host` below)
+
+<pre>
+POST {status_changed_path}
+Host: {status_changed_host}
+X-Hub-Signature: sha1={HMAC-SHA1 digest of payload}
+Content-Type: application/json;charset=UTF-8
+</pre>
+
+This scheme allows sharing the same status-changed URI and secret among several instances, but Ozwillo also supports having separate status-changed URI and secret for each instance. See more on how to check if this request reliably comes from Ozwillo depending on [verifying the signature](#ref-hmac-signature).
+
+##### Request body
+
+| Field name | Field description | Type |
+| :-- | :-- | :-- |
+| instance_id | identifier of the instance | string |
+| status | new status of the instance: either `STOPPED` or `RUNNING` | string |
+
+##### Response from provider
+
+The response from the provider is ignored in this case, as this request is only a notification of some change that has already occurred on Ozwillo's side.
+
+Note that it means the provider might not be notified! When an instance is in a `STOPPED` status, it's impossible to authenticate on it. This means that a `STOPPED` instance should continue to redirect users to Ozwillo for authentication, and should treat a successful authentication as a signal that the instance actually is now `RUNNING`.
+{: .focus .soft}
+
+_This situation will eventually be improved to reliably notify instances of their status change and keep it synchronized between Ozwillo and the provider. To be prepared for such a change, please respond with a successful status (200, 202 or 204) in a timely manner._
+
+#### Instance destruction
+{: #s3-destruction}
+
+Instance destruction happens one week after the instance status has been changed to `STOPPED` (and has not been changed back to status `RUNNING` in the mean time).
+
+##### Request command
+
+The following HTTP request is sent from Ozwillo to the provider at the `destruction_uri` defined in [step #3](#s3-3-provider-acknowledgement) (decomposed in `destruction_path` and `destruction_host` below).
 
 <pre>
 POST {destruction_path}
@@ -333,7 +372,7 @@ X-Hub-Signature: sha1={HMAC-SHA1 digest of payload}
 Content-Type: application/json;charset=UTF-8
 </pre>
 
-This scheme allows sharing the same destruction URI and secret among several instances, but Ozwillo also supports having separate destruction URI and secret for each instance. See more on how to check if this request reliably comes from Ozwillo depending on [verifying the signature](#ref-hmac-signature).
+Similarly to status changes, this scheme allows sharing the same destruction URI and secret among several instances, but Ozwillo also supports having separate destruction URI and secret for each instance. See more on how to check if this request reliably comes from Ozwillo depending on [verifying the signature](#ref-hmac-signature).
 
 ##### Request body
 
@@ -343,7 +382,7 @@ This scheme allows sharing the same destruction URI and secret among several ins
 
 ##### Response from provider
 
-The destruction endpoint must respond with a successful status (200, 202 or 204) in a timely manner (not necessarily waiting for the underlying resources to be actually released or archived). Ozwillo will then delete the instance (and its associated resources, like services) from its database and it will be impossible for users to authenticate to it.
+The destruction endpoint must respond with a successful status (200, 202 or 204) in a timely manner (not necessarily waiting for the underlying resources to be actually released or archived). Ozwillo will then delete the instance (and its associated resources, like services) from its database and it will be impossible to undo the change.
 
 If the request times out, the Kernel will delete the instance from its database nevertheless. Any (timely) non-successful status will abort the destruction (so it can be retried later).
 
