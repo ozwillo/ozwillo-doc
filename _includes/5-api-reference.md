@@ -440,7 +440,7 @@ Note that the provided description _replaces_ the one stored in Ozwillo. This is
 
 Ozwillo manages access control lists that links user to application instances.
 
-#### Retrieve app_users of the app instance
+#### Retrieve app_users (and app_admins) of the app instance
 {: #s5-get-apps-acl-instance}
 
 <div class="api-entry">
@@ -456,10 +456,23 @@ Ozwillo manages access control lists that links user to application instances.
 	</div>
 </div>
 
-TODO: only for app_admins?
-{: .todo}
+This API is only available to users who are already `app_admin`s for the application instance.
 
-##### Reponse body
+##### Response body
+
+The response is a JSON Array of access control entries, each with the following fields:
+
+| Field name | Field description | Type |
+| :-- | :-- | :-- |
+| **instance_id** | Identifier for the application instance | string |
+| **user_id** | Identifier for the user whom the entry is about | string |
+| user_name | (non-unique) display name for the user whom the entry is about | string |
+| creator_id | Identifier for the user who created the entry | string |
+| creator_name | (non-unique) display name for the user who created the entry | string |
+| app_user | Whether the `user_id` is an `app_user` for the instance | boolean |
+| app_admin | Whether the `user_id` is an `app_admin` for the instance | boolean |
+
+At least one of `app_user` or `app_admin` will be present and `true`. Both might be `true` for a given entry.
 
 <hr/>
 
