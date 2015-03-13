@@ -348,12 +348,12 @@ This scheme allows sharing the same status-changed URI and secret among several 
 
 ##### Response from provider
 
-The response from the provider is ignored in this case, as this request is only a notification of some change that has already occurred on Ozwillo's side.
+The status-changed endpoint must respond with a successful status (200, 202 or 204) in a timely manner (not necessarily waiting for the underlying resources to be actually released/archived or reacquired/restored). Ozwillo will then change the instance's state from its database and it will be impossible for users to authenticate to it, and services will disappear from the store.
 
-Note that it means the provider might not be notified! When an instance is in a `STOPPED` status, it's impossible to authenticate on it. This means that a `STOPPED` instance should continue to redirect users to Ozwillo for authentication, and should treat a successful authentication as a signal that the instance actually is now `RUNNING`.
-{: .focus .soft}
+If the request times out, the Kernel will change the instance's state in its database nevertheless. Any (timely) non-successful status will abort the status change (so it can be retried later).
 
-_This situation will eventually be improved to reliably notify instances of their status change and keep it synchronized between Ozwillo and the provider. To be prepared for such a change, please respond with a successful status (200, 202 or 204) in a timely manner._
+Note that the above does not describe the current behavior. Currently, the response is ignored, and the provider might not even be notified! This means that a `STOPPED` instance should continue to redirect users to Ozwillo for authentication, and should treat a successful authentication as a signal that the instance actually is now `RUNNING` (remember that when an instance is in a `STOPPED` status, it's impossible to authenticate on it).
+{: .focus .important}
 
 #### Instance destruction
 {: #s3-destruction}
