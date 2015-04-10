@@ -182,11 +182,11 @@ This list is not exhaustive and is detailed in the <span class="h5">Request body
 
 ##### Request command
 
-The following HTTP request is sent from the provider to Ozwillo. 
+The following HTTP request is sent from the provider to Ozwillo at the `instance_registration_uri` received in [step #1](#s3-1-ozwillo-request) (decomposed in `instance_registration_path` and `instance_registration_host` below).
 
 <pre>
-POST /apps/pending-instance/{instance_id} HTTP/1.1
-Host: kernel.ozwillo-preprod.eu
+POST {instance_registration_path} HTTP/1.1
+Host: {instance_registration_host}
 Accept: application/json, application/*+json
 Authorization: Basic {base64 encoding of client_id:client_secret}
 Content-Type: application/json;charset=UTF-8
