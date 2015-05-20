@@ -68,9 +68,9 @@ It prevents from altering resources that have been modified elsewhere since the 
 	</div>
 </div>
 
-Returns a JSON Web Key Set containing the public key. See the <a href="https://tools.ietf.org/html/draft-ietf-jose-json-web-key-18" target="_blank">RFC</a> for more informations about JWKS.
+Returns a JSON Web Key Set containing the public key. See <a href="https://tools.ietf.org/html/rfc7517" target="_blank">JWK (RFC 7517)</a> for more informations about JWKS.
 
-Note that this API requires Basic authentication not for security concerns, but actually only so we can track who calls it and at which frequency.
+Note that this API requires Basic authentication not for security concerns, but actually only so we can track who calls it and at which frequency. _Note: this is no longer the case starting with v1.19._
 
 <hr/>
 
@@ -98,7 +98,7 @@ Note that this API requires Basic authentication not for security concerns, but 
 	</div>
 </div>
 
-<p>See the <a href="https://openid.net/specs/openid-connect-basic-1_0.html#UserInfo" target="_blank">OpenID Connect Draft</a>, the <a href="https://tools.ietf.org/html/draft-ietf-oauth-json-web-token-08" target="_blank">JWT Draft</a> and the <a href="https://tools.ietf.org/html/draft-ietf-jose-json-web-signature-11" target="_blank">JWS Draft</a> for more information.</p>
+<p>See <a href="https://openid.net/specs/openid-connect-basic-1_0.html#UserInfo" target="_blank">OpenID Connect 1.0</a>, <a href="https://tools.ietf.org/html/rfc7519" target="_blank">JWT (RFC 7519)</a> and <a href="https://tools.ietf.org/html/rfc7515" target="_blank">JWS (RFC 7515)</a> for more information.</p>
 
 ##### Response body
 
@@ -148,7 +148,7 @@ Note that this API requires Basic authentication not for security concerns, but 
 
 Same as above, only the HTTP method changes.
 
-See the <a href="https://openid.net/specs/openid-connect-basic-1_0.html#UserInfo" target="_blank">OpenID Connect Draft</a>, the <a href="https://tools.ietf.org/html/draft-ietf-oauth-json-web-token-08" target="_blank">JWT Draft</a> and the <a href="https://tools.ietf.org/html/draft-ietf-jose-json-web-signature-11" target="_blank">JWS Draft</a> for more information.
+See <a href="https://openid.net/specs/openid-connect-basic-1_0.html#UserInfo" target="_blank">OpenID Connect 1.0</a>, <a href="https://tools.ietf.org/html/rfc7519" target="_blank">JWT (RFC 7519)</a> and <a href="https://tools.ietf.org/html/rfc7515" target="_blank">JWS (RFC 7515)</a> for more information.
 
 <hr/>
 
@@ -201,7 +201,7 @@ See <a href="https://tools.ietf.org/html/rfc6749#section-3.2" target="_blank">OA
 	<div class="api-options">
 		<div class="api-request">
 			<span class="api-host">accounts</span>
-			<span class="api-auth">bearer</span>
+			<span class="api-auth">basic</span>
 			<span class="api-input">form</span>
 		</div>
 		<div class="api-response">
@@ -222,7 +222,7 @@ See <a href="https://tools.ietf.org/html/rfc6749#section-3.2" target="_blank">OA
 	<div class="api-options">
 		<div class="api-request">
 			<span class="api-host">accounts</span>
-			<span class="api-auth">bearer</span>
+			<span class="api-auth">basic</span>
 			<span class="api-input">form</span>
 		</div>
 		<div class="api-response">
@@ -231,7 +231,7 @@ See <a href="https://tools.ietf.org/html/rfc6749#section-3.2" target="_blank">OA
 	</div>
 </div>
 
-See <a href="https://tools.ietf.org/html/draft-richer-oauth-introspection" target="_blank">OAuth 2.0 Token Introspection</a> for more information.
+See <a href="https://tools.ietf.org/html/draft-ietf-oauth-introspection" target="_blank">OAuth 2.0 Token Introspection</a> for more information.
 
 This endpoint is only accessible to _protected resources_ (in OAuth 2.0 parlance) that need to validate whether a received `access_token` is valid and retrieve information about it. Other clients will get an `{ "active": false }` response; even the app-instance for which the token has been issued (this might change in the future though).
 
@@ -268,7 +268,7 @@ This endpoint is only accessible to _protected resources_ (in OAuth 2.0 parlance
 	<div class="api-options">
 		<div class="api-request">
 			<span class="api-host">accounts</span>
-			<span class="api-auth">bearer</span>
+			<span class="api-auth">basic</span>
 			<span class="api-input">form</span>
 		</div>
 	</div>
