@@ -87,7 +87,7 @@ To ease the process, you may submit a first and simplified version of the commer
 
 When a purchase act occurs, Ozwillo creates a new [application instance](def-application-instance) in its catalog, in a pending state (since it has not been provisioned for the moment). This instance is given a unique and constant `instance_id` and credentials (`client_id` and `client_secret`). The `client_secret` must remain to be known only by Ozwillo and the provider.
 
-The actual behavior of Ozwillo is that `instance_id` and `client_id` are given the same unique GUID value, but this is really an implementation detail subject to change. The spec is that `instance_id` is an identifier that won't change over time, when `client_id` may be refreshed.
+The current behavior of Ozwillo is that `instance_id` and `client_id` are given the same unique GUID value, but this is really an implementation detail subject to change. The spec is that `instance_id` is an identifier that won't change over time, when `client_id` may be refreshed.
 {: .focus .important}
 
 ##### Request command
