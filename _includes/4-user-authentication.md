@@ -9,7 +9,7 @@ Ozwillo authentication and authorization service implements the following intern
 - <a href="https://openid.net/specs/openid-connect-core-1_0.html" target="_blank">OpenID Connect Core 1.0</a> (using the Authorization Code flow only)
 - <a href="https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderConfig" target="_blank">OpenID Connect Discovery 1.0</a> (provider configuration only)
 - <a href="https://openid.net/specs/openid-connect-session-1_0.html" target="_blank">OpenID Connect Session Management 1.0</a> (RP-Initiated Logout only for now)
-- <a href="https://tools.ietf.org/html/draft-richer-oauth-introspection" target="_blank">OAuth Token Introspection</a>
+- <a href="https://tools.ietf.org/html/rfc7662" target="_blank">OAuth 2.0 Token Introspection (RFC 7662)</a>
 - <a href="https://tools.ietf.org/html/rfc7009" target="_blank">OAuth Token Revocation (RFC 7009)</a>
 
 In this matter, Ozwillo acts as an OpenID Provider, which is defined as (see OpenID <a href="https://openid.net/specs/openid-connect-core-1_0.html#Terminology" target="_blank">terminology</a>):

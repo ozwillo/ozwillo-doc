@@ -231,7 +231,7 @@ See <a href="https://tools.ietf.org/html/rfc6749#section-3.2" target="_blank">OA
 	</div>
 </div>
 
-See <a href="https://tools.ietf.org/html/draft-ietf-oauth-introspection" target="_blank">OAuth 2.0 Token Introspection</a> for more information.
+See <a href="https://tools.ietf.org/html/rfc7662" target="_blank">OAuth 2.0 Token Introspection (RFC 7662)</a> for more information.
 
 This endpoint is only accessible to _protected resources_ (in OAuth 2.0 parlance) that need to validate whether a received `access_token` is valid and retrieve information about it. Other clients will get an `{ "active": false }` response; even the app-instance for which the token has been issued (this might change in the future though).
 
