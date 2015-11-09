@@ -120,6 +120,7 @@ As introduced in [Recognize and trust Ozwillo](#s2-trust-ozwillo), the provider 
 | **user** | a description of [purchaser](#def-purchaser), containing at least its Ozwillo user id | User object |
 | organization | a description of the organization, containing at least Ozwillo organization id and name | Organization object |
 | **instance_registration_uri** | the endpoint that must be used to acknowledge the provisioning back to Ozwillo | URI string |
+| **authorization_grant** | an OAuth 2.0 authorization grant to be able to access the Datacore during the provisioning (e.g. to get details about the organization) | AuthorizationGrant object |
 {: .request}
 
 ###### Embedded User object
@@ -137,11 +138,44 @@ As introduced in [Recognize and trust Ozwillo](#s2-trust-ozwillo), the provider 
 | **id** | Ozwillo organization id of the purchasing organization | string |
 | **name** | organization name | string |
 | **type** | "PUBLIC_BODY" or "COMPANY"  | string |
+| dc_id | Datacore identifier of the organization | string |
 {: .request}
 
 It's important to know that purchasers may install an application either on behalf an organization, or for their personal use. In the latter case, there is no organization associated to the purchase, so there is no `organization` field in the request body.
 
 That said, if your application's `target_audience` (as declared in [store filters](#s3-store-filters)) does not contain `CITIZENS`, it means purchase acts will always be on behalf of an organization and thus the `organization` field will always be sent.
+
+###### Embedded AuthorizationGrant object
+
+| Field name | Field description or fixed value |
+| :-- | :-- |
+| **grant_type** | `urn:ietf:params:oauth:grant-type:jwt-bearer` |
+| **assertion** | a JWT to be sent as-is to the Kernel's Token Endpoint |
+| **scope** | scope of the access token you can obtain from the JWT, space separated (fixed to the value `datacore`) |
+{: .request}
+
+You can use those field values to obtain an [access token](#s2-auth-with-token) and make requests to the Datacore during the provisioning. To do that, make a `POST` request to the `token_endpoint` similar to [the one](#s4-4-token-request) made when authenticating users,
+using the fields values as-is.
+
+<pre>
+POST /a/token HTTP/1.1
+Host: accounts.ozwillo-preprod.eu
+Content-Type: application/x-www-form-urlencoded
+Authorization: Basic {base64 encoding of client_id:client_secret}
+
+grant_type={grant_type}&assertion={assertion}&scope={scope}
+</pre>
+
+The authorization header needs to be set as described in [Calling Ozwillo without an access_token](#s2-auth-without-token).
+
+You should then receive a successful response with the following fields in the JSON payload:
+
+| Field name | Field description | Field type and format |
+| :-- | :-- | :-- |
+| **access_token** | access_token token value issued by the Authorization Server | string |
+| **token_type** | in our case the value is <a href="https://openid.net/specs/openid-connect-core-1_0.html#TokenResponse">always</a> "Bearer" | string |
+| scope | reminder of scopes associated with this access token | strings separated by spaces |
+| expires_in | expiration time of the access token in seconds | integer |
 
 ##### Response from provider
 
