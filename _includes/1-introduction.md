@@ -30,15 +30,14 @@ From a provider standpoint, adapting to Ozwillo means:
 
 1. include the application deployment process within the [provisioning protocol](#s3-provisioning) described below. This is dealt with requests exchanged between Ozwillo REST API and provider endpoints (typically over a REST API too)
 2. if user authentication is needed, [delegate it](#s4-user-authentication) to Ozwillo OpenID Connect Identity Provider
-3. create, update and consume linked and shared data through the Datacore REST API
+3. create, update and consume linked and shared data through the Datacore REST API. The easiest way to try this out is to [use its live Playground](#s2-online-experimentation).
 
-The Datacore API and its documentation are stabilizing. For the moment this document focus on the 2 first and necessary steps regarding Ozwillo integration: provisioning and authentication.
 {: .focus .soft}
 
 In other words, Ozwillo programming interface is made of:
 
 - the API surface dedicated to authentication and authorization available under `accounts.ozwillo.com`
-- the Datacore API available under `data.ozwillo.com`
+- the Datacore API available (along with its live Playground) under `data.ozwillo.com`
 - other APIs (for instance for provisioning) available under `kernel.ozwillo.com`
 
 As [previously](#s1-ui-hosts) introduced, the `accounts` subdomain also serves a few web pages: single sign-in, single sign-out, forgotten password...

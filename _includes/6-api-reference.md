@@ -1,11 +1,8 @@
 ## API Reference
-{: #s5-api-reference}
-
-### Introduction
-{: #s5-introduction}
+{: #s6-api-reference}
 
 #### Endpoints description
-{: #s5-endpoints-description}
+{: #s6-endpoints-description}
 
 As a reminder the APIs are served accross several hosts depending on their topic (authentication, provisioning, data...). Endpoints descriptions follow this format:
 
@@ -41,7 +38,7 @@ Where:
 - <span class="scopes">SCOPES</span> is filled when the endpoint response depends on these scopes being previously granted by the end-user and thus associated to an `access_token` (it means this **scopes** option will only appear for `bearer` **auth**)
 
 #### Common behaviour
-{: #s5-common-behaviour}
+{: #s6-common-behaviour}
 
 When trying to modify or delete a resource (`PUT` or `DELETE` command), it is expected that you've previously retrieved it (`GET` command) and got an associated ["ETag"](https://tools.ietf.org/html/rfc7232#section-2.3) (entity-tags are also returned in some responses).
 
@@ -49,11 +46,22 @@ Then you should create your `UPDATE` or `DELETE` request with an <a href="https:
 
 It prevents from altering resources that have been modified elsewhere since the last time you accessed it. 
 
+#### Datacore-specific behaviour
+{: #s6-datacore-behaviour}
+
+In addition to common behaviour:
+
+- when trying to get a resource (`GET` command), in order to benefit from your client-side cache if any, provide an <a href="https://tools.ietf.org/html/rfc7232#section-3.2">If-None-Match</a> header set with the version you have in said cache as entity-tag.
+- when attempting any change (`POST`, `PUT` or `DELETE` command), it is mandatory to provide the project they (should) reside in using the X-Datacore-Project HTTP header. Otherwise, the current project will be the default `oasis.main` one. Therefore it is also mandatory if resources reside in a project that is not among oasis.main's visible projects, such as `oasis.sandbox` or forks. So it is an overall good practice.
+- providing the `X-Datacore-View` header allows to get back fewer data, in order to optimize bandwidth use.
+
+And again, the best reference for the Datacore API is its live [Swagger technical Playground (preproduction)](https://data.ozwillo-preprod.eu/dc-ui/index.html#swagger).
+
 ### Keys
-{: #s5-api-keys}
+{: #s6-api-keys}
 
 #### Retrieve the public key used for OpenID Connect
-{: #s5-get-a-keys}
+{: #s6-get-a-keys}
 
 <div class="api-entry">
 	<div class="api-command">GET /a/keys</div>
@@ -75,10 +83,10 @@ Note that this API requires Basic authentication not for security concerns, but 
 <hr/>
 
 ### Users
-{: #s5-api-users}
+{: #s6-api-users}
 
 #### Return claims about the end-user
-{: #s5-get-a-userinfo}
+{: #s6-get-a-userinfo}
 
 <div class="api-entry">
 	<div class="api-command">GET /a/userinfo</div>
@@ -126,7 +134,7 @@ Note that this API requires Basic authentication not for security concerns, but 
 <hr/>
 
 #### Return claims about the end-user
-{: #s5-post-a-userinfo}
+{: #s6-post-a-userinfo}
 
 <div class="api-entry">
 	<div class="api-command">POST /a/userinfo</div>
@@ -153,10 +161,10 @@ See <a href="https://openid.net/specs/openid-connect-basic-1_0.html#UserInfo" ta
 <hr/>
 
 ### Authorization
-{: #s5-api-authorization}
+{: #s6-api-authorization}
 
 #### Grant authorizations to the client application
-{: #s5-get-a-auth}
+{: #s6-get-a-auth}
 
 <div class="api-entry">
 	<div class="api-command">GET /a/auth</div>
@@ -172,7 +180,7 @@ See <a href="https://tools.ietf.org/html/rfc6749#section-3.2" target="_blank">OA
 <hr/>
 
 #### Grant authorizations to the client application
-{: #s5-post-a-auth}
+{: #s6-post-a-auth}
 
 <div class="api-entry">
 	<div class="api-command">POST /a/auth</div>
@@ -191,10 +199,10 @@ See <a href="https://tools.ietf.org/html/rfc6749#section-3.2" target="_blank">OA
 <hr/>
 
 ### Tokens
-{: #s5-api-tokens}
+{: #s6-api-tokens}
 
 #### Exchange an authorization code or a refresh token for an access token
-{: #s5-post-a-token}
+{: #s6-post-a-token}
 
 <div class="api-entry">
 	<div class="api-command">POST /a/token</div>
@@ -215,7 +223,7 @@ See <a href="https://tools.ietf.org/html/rfc6749#section-3.2" target="_blank">OA
 <hr/>
 
 #### Get information about an access token
-{: #s5-post-a-tokeninfo}
+{: #s6-post-a-tokeninfo}
 
 <div class="api-entry">
 	<div class="api-command">POST /a/tokeninfo</div>
@@ -261,7 +269,7 @@ This endpoint is only accessible to _protected resources_ (in OAuth 2.0 parlance
 <hr/>
 
 #### Revoke a token
-{: #s5-post-a-revoke}
+{: #s6-post-a-revoke}
 
 <div class="api-entry">
 	<div class="api-command">POST /a/revoke</div>
@@ -288,10 +296,10 @@ See <a href="https://tools.ietf.org/html/rfc7009" target="_blank">OAuth 2.0 Toke
 <hr/>
 
 ### Application instances
-{: #s5-api-app-instances}
+{: #s6-api-app-instances}
 
 #### Acknowledge the provisioning of an instance
-{: #s5-post-apps-pending-instance}
+{: #s6-post-apps-pending-instance}
 
 <div class="api-entry">
 	<div class="api-command">POST /apps/pending-instance/{instance_id}</div>
@@ -309,7 +317,7 @@ See [above](#s3-3-provider-acknowledgement) for details.
 <hr/>
 
 #### Notify an error while provisioning the instance
-{: #s5-delete-apps-pending-instance}
+{: #s6-delete-apps-pending-instance}
 
 <div class="api-entry">
 	<div class="api-command">DELETE /apps/pending-instance/{instance_id}</div>
@@ -326,7 +334,7 @@ See [above](s3-3bis-provider-dismiss) for details.
 <hr/>
 
 #### Retrieve the services of the application instance
-{: #s5-get-apps-instance-id-services}
+{: #s6-get-apps-instance-id-services}
 
 <div class="api-entry">
 	<div class="api-command">GET /apps/instance/{instance_id}/services</div>
@@ -348,7 +356,7 @@ The response is a JSON Array of [service objects](#s3-3-provider-acknowledgement
 <hr/>
 
 #### Add a new service to the application instance
-{: #s5-post-apps-instance-id-services}
+{: #s6-post-apps-instance-id-services}
 
 <div class="api-entry">
 	<div class="api-command">POST /apps/instance/{instance_id}/services</div>
@@ -371,10 +379,10 @@ See [embedded service objects](#s3-3-provider-acknowledgement-service) used duri
 <hr/>
 
 ### Services
-{: #s5-api-services}
+{: #s6-api-services}
 
 #### Retrieve information about a service
-{: #s5-get-apps-service}
+{: #s6-get-apps-service}
 
 <div class="api-entry">
 	<div class="api-command">GET /apps/service/{service_id}</div>
@@ -396,7 +404,7 @@ See [embedded service objects](#s3-3-provider-acknowledgement-service) used duri
 <hr/>
 
 #### Update a service
-{: #s5-put-apps-service}
+{: #s6-put-apps-service}
 
 <div class="api-entry">
 	<div class="api-command">PUT /apps/service/{service_id}</div>
@@ -421,7 +429,7 @@ Note that the provided description _replaces_ the one stored in Ozwillo. This is
 <hr/>
 
 #### Delete a service
-{: #s5-delete-apps-service}
+{: #s6-delete-apps-service}
 
 <div class="api-entry">
 	<div class="api-command">DELETE /apps/service/{service_id}</div>
@@ -436,12 +444,12 @@ Note that the provided description _replaces_ the one stored in Ozwillo. This is
 <hr/>
 
 ### Access control
-{: #s5-api-access-control}
+{: #s6-api-access-control}
 
 Ozwillo manages access control lists that links user to application instances.
 
 #### Retrieve app_users (and app_admins) of the app instance
-{: #s5-get-apps-acl-instance}
+{: #s6-get-apps-acl-instance}
 
 <div class="api-entry">
 	<div class="api-command">GET /apps/acl/instance/{instance_id}</div>
@@ -477,10 +485,10 @@ At least one of `app_user` or `app_admin` will be present and `true`. Both might
 <hr/>
 
 ### Notifications
-{: #s5-api-notifications}
+{: #s6-api-notifications}
 
 #### Get all unread notifications for a defined user and a filter
-{: #s5-get-n-id-messages}
+{: #s6-get-n-id-messages}
 
 <div class="api-entry">
 	<div class="api-command">GET /n/{user_id}/messages?instance={instance_id}</div>
@@ -520,7 +528,7 @@ The response is a JSON Array of messages, each with the following fields:
 <hr/>
 
 #### Change read status of a user's notification messages
-{: #s5-post-n-id-messages}
+{: #s6-post-n-id-messages}
 
 <div class="api-entry">
 	<div class="api-command">POST /n/{user_id}/messages</div>
@@ -544,7 +552,7 @@ The response is a JSON Array of messages, each with the following fields:
 <hr/>
 
 #### Publish a notification targeted to some users
-{: #s5-post-n-publish}
+{: #s6-post-n-publish}
 
 <div class="api-entry">
 	<div class="api-command">POST /n/publish</div>
@@ -577,13 +585,13 @@ The response is a JSON Array of messages, each with the following fields:
 <hr/>
 
 ### Events
-{: #s5-api-events}
+{: #s6-api-events}
 
 The Events API documentation is under work and can't be trusted as of today.
 {: .warning}
 
 #### Subscribe to a typed event from the event bus
-{: #s5-post-e-id-subscriptions}
+{: #s6-post-e-id-subscriptions}
 
 <div class="api-entry">
 	<div class="api-command">POST /e/{instance_id}/subscriptions</div>
@@ -603,7 +611,7 @@ The returned location URL get access to the subscription (delete the subscriptio
 <hr/>
 
 #### Delete an event subscription
-{: #s5-delete-e-subscription}
+{: #s6-delete-e-subscription}
 
 <div class="api-entry">
 	<div class="api-command">DELETE /e/subscription/{subscription_id}</div>
@@ -620,7 +628,7 @@ If-Match
 <hr/>
 
 #### Publish a typed event into the event bus
-{: #s5-post-e-publish}
+{: #s6-post-e-publish}
 
 <div class="api-entry">
 	<div class="api-command">POST /e/publish</div>
@@ -636,3 +644,51 @@ If-Match
 ##### Request body
 
 <hr/>
+
+### Data Resources
+{: #s6-api-data-resources}
+
+This endpoint allows to manage Datacore Resources (CRUD : Create, Read, Update, Delete) in typical RESTful fashion (GET, POST, PUT, DELETE, not respectively).
+
+Have a look at the Datacore's [Resources API reference](https://data.ozwillo-preprod.eu/dc-ui/index.html#!/dc) in its live Swagger technical Playground ([how to get access](#s2-online-experimentation)) and try it out there.
+
+The most common operations are, in typical RESTful fashion:
+
+- [GET /dc/type/{type}](https://data.ozwillo-preprod.eu/dc/findDataInType_get_2) for typed queries (criteria including $fulltext, sort, ranged query- or iterator-based pagination, debug mode, view),
+- [POST /dc/type/{type}](https://data.ozwillo-preprod.eu/dc/postAllDataInType_post_0) for typed creation.
+
+Also useful are:
+
+- its companion [PUT /dc/type/{type}](https://data.ozwillo-preprod.eu/dc/putAllDataInType_put_1) for updates (mind the version),
+- [GET /dc/type/{type}](https://data.ozwillo-preprod.eu/dc/getData_get_7) (mind the version to benefit from your client-side cache if any),
+- and [DELETE /dc/type/{type}](https://data.ozwillo-preprod.eu/dc/deleteData_delete_8) (mind the version).
+<br/><br/>
+
+Note that Datacore Models are themselves stored as Resources having the dcmo:model_0 (meta) model in the oasis.meta project.
+
+<hr/>
+
+### Data Rights
+{: #s6-api-data-rights}
+
+This endpoint allows to manage rights of Datacore Resources at the Resource-level, i.e. for each one of them their owners (required to be able to use the Rights API), writers (also allows to delete), and readers beyond default owners, writers and readers specified at Model or by default Project level.
+
+Have a look at the Datacore's [Rights API reference](https://data.ozwillo-preprod.eu/dc-ui/index.html#!/r) in its live Swagger technical Playground ([how to get access](#s2-online-experimentation)) and try it out there.
+
+<hr/>
+
+### Data History
+{: #s6-api-data-history}
+
+This endpoint allows to retrieve older versions of Resources, since the time when historization was enabled ("dcmo:isHistorizable" : false in its model).
+
+Have a look at the Datacore's [History API reference](https://data.ozwillo-preprod.eu/dc-ui/index.html#!/dc/findHistorizedResource_get_13) in its live Swagger technical Playground ([how to get access](#s2-online-experimentation)) and try it out there.
+
+<hr/>
+
+### Data Contributions
+{: #s6-api-data-contributions}
+
+This endpoint allows users that don't have write permissions to contribute new versions of existing resources to be approved by their owner.
+
+Have a look at the Datacore's [Contributions API reference](https://data.ozwillo-preprod.eu/dc-ui/index.html#!/c) in its live Swagger technical Playground ([how to get access](#s2-online-experimentation)) and try it out there.

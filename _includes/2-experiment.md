@@ -7,7 +7,7 @@
 The previous section (especially [Programming interface](#s1-terminology)) lists the production hosts of Ozwillo, all of which being subdomains of `ozwillo.com`. Ozwillo preproduction environment mirrors this setup under `ozwillo-preprod.eu` by providing the following hosts:
 
 - `accounts.ozwillo-preprod.eu` for authentication pages and the accounts API root
-- `data.ozwillo-preprod.eu` as the the Datacore API root
+- `data.ozwillo-preprod.eu` as the the Datacore API root (which also hosts its [live Playground](https://data.ozwillo-preprod.eu))
 - `kernel.ozwillo-preprod.eu` as the root of other APIs
 - `portal.ozwillo-preprod.eu` being the portal for logged users
 - `www.ozwillo-preprod.eu` for information pages
@@ -21,6 +21,15 @@ That's why providers are asked to implement provisioning and authentication on p
 
 From now on, the documentation focuses on preproduction hosts, in particular in HTTP request samples. Hosts should be put in variables so that you can update them to the production ones when needed.
 {: .focus .important}
+
+### Online experimentation (Datacore)
+{: #s2-online-experimentation}
+
+The best and easiest way to discover, try out and learn about Datacore APIs is to use its live Playground user interface. Here is [the preproduction one](https://data.ozwillo-preprod.eu).
+
+Its use is strongly advised to everybody. It is very useful to **app developers** before they attempt to code calls and implement authentication, in order to get an idea of their target even at the technical level thanks to the [Swagger technical Playground](https://data.ozwillo-preprod.eu/dc-ui/index.html#swagger) or by debugging calls made by their browser to the server. It is mandatory for **business model designers**, in order to find out in the Project Portal Playground ([manual](https://data.ozwillo-preprod.eu/dc-ui/index.html#playgroundUserManual)) already existing models and data, and afterwards to use the Import UI [documentation](https://github.com/pole-numerique/oasis-datacore/wiki/Playground-&-Import-UI-demo-scenario---Provto-&-OpenElec) in order to import their own CSV models along with validating sample data. The production one may also be useful to debug data problems.
+
+In order to use it, one must **first ask administrators** for his Ozwillo account to be allowed to. To this purpose, use the contact form at the bottom of [a logged in portal page (preproduction)](https://portal.ozwillo-preprod.eu/my/network). This is because the Datacore is a regular Ozwillo application that is installed in the Ozwillo organization and therefore only available to its members.
 
 ### OpenID configuration
 {: #s2-openid-configuration}
