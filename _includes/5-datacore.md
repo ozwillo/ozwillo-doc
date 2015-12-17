@@ -5,6 +5,10 @@ As said previously, the best and easiest way to discover, try out and learn abou
 
 In addition to going through the Playground's live examples, be sure so read the various other documentation available on the [Datacore wiki](https://github.com/ozwillo/ozwillo-datacore/wiki).
 
+Using Datacore APIs requires the `datacore` [scope](#s1-scopes).
+
+Have a look at the Datacore's [API reference](https://data.ozwillo-preprod.eu/dc-ui/index.html#swagger) in its live Swagger technical Playground ([how to get access](#s2-online-experimentation)) and try it out there.
+
 #### Data workflow
 {: #s5-data-workflow}
 

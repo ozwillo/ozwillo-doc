@@ -648,7 +648,7 @@ If-Match
 ### Data Resources
 {: #s6-api-data-resources}
 
-This endpoint allows to manage Datacore Resources (CRUD : Create, Read, Update, Delete) in typical RESTful fashion (GET, POST, PUT, DELETE, not respectively).
+This endpoint allows to manage Datacore Resources (CRUD : Create, Read, Update, Delete) in typical RESTful fashion (GET, POST, PUT, DELETE, not respectively). Using it requires the `datacore` [scope](#s1-scopes).
 
 Have a look at the Datacore's [Resources API reference](https://data.ozwillo-preprod.eu/dc-ui/index.html#!/dc) in its live Swagger technical Playground ([how to get access](#s2-online-experimentation)) and try it out there.
 
@@ -671,7 +671,7 @@ Note that Datacore Models are themselves stored as Resources having the dcmo:mod
 ### Data Rights
 {: #s6-api-data-rights}
 
-This endpoint allows to manage rights of Datacore Resources at the Resource-level, i.e. for each one of them their owners (required to be able to use the Rights API), writers (also allows to delete), and readers beyond default owners, writers and readers specified at Model or by default Project level.
+This endpoint allows to manage rights of Datacore Resources at the Resource-level, i.e. for each one of them their owners (required to be able to use the Rights API), writers (also allows to delete), and readers beyond default owners, writers and readers specified at Model or by default Project level. Using it requires the `datacore` [scope](#s1-scopes).
 
 Have a look at the Datacore's [Rights API reference](https://data.ozwillo-preprod.eu/dc-ui/index.html#!/r) in its live Swagger technical Playground ([how to get access](#s2-online-experimentation)) and try it out there.
 
@@ -680,7 +680,7 @@ Have a look at the Datacore's [Rights API reference](https://data.ozwillo-prepro
 ### Data History
 {: #s6-api-data-history}
 
-This endpoint allows to retrieve older versions of Resources, since the time when historization was enabled ("dcmo:isHistorizable" : false in its model).
+This endpoint allows to retrieve older versions of Resources, since the time when historization was enabled ("dcmo:isHistorizable" : false in its model). Using it requires the `datacore` [scope](#s1-scopes).
 
 Have a look at the Datacore's [History API reference](https://data.ozwillo-preprod.eu/dc-ui/index.html#!/dc/findHistorizedResource_get_13) in its live Swagger technical Playground ([how to get access](#s2-online-experimentation)) and try it out there.
 
@@ -689,6 +689,6 @@ Have a look at the Datacore's [History API reference](https://data.ozwillo-prepr
 ### Data Contributions
 {: #s6-api-data-contributions}
 
-This endpoint allows users that don't have write permissions to contribute new versions of existing resources to be approved by their owner.
+This endpoint allows users that don't have write permissions to contribute new versions of existing resources to be approved by their owner. Using it requires the `datacore` [scope](#s1-scopes).
 
 Have a look at the Datacore's [Contributions API reference](https://data.ozwillo-preprod.eu/dc-ui/index.html#!/c) in its live Swagger technical Playground ([how to get access](#s2-online-experimentation)) and try it out there.
