@@ -49,21 +49,6 @@ It seems including markdown files from index.html with `{% include my-file.md %}
 
 See more about this issue [here](https://github.com/jekyll/jekyll/issues/1303).
 
-##### Processing less files
-
-jekyll-less is not supported by gh-pages, that's why processing less files is done independently from jekyll.
-
-If you edit the css/main.less file, you should then follow these additional installation steps (after having install node and npm first):
-```
-sudo npm install -g less
-sudo npm install -g onchange
-```
-
-And then automatically track changes with:
-```
-onchange "css/main.less" -- lessc css/main.less > css/main.css
-```
-
 ##### Provide DOM class and id
 
 Kramdown is used so that we can add class and id on created DOM elements. For example to generate a `<p class="focus">paragraph</p>`:
