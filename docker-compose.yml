@@ -1,0 +1,9 @@
+version: '2'
+services:
+  web:
+    image: starefossen/github-pages
+    volumes:
+     - .:/usr/src/app
+    ports:
+     - "4000:4000"
+

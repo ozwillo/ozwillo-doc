@@ -19,6 +19,25 @@ To launch Jekyll and process assets:
 bundle exec jekyll serve
 ```
 
+### Using Docker
+
+As an alternative to installing Jekyll locally, you can also use Docker and Compose. A `docker-compose.yml` is provided so all you have to do is:
+```
+docker-compose up
+```
+and Jekyll will run the site and watch for file changes to automatically rebuild it.
+
+### Staying up-to-date
+
+Whether you use Ruby Gems or Docker, it's important to stay up-to-date with GitHub's versions of Jekyll and its plugins, so make sure to regularly run:
+```
+bundle update github-pages
+```
+or, if you opted for Docker:
+```
+docker-compose pull
+```
+
 ### Specifics
 
 ##### Processing markdown

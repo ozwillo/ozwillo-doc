@@ -1,2 +1,2 @@
-exclude: ['vendor', 'README.md', 'Gemfile.lock', 'Gemfile', 'CNAME', 'css/main.less']
+exclude: ['docker-compose.yml', 'vendor', 'README.md', 'Gemfile.lock', 'Gemfile', 'CNAME', 'css/main.less']
 markdown: kramdown
