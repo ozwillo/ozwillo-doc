@@ -38,7 +38,7 @@ Ozwillo provides API endpoints that implement OpenID Connect. Their configuratio
 
 For instance, the configuration shows the `authorization_endpoint` is accessible at `https://accounts.ozwillo-preprod.eu/a/auth`
 
-These endpoints are also listed in the [API reference](#s5-api-reference) section.
+These endpoints are also listed in the [API reference](#s6-api-reference) section.
 
 ### Authentication schemes
 {: #s2-authentication-schemes}

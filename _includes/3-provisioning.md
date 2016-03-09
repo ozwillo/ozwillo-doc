@@ -327,7 +327,7 @@ For successful 201 responses, the body response is in the form of:
 
 Where `back-end` and `front-end` would be the `local_id` of two declared services within the instance, and the corresponding GUIDs being their internal Ozwillo ids.
 
-The 201 responses also include a `Location:` header with the URI of a resource about the created instance ([see below](#s5-api-app-instances)).
+The 201 responses also include a `Location:` header with the URI of a resource about the created instance ([see below](#s6-api-app-instances)).
 
 ##### Effects
 
