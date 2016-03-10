@@ -1,9 +1,9 @@
 version: '2'
 services:
   web:
-    image: starefossen/github-pages
+    image: jekyll/jekyll:pages
     volumes:
-     - .:/usr/src/app
+     - .:/srv/jekyll
     ports:
      - "4000:4000"
 
