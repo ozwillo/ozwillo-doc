@@ -265,8 +265,8 @@ The authorization header needs to be set as described in [Calling Ozwillo withou
 | **payment_option** | "FREE" or "PAID" setting | string |
 | **target_audience** | is the service intended to "CITIZENS", "PUBLIC_BODIES" and/or "COMPANIES" | array of strings |
 | category_ids | IDs of the service store categories, not supported for the moment | array of strings |
-| visible | if false, the service is not visible in the application store; defaults to false | boolean |
-| restricted | if true, the service restricts access to members (app_user and app_admin); defaults to false | boolean |
+| visibility | whether the service is visible in the application store ("VISIBLE" or "HIDDEN"), and whether this can be toggled by an app_admin from the portal ("NEVER_VISIBLE"); defaults to "HIDDEN" | string |
+| access_control | whether only members (app_user or app_admin) have access to the service or it's open to anyone ("RESTRICTED" or "ANYONE"), and whether this can be toggled by an app_admin from the portal ("ALWAYS_RESTRICTED"); defaults to "RESTRICTED" | string |
 | **service_uri** | URL entrypoint of the service | URI string |
 | notification_uri | endpoint used when there are notifications for this service | URI string |
 | **redirect_uris** | whitelist of authentication callbacks, each URI must be unique to this service within the instance | array of URI strings |
@@ -281,6 +281,18 @@ A few remarks on this table:
 
 - you may compare it with the declaration of [applications](#s3-prerequesite) in the catalog, and find many common features due to the fact both applications and services are [store entries](#def-store-entry);
 - `redirect_uris` and `post_logout_redirect_uris` are related to [User authentication](#s4-user-authentication).
+
+Older versions of the Kernel used boolean properties `visible` and `restricted` in place of `visibility` and `access_control`, that only allowed to model three different states (a restricted service was necessarily hidden from the application store). For backwards compatibility, those old properties are still accepted, and will have precedence over the new ones as soon as one of them is explicitly present in the payload (this means that the absence of `visible` and `restricted` is no longer equivalent to having any one of `visible: false` and/or `restricted: false`, in case there are also a `visibility` or `access_control` property.) Similarly, the old properties will be returned in payloads if they can describe the state of the new properties' values. This means the API should be entirely backwards compatible. You are strongly encouraged to update your app factories and applications to the new model though, as the old properties are deprecated and will eventually be removed. The table below maps between the old values and the new ones; on reading a service definition, any other combination of `visibility` and `access_control` will result in the `visible` and `restricted` properties being absent:
+
+| | | visibility | access_control |
+| visible | restricted | | |
+| :-: | :-: | :-: | :-: |
+| false | false | HIDDEN | RESTRICTED |
+| true | false | VISIBLE | ANYONE |
+| false | true | NEVER_VISIBLE | ALWAYS_RESTRICTED |
+
+**NB**: due to this backwards-compatibility rules, providers **should** remove/delete the `visible` and `restricted` properties from any payload they send to Ozwillo, as they otherwise risk to see the `visibility` and `access_control` properties being ignored.
+{: .focus .important}
 
 **Embedded NeededScope objects**
 
