@@ -129,6 +129,8 @@ Note that this API requires Basic authentication not for security concerns, but 
 | **updated_at** | Time the user's information was last updated, in seconds since Unix Epoch | number | `openid` |
 {: .request}
 
+Please note that the "included if scope" column is only indicative, in case you used to use scopes to access private profile information or you do not have the choice. You're strongly encouraged to request access to individual claims through the `claims` request parameter to the authentication endpoint (see the [authentication request](#s4-1-authentication-request)) instead.
+
 <hr/>
 
 #### Return claims about the end-user
