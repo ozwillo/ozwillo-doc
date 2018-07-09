@@ -86,21 +86,20 @@ What may be confusing at first is that both *abstract* — not instantiated — 
 - installing an application triggers the provisioning protocol, leading to software deployment on the provider side, and then to a declaration of the created instance to Ozwillo. It requires communication between Ozwillo and the provider servers;
 - installing a service is simply the process of bookmarking the service URI as a user desk shortcut. This is instantaneous and does not require communication between Ozwillo and the provider servers.
 
-### Visibility vs restricted access
+### Visibility and access control
 {: #s1-visibility-restricted}
 
 If a store entry is visible, it only means it is publicly referenced and shown under Ozwillo's store.
 
-A `visible:false` (hidden) application may be under review or not be available at this time. A hidden service is typically targeted to certain users (depending on who purchased the instance): it is only shown as a desk shortcut for given authorized users, but not listed in the store.
+A `visible:false` (hidden) application may be under review or not be available at this time. A `visibility:"HIDDEN"` service is typically targeted to certain users (depending on who purchased the instance): it is only shown as a desk shortcut for given authorized users, but not listed in the store. Visibility of a service can be toggled from the portal by the service owner, unless the provider declared it `visibility:"NEVER_VISIBLE"`.
 
 The fact that a service is visible or not in the store is yet separated to how its access is managed, possibly being restricted to certain users. All of these scenarios are possible:
 
 - a visible service whose access is restricted to given users (for example if the service owner wants to explicitely grant access to requesting users)
 - a hidden service with public access (for example if the service owner does not want to reference it on Ozwillo's store)
-- more typically services that are either visible and public, or hidden and protected
+- more typically services that are either visible and public, or hidden and restricted
 
-More to come: a `neverVisible` property for services will likely be introduced in the future. Indeed, there are valid scenarios where services could be updated from `visible:false` to `visible:true` over time, when there are others where we want to be sure it won't happen: it would be the purpose of `neverVisible:true`.
-{: .focus .soft}
+Similarly to the visibility of a service, the access control can also take 3 values: two that can be toggled from the portal by the service owner, unless the provider declared the service as `access_control:"ALWAYS_RESTRICTED"`.
 
 The [Provisioning](#s3-provisioning) section shows how these settings are defined.
 
@@ -110,7 +109,7 @@ The [Provisioning](#s3-provisioning) section shows how these settings are define
 ### `app_admin` vs `app_user`
 {: #s1-app-admin-app-user}
 
-The case for `restricted:true` services is that only specific users are allowed to access and interact with them. By default, the user that purchased the instance is an `app_admin`, meaning that s/he has the right to add new `app_admin` or `app_user` users.
+The case for _restricted_ services is that only specific users are allowed to access and interact with them. By default, the user that purchased the instance is an `app_admin`, meaning that s/he has the right to add new `app_admin` or `app_user` users.
 
 Both `app_admin` and `app_user` are considered authorized users of the instance, but an `app_user` can not add other authorized users. These rules (who can add who) are internal to Ozwillo and frame the organization management under the portal.
 
