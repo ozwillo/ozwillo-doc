@@ -12,6 +12,7 @@ Ozwillo authentication and authorization service implements the following intern
 - <a href="https://tools.ietf.org/html/rfc7662" target="_blank">OAuth 2.0 Token Introspection (RFC 7662)</a>
 - <a href="https://tools.ietf.org/html/rfc7009" target="_blank">OAuth Token Revocation (RFC 7009)</a>
 - <a href="https://tools.ietf.org/html/rfc7523" target="_blank">JSON Web Token (JWT) Profile for OAuth 2.0 Client Authentication and Authorization Grants (RFC 7523)</a> (using a JWT as an authorization grant only, used during provisioning)
+- <a href="https://tools.ietf.org/html/rfc7636" target="_blank">Proof Key for Code Exchange (PKCE) by OAuth Public Clients (RFC 7636)</a> (S256 method only)
 
 In this matter, Ozwillo acts as an OpenID Provider, which is defined as (see OpenID <a href="https://openid.net/specs/openid-connect-core-1_0.html#Terminology" target="_blank">terminology</a>):
 
@@ -81,6 +82,8 @@ Host: accounts.ozwillo-preprod.eu
 | **redirect_uri** | the redirection URI to which the response will be sent | URI string |
 | **state** | opaque value used to maintain state between the request and the callback | string |
 | **nonce** | unique random string used to mitigate replay attacks | string |
+| code_challenge | code challenge for <a href="https://tools.ietf.org/html/rfc7636" target="_blank">PKCE</a> | string |
+| code_challenge_method | if code_challenge is present, value must be "S256" | string |
 | prompt | whether to prompt the user for authentication and/or consent; value can be "none", "login", and/or "consent" (space separated) | string |
 | id_token_hint | ID Token previously issued by Ozwillo being passed as a hint about the expected user | JWT string |
 | max_age | allowable elapsed time in seconds since the last time the user was actively authenticated, failing that he'll be prompted to reauthenticate | integer |
@@ -168,6 +171,7 @@ The authorization header needs to be set as described in [Calling Ozwillo withou
 | **grant_type** | in our case the value is <a href="https://openid.net/specs/openid-connect-core-1_0.html#TokenRequest">always</a> "authorization_code" | string |
 | **redirect_uri** | the redirection URI to which the response will be sent | URI string |
 | **code** | the `code` sent to you in [step #1](#s4-2-ozwillo-response) | string |
+| code_verifier | code verifier for <a href="https://tools.ietf.org/html/rfc7636" target="_blank">PKCE</a> | string |
 
 #### #5 Ozwillo response
 {: #s4-5-ozwillo-response}
