@@ -118,10 +118,8 @@ Note that this API requires Basic authentication not for security concerns, but 
 | family_name | Surname(s) or last name(s) of the user | string | `profile` |
 | middle_name | Middle name(s) of the user | string | `profile` |
 | nickname | Casual name of the user | string | `profile` |
-| picture | URL of the user's profile picture (avatar) | URI | `profile` |
 | gender | User's gender; either `male` or `female` | string | `profile` |
 | birthdate | User's birthday, in ISO 8601 `YYYY-MM-DD` format | string | `profile` |
-| zoneinfo | User's timezone, as a value from the [`tz` database](http://www.twinsun.com/tz/tz-link.htm) | string | `profile` |
 | locale | User's locale, as a [BCP47](https://tools.ietf.org/html/bcp47) language tag | string | `profile` |
 | email | User's e-mail address | string | `email` |
 | email_verified | True if the user's e-mail address has been verified; otherwise false. | boolean | `email` |
