@@ -8,7 +8,7 @@ Ozwillo authentication and authorization service implements the following intern
 
 - <a href="https://openid.net/specs/openid-connect-core-1_0.html" target="_blank">OpenID Connect Core 1.0</a> (using the Authorization Code flow only)
 - <a href="https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderConfig" target="_blank">OpenID Connect Discovery 1.0</a> (provider configuration only)
-- <a href="https://openid.net/specs/openid-connect-session-1_0.html" target="_blank">OpenID Connect Session Management 1.0</a> (RP-Initiated Logout only for now)
+- <a href="https://openid.net/specs/openid-connect-session-1_0.html" target="_blank">OpenID Connect Session Management 1.0</a>
 - <a href="https://tools.ietf.org/html/rfc7662" target="_blank">OAuth 2.0 Token Introspection (RFC 7662)</a>
 - <a href="https://tools.ietf.org/html/rfc7009" target="_blank">OAuth Token Revocation (RFC 7009)</a>
 - <a href="https://tools.ietf.org/html/rfc7523" target="_blank">JSON Web Token (JWT) Profile for OAuth 2.0 Client Authentication and Authorization Grants (RFC 7523)</a> (using a JWT as an authorization grant only, used during provisioning)
@@ -120,13 +120,13 @@ If the previous operations succeed, and if the `redirect_uri` value specified in
 
 <pre>
 HTTP/1.1 302 Found
-Location: https://app.example.com/cb?state=security_token%3D{random_value}%26url%3Dhttps%3A%2F%2Fapp.example.com%2Fhome&code={code}
+Location: https://app.example.com/cb?state=security_token%3D{random_value}%26url%3Dhttps%3A%2F%2Fapp.example.com%2Fhome&code={code}&session_state={session_state}
 </pre>
 
 This redirect workflow means your server will finally receive the following request sent from the end-user navigator:
 
 <pre>
-GET /cb?state=security_token%3D{random_value}%26url%3Dhttps%3A%2F%2Fapp.example.com%2Fhome&code={code} HTTP/1.1
+GET /cb?state=security_token%3D{random_value}%26url%3Dhttps%3A%2F%2Fapp.example.com%2Fhome&code={code}&session_state={session_state} HTTP/1.1
 Host: app.example.com/
 </pre>
 
@@ -140,6 +140,8 @@ The same `redirect_uri` callback will be notified of the authentication error ac
 You should verify that the `security_token` (within the `state`) is the one you sent first to Ozwillo during [step #1](#s4-1-authentication-request), to decide if you can trust the response. To do so, you should link it to the current user session. This operation ensures the user accessing Ozwillo response is the same that initiated the authentication request.
 
 If validation passes, you finally exchange the received `code` for an `access_token`. 
+
+The `session_state` is an opaque value sent by Ozwillo that can be used with <a href="https://openid.net/specs/openid-connect-session-1_0.html" target="_blank">OpenID Connect Session Management 1.0</a>.
 
 #### #4 Requesting an access token
 {: #s4-4-token-request}
