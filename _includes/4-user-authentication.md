@@ -75,11 +75,16 @@ Host: accounts.ozwillo-preprod.eu
 | Field name | Field description | Field type and format |
 | :-- | :-- | :-- |
 | **response_type** | determines the authorization processing flow, in our case the value is <a href="https://openid.net/specs/openid-connect-core-1_0.html#AuthRequest" target="_blank">always</a> "code" | string |
+| response_mode | determines the mechanism used to send the response, in our case the value is always "query" | string |
 | **client_id** | the `client_id` associated to the application instance | string |
 | **scope** | list of scopes requested by the instance, it must at least contain `openid` | string (scopes separated by spaces) |
 | **redirect_uri** | the redirection URI to which the response will be sent | URI string |
 | **state** | opaque value used to maintain state between the request and the callback | string |
 | **nonce** | unique random string used to mitigate replay attacks | string |
+| prompt | whether to prompt the user for authentication and/or consent; value can be "none", "login", and/or "consent" (space separated) | string |
+| id_token_hint | ID Token previously issued by Ozwillo being passed as a hint about the expected user | JWT string |
+| max_age | allowable elapsed time in seconds since the last time the user was actively authenticated, failing that he'll be prompted to reauthenticate | integer |
+| ui_locales | user's preferred languages for the user interface (only used when not already authenticated) | string (BCP47 codes separated by spaces) |
 
 As a result, a request could look like:
 
