@@ -68,7 +68,6 @@ And again, the best reference for the Datacore API is its live [Swagger technica
 	<div class="api-options">
 		<div class="api-request">
 			<span class="api-host">accounts</span>
-			<span class="api-auth">basic</span>
 		</div>
 		<div class="api-response">
 			<span class="api-output">JWKS</span>
@@ -77,8 +76,6 @@ And again, the best reference for the Datacore API is its live [Swagger technica
 </div>
 
 Returns a JSON Web Key Set containing the public key. See <a href="https://tools.ietf.org/html/rfc7517" target="_blank">JWK (RFC 7517)</a> for more informations about JWKS.
-
-Note that this API requires Basic authentication not for security concerns, but actually only so we can track who calls it and at which frequency. _Note: this is no longer the case starting with v1.19._
 
 <hr/>
 
