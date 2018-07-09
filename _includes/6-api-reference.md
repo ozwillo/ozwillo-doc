@@ -127,7 +127,7 @@ Note that this API requires Basic authentication not for security concerns, but 
 | email_verified | True if the user's e-mail address has been verified; otherwise false. | boolean | `email` |
 | address | User's postal address | Address object | `address` |
 | phone_number | User's telephone number | string | `phone` |
-| phone_number_verfied | True if the user's phone number has been verified; potherwise false. | boolean | `phone` |
+| phone_number_verified | True if the user's phone number has been verified; potherwise false. | boolean | `phone` |
 | **updated_at** | Time the user's information was last updated, in seconds since Unix Epoch | number | `openid` |
 {: .request}
 

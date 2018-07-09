@@ -89,7 +89,7 @@ GET /a/auth?
  &client_id={client_id}
  &scope=openid%20profile
  &redirect_uri=https%3A%2F%2Fapp.example.com%2Fcb
- &state=security_token%3D{random_value}%26url%3Dhttps%3A%2F%2Fapp.example.com%home
+ &state=security_token%3D{random_value}%26url%3Dhttps%3A%2F%2Fapp.example.com%2Fhome
  &nonce={another_random_value} HTTP/1.1
 Host: accounts.ozwillo-preprod.eu
 </pre>
