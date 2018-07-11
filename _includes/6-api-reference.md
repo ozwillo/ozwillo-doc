@@ -68,7 +68,6 @@ And again, the best reference for the Datacore API is its live [Swagger technica
 	<div class="api-options">
 		<div class="api-request">
 			<span class="api-host">accounts</span>
-			<span class="api-auth">basic</span>
 		</div>
 		<div class="api-response">
 			<span class="api-output">JWKS</span>
@@ -77,8 +76,6 @@ And again, the best reference for the Datacore API is its live [Swagger technica
 </div>
 
 Returns a JSON Web Key Set containing the public key. See <a href="https://tools.ietf.org/html/rfc7517" target="_blank">JWK (RFC 7517)</a> for more informations about JWKS.
-
-Note that this API requires Basic authentication not for security concerns, but actually only so we can track who calls it and at which frequency. _Note: this is no longer the case starting with v1.19._
 
 <hr/>
 
@@ -118,18 +115,18 @@ Note that this API requires Basic authentication not for security concerns, but 
 | family_name | Surname(s) or last name(s) of the user | string | `profile` |
 | middle_name | Middle name(s) of the user | string | `profile` |
 | nickname | Casual name of the user | string | `profile` |
-| picture | URL of the user's profile picture (avatar) | URI | `profile` |
 | gender | User's gender; either `male` or `female` | string | `profile` |
 | birthdate | User's birthday, in ISO 8601 `YYYY-MM-DD` format | string | `profile` |
-| zoneinfo | User's timezone, as a value from the [`tz` database](http://www.twinsun.com/tz/tz-link.htm) | string | `profile` |
 | locale | User's locale, as a [BCP47](https://tools.ietf.org/html/bcp47) language tag | string | `profile` |
 | email | User's e-mail address | string | `email` |
 | email_verified | True if the user's e-mail address has been verified; otherwise false. | boolean | `email` |
 | address | User's postal address | Address object | `address` |
 | phone_number | User's telephone number | string | `phone` |
-| phone_number_verfied | True if the user's phone number has been verified; potherwise false. | boolean | `phone` |
+| phone_number_verified | True if the user's phone number has been verified; potherwise false. | boolean | `phone` |
 | **updated_at** | Time the user's information was last updated, in seconds since Unix Epoch | number | `openid` |
 {: .request}
+
+Please note that the "included if scope" column is only indicative, in case you used to use scopes to access private profile information or you do not have the choice. You're strongly encouraged to request access to individual claims through the `claims` request parameter to the authentication endpoint (see the [authentication request](#s4-1-authentication-request)) instead.
 
 <hr/>
 

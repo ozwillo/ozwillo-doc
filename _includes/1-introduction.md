@@ -86,21 +86,20 @@ What may be confusing at first is that both *abstract* — not instantiated — 
 - installing an application triggers the provisioning protocol, leading to software deployment on the provider side, and then to a declaration of the created instance to Ozwillo. It requires communication between Ozwillo and the provider servers;
 - installing a service is simply the process of bookmarking the service URI as a user desk shortcut. This is instantaneous and does not require communication between Ozwillo and the provider servers.
 
-### Visibility vs restricted access
+### Visibility and access control
 {: #s1-visibility-restricted}
 
 If a store entry is visible, it only means it is publicly referenced and shown under Ozwillo's store.
 
-A `visible:false` (hidden) application may be under review or not be available at this time. A hidden service is typically targeted to certain users (depending on who purchased the instance): it is only shown as a desk shortcut for given authorized users, but not listed in the store.
+A `visible:false` (hidden) application may be under review or not be available at this time. A `visibility:"HIDDEN"` service is typically targeted to certain users (depending on who purchased the instance): it is only shown as a desk shortcut for given authorized users, but not listed in the store. Visibility of a service can be toggled from the portal by the service owner, unless the provider declared it `visibility:"NEVER_VISIBLE"`.
 
 The fact that a service is visible or not in the store is yet separated to how its access is managed, possibly being restricted to certain users. All of these scenarios are possible:
 
 - a visible service whose access is restricted to given users (for example if the service owner wants to explicitely grant access to requesting users)
 - a hidden service with public access (for example if the service owner does not want to reference it on Ozwillo's store)
-- more typically services that are either visible and public, or hidden and protected
+- more typically services that are either visible and public, or hidden and restricted
 
-More to come: a `neverVisible` property for services will likely be introduced in the future. Indeed, there are valid scenarios where services could be updated from `visible:false` to `visible:true` over time, when there are others where we want to be sure it won't happen: it would be the purpose of `neverVisible:true`.
-{: .focus .soft}
+Similarly to the visibility of a service, the access control can also take 3 values: two that can be toggled from the portal by the service owner, unless the provider declared the service as `access_control:"ALWAYS_RESTRICTED"`.
 
 The [Provisioning](#s3-provisioning) section shows how these settings are defined.
 
@@ -110,7 +109,7 @@ The [Provisioning](#s3-provisioning) section shows how these settings are define
 ### `app_admin` vs `app_user`
 {: #s1-app-admin-app-user}
 
-The case for `restricted:true` services is that only specific users are allowed to access and interact with them. By default, the user that purchased the instance is an `app_admin`, meaning that s/he has the right to add new `app_admin` or `app_user` users.
+The case for _restricted_ services is that only specific users are allowed to access and interact with them. By default, the user that purchased the instance is an `app_admin`, meaning that s/he has the right to add new `app_admin` or `app_user` users.
 
 Both `app_admin` and `app_user` are considered authorized users of the instance, but an `app_user` can not add other authorized users. These rules (who can add who) are internal to Ozwillo and frame the organization management under the portal.
 
@@ -141,7 +140,7 @@ Let's focus on the `client_id`: thanks to it, Ozwillo knows what application ins
 - if the service is `restricted:true` Ozwillo authentication will only succeed for an `app_admin` or `app_user` (you can rely on it)
 - if the service is `restricted:false` Ozwillo authentication will succeed even if the user is neither an `app_admin` nor a `app_user`, but the service will be notified of it
 
-There are other reasons for the authentication and authorization to fail: for instance users may refuse to accept the [scopes](#s1-scopes) claimed by your instance.
+There are other reasons for the authentication and authorization to fail: for instance users may refuse to accept the [scopes](#s1-scopes) or [claims](#s1-claims) requested by your instance.
 {: .focus .soft}
 
 If authentication is successful, your service will be given at the end of the [authorization code flow](#s4-auth-code-flow) two tokens:
@@ -172,9 +171,22 @@ As you will see later, you can ask for scopes at several occasions:
 - when accessing a service (prompt during authentication) and for the lifetime of the `access_token`
 - on a per action basis
 
-When a claimed scope is refused by users, the instance will be able to ask for it again later, and explain a given operation won't be possible until they accept it.
+When a requested scope is refused by users, the instance will be able to ask for it again later, and explain a given operation won't be possible until they accept it.
 
-Scopes are typically used to access private profile information (see those inherent to <a href="https://openid.net/specs/openid-connect-basic-1_0.html#Scopes" target="_blank">OpenID Connect</a> like email, address or phone). But we will see that this mechanism is flexible enough to use additional scopes defined by application instances during [provisioning](#s3-3-provider-acknowledgement-scope).
+Despite the example above about accessing private profile information (the email address), scopes are typically used to access the [Datacore](#s5-datacore), and are a flexible enough mechanism that allows application instances to declare their own during [provisioning](#s3-3-provider-acknowledgement-scope) to authorize inter-application requests.
+
+When it comes to private profile information, there's actually a better mechanism:
+
+### Claims
+{: #s1-claims}
+
+Claims represent information about the user. OpenID Connect defines a list of <a href="https://openid.net/specs/openid-connect-core-1_0.html#StandardClaims" target="_blank">standard claims</a> (most of which are implemented by Ozwillo), and a number of <a href="https://openid.net/specs/openid-connect-core-1_0.html#ScopeClaims" target="_blank">scopes</a> ([see also above](#s1-scopes)) that grant access to groups of claims; but those permissions can also be <a href="https://openid.net/specs/openid-connect-core-1_0.html#ClaimsParameter" target="_blank">requested on a per-claim basis</a>.
+
+For instance, instead of asking for the `profile` scope (which grants access to the user's names, locale, date of birth, gender, etc.), the provider can individually ask for the claims it really needs; for example `nickname` and `locale`.
+
+This feature is particularly important in face of the GDPR (and other similar laws), as it helps with _data minimization_: only collecting that personal data which is needed to fulfill the service, and no more.
+
+Additionally, some claims can be requested as being _essential_ to service, and the user will not be able to access it until he fills in his profile. This feature should only be used if your application would fail in the absence of value for those claims, as could be the case when adapting existing applications to Ozwillo; otherwise you're strongly encouraged to make your applications resilient to the absence of value for given claims, either by using default values instead, or by asking the user. As terminology goes, a claim that is not requested as _essential_ is said to be _voluntary_.
 
 ### Documentation conventions
 {: #s1-conventions}
