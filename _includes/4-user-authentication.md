@@ -37,7 +37,7 @@ That's how Ozwillo provides both authentication and authorization features.
 
 You will [soon](#s4-1-authentication-request) see that you ask Ozwillo to authenticate users against a `client_id`. Since this in an [outcome](#s3-1-ozwillo-request) of the provisioning process, you should implement provisioning first.
 
-In the particular case where what you offer is not an instantiable application, but a unique and singleton one, your product may be considered as a service, and you may ask for a `client_id` to <a href="mailto:providers@ozwillo.com">providers@ozwillo.com</a>.
+In the particular case where what you offer is not an instantiable application, but a unique and singleton one, your product may be considered as a service, and you may ask for a `client_id` to <a href="mailto:app-providers-support@ozwillo.org">app-providers-support@ozwillo.org</a>.
 
 ### Authorization code flow
 {: #s4-auth-code-flow}
